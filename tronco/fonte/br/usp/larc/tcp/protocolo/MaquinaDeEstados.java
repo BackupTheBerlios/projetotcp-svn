@@ -74,13 +74,13 @@ public class MaquinaDeEstados
      * Constante que guarda o número de retransmissões de um segmeto TCP com
      * timestamp expirado.
      */
-    private static final int numRetransmissoes = ProtocoloTCP.MAX_RETRANSMISSOES;
+    private static final int numRetransmissoes = TCPIF.MAX_RETRANSMISSOES;
     
     /** 
      * Constante que guarda o tempo (em milesegundos) para expirar o timestamp
      * de um segmento TCP enviado.
      */
-    private int tempoTimeout = ProtocoloTCP.T_ESTOURO_RETRANSMISSOES;
+    private int tempoTimeout = TCPIF.T_ESTOURO_RETRANSMISSOES;
 
 
     /** 
@@ -106,7 +106,7 @@ public class MaquinaDeEstados
     /** Construtor da classe MaquinaDeEstados */
     public MaquinaDeEstados(Monitor _monitor, int _porta, int _idConexao) {
         this.monitor = _monitor;
-        this.estadoMEConAtual = ProtocoloTCP.CLOSED;
+        this.estadoMEConAtual = TCPIF.CLOSED;
         this.ipSimuladoLocal = _monitor.getIpSimuladoLocal();
         this.portaLocal = _porta;
         this.idConexao = _idConexao;
@@ -117,121 +117,123 @@ public class MaquinaDeEstados
                 Integer.toString(this.getPortaLocal()),  "null",  "null");
     }
 
-    /** 
-     * Método que recebe primitivas  e executa as operações para atender a ação.
-     * As primitivas estão definidas na interface TCPIF. 
-     *
-     * @param _primitiva A primitiva que enviada.
-     * @param args[] Um array de argumentos que você pode receber adicionalmente
-     * @exception Exception  Caso ocorra algum erro ou exceção, lança (throw) 
-     * para quem chamou o método.
+    /**
+     * Método que recebe primitivas e executa as operações para atender a ação.
+     * As primitivas estão definidas na interface TCPIF.
+     * 
+     * @param _primitiva
+     *        A primitiva que enviada.
+     * @param args[]
+     *        Um array de argumentos que você pode receber adicionalmente
+     * @exception Exception
+     *            Caso ocorra algum erro ou exceção, lança (throw) para quem
+     *            chamou o método.
      */
-    public void recebePrimitiva(byte _primitiva, String args[]) throws Exception
-	{
-    	// atualiza exibição do estado atual com a primitiva recebida
-    	this.meFrame.atualizaDadosEstado(ProtocoloTCP.nomeEstado[this.estadoMEConAtual],
-    			ProtocoloTCP.nomePrimitiva[_primitiva], "->|", "");
+    public void recebePrimitiva (byte _primitiva, String args[]) throws Exception
+    {
+        // atualiza exibição do estado atual com a primitiva recebida
+        this.meFrame.atualizaDadosEstado (TCPIF.nomeEstado[this.estadoMEConAtual],
+                TCPIF.nomePrimitiva[_primitiva], "->|", "");
 
-    	byte novaPrimitiva = ProtocoloTCP.P_NENHUM;
-    	byte novoSegmento  = ProtocoloTCP.S_NENHUM;
-    	byte proximoEstado = ProtocoloTCP.NENHUM;
-    	
-    	
-    	switch (this.estadoMEConAtual)
-		{
-    	case ProtocoloTCP.CLOSED:
+        byte novaPrimitiva = TCPIF.P_NENHUM;
+        byte novoSegmento = TCPIF.S_NENHUM;
+        byte proximoEstado = TCPIF.NENHUM;
+
+        switch (this.estadoMEConAtual)
+        {
+            case TCPIF.CLOSED:
+                switch (_primitiva)
+                {
+                    case TCPIF.P_PASSIVEOPEN:
+                        proximoEstado = TCPIF.LISTEN;
+                        novaPrimitiva = TCPIF.P_OPENID;
+                        //    			this.setIpSimuladoDestino(args[0]);
+                        //    			this.setPortaDestino(Integer.parseInt(args[1]));
+                        break;
+                    case TCPIF.P_ACTIVEOPEN:
+                        proximoEstado = TCPIF.SYNSENT;
+                        novoSegmento = TCPIF.S_SYN;
+                        this.setIpSimuladoDestino (args[0]);
+                        this.setPortaDestino (Integer.parseInt (args[1]));
+                        break;
+                    default:
+                        throw new Exception ();
+                }
+                break;
+            case TCPIF.LISTEN:
+                switch (_primitiva)
+                {
+                    case TCPIF.P_CLOSE:
+                        proximoEstado = TCPIF.CLOSED;
+                        break;
+                    case TCPIF.P_SEND:
+                        proximoEstado = TCPIF.SYNSENT;
+                        novoSegmento = TCPIF.S_SYN;
+                        break;
+                    default:
+                        throw new Exception ();
+                }
+                break;
+            case TCPIF.SYNRCVD:
+                switch (_primitiva)
+                {
+                    case TCPIF.P_CLOSE:
+                        proximoEstado = TCPIF.FINWAIT1;
+                        novoSegmento = TCPIF.S_FIN;
+                        break;
+                    default:
+                        throw new Exception ();
+                }
+                break;
+    	case TCPIF.SYNSENT:
     		switch (_primitiva)
 			{
-    		case ProtocoloTCP.P_PASSIVEOPEN:
-    			proximoEstado = ProtocoloTCP.LISTEN; 
-    			novaPrimitiva = ProtocoloTCP.P_OPENID;
-//    			this.setIpSimuladoDestino(args[0]);
-//    			this.setPortaDestino(Integer.parseInt(args[1]));
-    			break;
-    		case ProtocoloTCP.P_ACTIVEOPEN:
-    			proximoEstado = ProtocoloTCP.SYNSENT; 
-    			novoSegmento = ProtocoloTCP.S_SYN;
-    			this.setIpSimuladoDestino(args[0]);
-    			this.setPortaDestino(Integer.parseInt(args[1]));
+    		case TCPIF.P_CLOSE:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novoSegmento = TCPIF.S_RST;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.LISTEN:
+    	case TCPIF.ESTABLISHED:
     		switch (_primitiva)
 			{
-    		case ProtocoloTCP.P_CLOSE:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			break;
-    		case ProtocoloTCP.P_SEND:
-    			proximoEstado = ProtocoloTCP.SYNSENT; 
-    			novoSegmento = ProtocoloTCP.S_SYN;
+    		case TCPIF.P_CLOSE:
+    			proximoEstado = TCPIF.FINWAIT1; 
+    			novoSegmento = TCPIF.S_FIN;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.SYNRCVD:
+    	case TCPIF.CLOSEWAIT:
     		switch (_primitiva)
 			{
-    		case ProtocoloTCP.P_CLOSE:
-    			proximoEstado = ProtocoloTCP.FINWAIT1; 
-    			novoSegmento = ProtocoloTCP.S_FIN;
-    			break;
-    		default:
-    			throw new Exception();
-			}
-    		break;
-    	case ProtocoloTCP.SYNSENT:
-    		switch (_primitiva)
-			{
-    		case ProtocoloTCP.P_CLOSE:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novoSegmento = ProtocoloTCP.S_RST;
-    			break;
-    		default:
-    			throw new Exception();
-			}
-    		break;
-    	case ProtocoloTCP.ESTABLISHED:
-    		switch (_primitiva)
-			{
-    		case ProtocoloTCP.P_CLOSE:
-    			proximoEstado = ProtocoloTCP.FINWAIT1; 
-    			novoSegmento = ProtocoloTCP.S_FIN;
-    			break;
-    		default:
-    			throw new Exception();
-			}
-    		break;
-    	case ProtocoloTCP.CLOSEWAIT:
-    		switch (_primitiva)
-			{
-    		case ProtocoloTCP.P_CLOSE:
-    			proximoEstado = ProtocoloTCP.LASTACK; 
-    			novoSegmento = ProtocoloTCP.S_FIN;
+    		case TCPIF.P_CLOSE:
+    			proximoEstado = TCPIF.LASTACK; 
+    			novoSegmento = TCPIF.S_FIN;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
 /*    		
-    	case ProtocoloTCP.FINWAIT1:
+    	case TCPIF.FINWAIT1:
     		switch (_primitiva)
 			{
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.FINWAIT2:
+    	case TCPIF.FINWAIT2:
     		switch (_primitiva)
 			{
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.CLOSING:
+    	case TCPIF.CLOSING:
     		switch (_primitiva)
 			{
     		default:
@@ -239,23 +241,23 @@ public class MaquinaDeEstados
 			}
     		break;
     		*/
-    	case ProtocoloTCP.LASTACK:
+    	case TCPIF.LASTACK:
     		switch (_primitiva)
 			{
-    		case ProtocoloTCP.P_TIMEOUT:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novoSegmento = ProtocoloTCP.P_TERMINATE;
+    		case TCPIF.P_TIMEOUT:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novoSegmento = TCPIF.P_TERMINATE;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.TIMEWAIT:
+    	case TCPIF.TIMEWAIT:
     		switch (_primitiva)
 			{
-    		case ProtocoloTCP.P_TIMEOUT:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novoSegmento = ProtocoloTCP.P_TERMINATE;
+    		case TCPIF.P_TIMEOUT:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novoSegmento = TCPIF.P_TERMINATE;
     			break;
     		default:
     			throw new Exception();
@@ -269,30 +271,30 @@ public class MaquinaDeEstados
     	this.estadoMEConAtual = proximoEstado;
 
     	
-    	if (novoSegmento != ProtocoloTCP.S_NENHUM)
+    	if (novoSegmento != TCPIF.S_NENHUM)
     	{
-    		pacoteDeEnvio = new PacoteTCP (
+    		this.pacoteDeEnvio = new PacoteTCP (
     				this.getIpSimuladoLocalBytePonto(),
 					this.getIpSimuladoDestinoBytePonto(),
-					new CampoTCP(2, (int)   this.getPortaLocal()),
-					new CampoTCP(2, (int)   this.getPortaDestino()),
-					new CampoTCP(4, (long)  0),
-					new CampoTCP(4, (long)  0),
+					new CampoTCP(2, this.getPortaLocal()),
+					new CampoTCP(2, this.getPortaDestino()),
+					new CampoTCP(4, 0L),
+					new CampoTCP(4, 0L),
 					new CampoTCP(1, (short) 0),
-					new CampoTCP(1, (short) novoSegmento),
-					new CampoTCP(2, (int)   this.getTamanhoJanela()),
-					new CampoTCP(2, (int)   0),
-					new CampoTCP(2, (int)   0),
-					new CampoTCP(4, (long)  0),							// Opções
+					new CampoTCP(1, novoSegmento),
+					new CampoTCP(2, this.getTamanhoJanela()),
+					new CampoTCP(2, 0),
+					new CampoTCP(2, 0),
+					new CampoTCP(4, 0L),							// Opções
 					args[2]);
     		
     		this.setTempoTimeout  (Integer.parseInt(args[3]));
     		this.setTamanhoJanela (Integer.parseInt(args[4]));
     		
-    		enviaSegmentoTCP(pacoteDeEnvio);
+    		enviaSegmentoTCP(this.pacoteDeEnvio);
     	}
         
-    	if (novaPrimitiva != ProtocoloTCP.P_NENHUM)
+    	if (novaPrimitiva != TCPIF.P_NENHUM)
     	{
     		enviaPrimitiva(novaPrimitiva, args);
     	}
@@ -310,8 +312,8 @@ public class MaquinaDeEstados
     public void enviaPrimitiva(int _primitiva, String args[]) throws Exception
 	{   
        //implemente aqui o envio de primitivas para sua MáquinaDeEstadosFrame
-    	this.meFrame.atualizaDadosEstado(ProtocoloTCP.nomeEstado[this.estadoMEConAtual],
-    			ProtocoloTCP.nomePrimitiva[_primitiva],
+    	this.meFrame.atualizaDadosEstado(TCPIF.nomeEstado[this.estadoMEConAtual],
+    			TCPIF.nomePrimitiva[_primitiva],
     			"<-|",
     			"");
     }
@@ -334,27 +336,27 @@ public class MaquinaDeEstados
         
     	// atualiza exibição do estado atual com o segmento recebido
     	this.meFrame.atualizaDadosEstado(
-    	        ProtocoloTCP.nomeEstado[this.estadoMEConAtual],
-    			ProtocoloTCP.nomePrimitiva[ProtocoloTCP.P_NENHUM],
+    	        TCPIF.nomeEstado[this.estadoMEConAtual],
+    			TCPIF.nomePrimitiva[TCPIF.P_NENHUM],
     			"  |<-",
     			func);
 
-        pacoteRecebido = _pacoteTCP;
+        this.pacoteRecebido = _pacoteTCP;
     	
-    	byte novaPrimitiva = ProtocoloTCP.P_NENHUM;
-    	byte novoSegmento  = ProtocoloTCP.S_NENHUM;
-    	byte proximoEstado = ProtocoloTCP.NENHUM;
+    	byte novaPrimitiva = TCPIF.P_NENHUM;
+    	byte novoSegmento  = TCPIF.S_NENHUM;
+    	byte proximoEstado = TCPIF.NENHUM;
     	
     	switch (this.estadoMEConAtual)
 		{
-    	case ProtocoloTCP.LISTEN:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.LISTEN:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_SYN:
-    			proximoEstado = ProtocoloTCP.SYNRCVD; 
-    			novoSegmento = ProtocoloTCP.S_SYN_ACK;
-    			this.setIpSimuladoDestino(Decoder.bytePontoToIpSimulado(pacoteRecebido.getIpSimuladoLocal()));
-    			this.setPortaDestino(pacoteRecebido.getPortaLocal());
+    		case TCPIF.S_SYN:
+    			proximoEstado = TCPIF.SYNRCVD; 
+    			novoSegmento = TCPIF.S_SYN_ACK;
+    			this.setIpSimuladoDestino(Decoder.bytePontoToIpSimulado(this.pacoteRecebido.getIpSimuladoLocal()));
+    			this.setPortaDestino(this.pacoteRecebido.getPortaLocal());
 /*
             this.maquinaDeEstados.getMonitor().getTabelaDeConexoes().alteraDestino(
                     this.maquinaDeEstados.getIdConexao(),
@@ -374,154 +376,154 @@ public class MaquinaDeEstados
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.SYNRCVD:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.SYNRCVD:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_SYN:
-    			proximoEstado = ProtocoloTCP.SYNRCVD; 
-    			novoSegmento = ProtocoloTCP.S_SYN_ACK;
+    		case TCPIF.S_SYN:
+    			proximoEstado = TCPIF.SYNRCVD; 
+    			novoSegmento = TCPIF.S_SYN_ACK;
     			break;
-    		case ProtocoloTCP.S_ACK:
-    			proximoEstado = ProtocoloTCP.ESTABLISHED; 
-    			novaPrimitiva = ProtocoloTCP.P_OPENSUCCESS;
+    		case TCPIF.S_ACK:
+    			proximoEstado = TCPIF.ESTABLISHED; 
+    			novaPrimitiva = TCPIF.P_OPENSUCCESS;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.LISTEN; 
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.LISTEN; 
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.SYNSENT:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.SYNSENT:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_SYN:
-    			proximoEstado = ProtocoloTCP.SYNRCVD; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_SYN:
+    			proximoEstado = TCPIF.SYNRCVD; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_SYN_ACK:
-    			proximoEstado = ProtocoloTCP.ESTABLISHED; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
-    			novaPrimitiva = ProtocoloTCP.P_OPENSUCCESS;
+    		case TCPIF.S_SYN_ACK:
+    			proximoEstado = TCPIF.ESTABLISHED; 
+    			novoSegmento = TCPIF.S_ACK;
+    			novaPrimitiva = TCPIF.P_OPENSUCCESS;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.ESTABLISHED:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.ESTABLISHED:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.CLOSEWAIT; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.CLOSEWAIT; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_SYN_ACK:
-    			proximoEstado = ProtocoloTCP.ESTABLISHED; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_SYN_ACK:
+    			proximoEstado = TCPIF.ESTABLISHED; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.CLOSEWAIT:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.CLOSEWAIT:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.CLOSEWAIT; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.CLOSEWAIT; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.FINWAIT1:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.FINWAIT1:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_ACK:
-    			proximoEstado = ProtocoloTCP.FINWAIT2; 
+    		case TCPIF.S_ACK:
+    			proximoEstado = TCPIF.FINWAIT2; 
     			break;
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.CLOSING; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.CLOSING; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.FINWAIT2:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.FINWAIT2:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.TIMEWAIT; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.TIMEWAIT; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.CLOSING:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.CLOSING:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_ACK:
-    			proximoEstado = ProtocoloTCP.TIMEWAIT; 
+    		case TCPIF.S_ACK:
+    			proximoEstado = TCPIF.TIMEWAIT; 
     			break;
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.CLOSING; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.CLOSING; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.LASTACK:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.LASTACK:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_ACK:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_TERMINATE;
+    		case TCPIF.S_ACK:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_TERMINATE;
     			break;
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.LASTACK; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.LASTACK; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
-    		case ProtocoloTCP.S_RST:
-    			proximoEstado = ProtocoloTCP.CLOSED; 
-    			novaPrimitiva = ProtocoloTCP.P_ERROR;
+    		case TCPIF.S_RST:
+    			proximoEstado = TCPIF.CLOSED; 
+    			novaPrimitiva = TCPIF.P_ERROR;
     			break;
     		default:
     			throw new Exception();
 			}
     		break;
-    	case ProtocoloTCP.TIMEWAIT:
-    		switch (pacoteRecebido.getControle())
+    	case TCPIF.TIMEWAIT:
+    		switch (this.pacoteRecebido.getControle())
 			{
-    		case ProtocoloTCP.S_FIN:
-    			proximoEstado = ProtocoloTCP.TIMEWAIT; 
-    			novoSegmento = ProtocoloTCP.S_ACK;
+    		case TCPIF.S_FIN:
+    			proximoEstado = TCPIF.TIMEWAIT; 
+    			novoSegmento = TCPIF.S_ACK;
     			break;
     		default:
     			throw new Exception();
@@ -531,32 +533,32 @@ public class MaquinaDeEstados
 			throw new Exception();
 		}
     	
-    	if (pacoteRecebido.getJanela() < this.getTamanhoJanela())
-    	    this.setTamanhoJanela(pacoteRecebido.getJanela());
+    	if (this.pacoteRecebido.getJanela() < this.getTamanhoJanela())
+    	    this.setTamanhoJanela(this.pacoteRecebido.getJanela());
 
     	this.estadoMEConAtual = proximoEstado;        
 
-    	if (novoSegmento != ProtocoloTCP.S_NENHUM)
+    	if (novoSegmento != TCPIF.S_NENHUM)
     	{
-    		pacoteDeEnvio = new PacoteTCP (
+    		this.pacoteDeEnvio = new PacoteTCP (
     				this.getIpSimuladoLocalBytePonto(),
 					this.getIpSimuladoDestinoBytePonto(),
-					new CampoTCP(2, (int)   this.getPortaLocal()),
-					new CampoTCP(2, (int)   this.getPortaDestino()),
-					new CampoTCP(4, (long)  0),
-					new CampoTCP(4, (long)  0),
+					new CampoTCP(2, this.getPortaLocal()),
+					new CampoTCP(2, this.getPortaDestino()),
+					new CampoTCP(4, 0L),
+					new CampoTCP(4, 0L),
 					new CampoTCP(1, (short) 0),
-					new CampoTCP(1, (short) novoSegmento),
-					new CampoTCP(2, (int)   this.getTamanhoJanela()),
-					new CampoTCP(2, (int)   0),
-					new CampoTCP(2, (int)   0),
-					new CampoTCP(4, (long)  0),							// Opções
-					pacoteRecebido.getDados());
+					new CampoTCP(1, novoSegmento),
+					new CampoTCP(2, this.getTamanhoJanela()),
+					new CampoTCP(2, 0),
+					new CampoTCP(2, 0),
+					new CampoTCP(4, 0L),							// Opções
+					this.pacoteRecebido.getDados());
     		
-    		enviaSegmentoTCP(pacoteDeEnvio);
+    		enviaSegmentoTCP(this.pacoteDeEnvio);
     	}
         
-    	if (novaPrimitiva != ProtocoloTCP.P_NENHUM)
+    	if (novaPrimitiva != TCPIF.P_NENHUM)
     	{
     	    String args[] = {""};
     		enviaPrimitiva(novaPrimitiva, args);
@@ -586,13 +588,13 @@ public class MaquinaDeEstados
         int porta = Integer.parseInt(IpSimulada.descobrePortaIPSimulado(_pacoteTCP.getIpSimuladoRemoto()));
     	
         // Envia segmento à camada IP simulada
-    	monitor.getProtocoloTCP().getCamadaIpSimulada().transmite(
+    	this.monitor.getProtocoloTCP().getCamadaIpSimulada().transmite(
     			ip, _pacoteTCP.toString(), _pacoteTCP.toString().length(), porta);
 
     	// Atualiza mostrador de estados
     	this.meFrame.atualizaDadosEstado(
-    			ProtocoloTCP.nomeEstado[this.estadoMEConAtual],
-    			ProtocoloTCP.nomePrimitiva[ProtocoloTCP.P_NENHUM],
+    			TCPIF.nomeEstado[this.estadoMEConAtual],
+    			TCPIF.nomePrimitiva[TCPIF.P_NENHUM],
     			"  |->",
 				func);
 	}
@@ -602,7 +604,7 @@ public class MaquinaDeEstados
      *
      */
     public Monitor getMonitor() {
-        return monitor;
+        return this.monitor;
     }
     
     /** Método modificador para o atributo monitor.
@@ -626,7 +628,7 @@ public class MaquinaDeEstados
      *
      */
     public MaquinaDeEstadosFrame getMeFrame() {
-        return meFrame;
+        return this.meFrame;
     }    
 
     /** Método acessador para o atributo idConexao.
@@ -634,15 +636,15 @@ public class MaquinaDeEstados
      *
      */
     public int getIdConexao() {
-        return idConexao;
+        return this.idConexao;
     }
     
     /** Método modificador para o atributo idConexao.
-     * @param idConexao Novo valor para o atributo idConexao.
+     * @param id Novo valor para o atributo idConexao.
      *
      */
-    public void setIdConexao(int idConexao) {
-        this.idConexao = idConexao;
+    public void setIdConexao(int id) {
+        this.idConexao = id;
     }
     
     /** Método acessador para o atributo ipSimuladoLocal.
@@ -650,7 +652,7 @@ public class MaquinaDeEstados
      *
      */
     public String getIpSimuladoLocal() {
-        return ipSimuladoLocal;
+        return this.ipSimuladoLocal;
     }
     
     /** Método modificador para o atributo ipSimuladoLocal.
@@ -683,15 +685,15 @@ public class MaquinaDeEstados
      *
      */
     public int getPortaLocal() {
-        return portaLocal;
+        return this.portaLocal;
     }
     
     /** Método modificador para o atributo portaLocal.
-     * @param portaLocal Novo valor para o atributo portaLocal.
+     * @param porta Novo valor para o atributo portaLocal.
      *
      */
-    public void setPortaLocal(int portaLocal) {
-        this.portaLocal = portaLocal;
+    public void setPortaLocal(int porta) {
+        this.portaLocal = porta;
     }
     
     /** Método acessador para o atributo ipSimuladoDestino.
@@ -699,7 +701,7 @@ public class MaquinaDeEstados
      *
      */
     public String getIpSimuladoDestino() {
-        return ipSimuladoDestino;
+        return this.ipSimuladoDestino;
     }
 
     /** Método acessador para o atributo ipSimuladoDestino.
@@ -724,7 +726,7 @@ public class MaquinaDeEstados
      *
      */
     public String getNomeEstacaoDestino() {
-        return nomeEstacaoDestino;
+        return this.nomeEstacaoDestino;
     }
     
     /** Método modificador para o atributo nomeEstacaoDestino.
@@ -740,7 +742,7 @@ public class MaquinaDeEstados
      *
      */
     public int getPortaDestino() {
-        return portaDestino;
+        return this.portaDestino;
     }
     
     /** Método modificador para o atributo portaDestino.
@@ -755,20 +757,20 @@ public class MaquinaDeEstados
 	 * @return Retorna o tamanho da janela atual.
 	 */
 	public int getTamanhoJanela() {
-		return tamanhoJanela;
+		return this.tamanhoJanela;
 	}
 	/**
 	 * @param Ajusta o tamanho da janela a ser utilizada.
 	 */
-	public void setTamanhoJanela(int tamanhoJanela) {
-		this.tamanhoJanela = tamanhoJanela;
+	public void setTamanhoJanela(int tamanho) {
+		this.tamanhoJanela = tamanho;
 	}
     /**
      * @return Returns the estadoMEConAtual.
      */
     public byte getEstadoMEConAtual()
     {
-        return estadoMEConAtual;
+        return this.estadoMEConAtual;
     }
     
     /**
@@ -783,14 +785,14 @@ public class MaquinaDeEstados
      */
     public int getTempoTimeout()
     {
-        return tempoTimeout;
+        return this.tempoTimeout;
     }
     
     /**
-     * @param tempoTimeout The tempoTimeout to set.
+     * @param tempo The tempoTimeout to set.
      */
-    public void setTempoTimeout(int tempoTimeout)
+    public void setTempoTimeout(int tempo)
     {
-        this.tempoTimeout = tempoTimeout;
+        this.tempoTimeout = tempo;
     }    
 }//fim da classe MaquinaDeEstados
