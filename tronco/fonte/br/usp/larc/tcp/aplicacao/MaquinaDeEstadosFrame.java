@@ -42,7 +42,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         this.setSize(590,550);
         this.idConexao = _maquinaDeEstados.getIdConexao();
         this.setTitle("ME - ID: " + 
-             this.idConexao  + " => Canal: " +
+             this.idConexao  + " => IPSimul: " +
             _maquinaDeEstados.getIpSimuladoLocalBytePonto() + " => Porta: " +
             _maquinaDeEstados.getPortaLocal());
         this.show();
