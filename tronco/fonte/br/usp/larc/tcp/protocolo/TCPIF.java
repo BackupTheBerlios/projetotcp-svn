@@ -3,23 +3,23 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)TCPIF.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 Laboratório de Arquitetura e Redes de Computadores
- * Escola Politécnica da Universidade de São Paulo.
+ * Copyleft (L) 2004 LaboratÃ³rio de Arquitetura e Redes de Computadores
+ * Escola PolitÃ©cnica da Universidade de SÃ£o Paulo.
  *
  */
 
 /** 
- * Interface que contém os principais eventos/estados do Protocolo TCP
- * Você deve adicionar/remover atributos nessa interface, se necessário.
+ * Interface que contÃ©m os principais eventos/estados do Protocolo TCP
+ * VocÃª deve adicionar/remover atributos nessa interface, se necessÃ¡rio.
  * 
  *
- * @author	Laboratório de Arquitetura e Redes de Computadores.
+ * @author	LaboratÃ³rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public interface TCPIF 
 {
 	
-	// Estados da conexão TCP 0 a 9
+	// Estados da conexÃ£o TCP 0 a 9
 	public static final byte CLOSED 		= 0;
 	public static final byte LISTEN 		= 1;
 	public static final byte SYNRCVD 		= 2;
@@ -33,7 +33,7 @@ public interface TCPIF
 	public static final byte TIMEWAIT 		= 10;
 	public static final byte NENHUM			= 100;
 	
-	//Primitivas de 001 até 004 (relacionadas com o frame Monitor)
+	//Primitivas de 001 atÃ© 004 (relacionadas com o frame Monitor)
 	public static final int P_TCP_OPEN                  = 000;
 	public static final int P_TCP_CLOSE                 = 001;
 	public static final int P_TCP_RESET                 = 002;
@@ -41,7 +41,7 @@ public interface TCPIF
 	public static final int P_TCP_CLOSE_ME              = 004;
 	
 	
-	// Primitivas (relacionadas com o frame Máquina de Estado)
+	// Primitivas (relacionadas com o frame MÃ¡quina de Estado)
 	public static final byte P_NENHUM                   = 0;
 	public static final byte P_PASSIVEOPEN              = 1;
 	public static final byte P_CLOSE                    = 2;

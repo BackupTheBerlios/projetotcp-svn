@@ -1,19 +1,19 @@
 /*
  * @(#)BindException.java	1.0 31/04/2003
  *
- * Copyleft (L) 2004 Laboratório de Arquitetura e Redes de Computadores
- * Escola Politécnica da Universidade de São Paulo.
+ * Copyleft (L) 2004 LaboratÃ³rio de Arquitetura e Redes de Computadores
+ * Escola PolitÃ©cnica da Universidade de SÃ£o Paulo.
  *
  */
 
 package br.usp.larc.tcp.excecoes;
 
 /**
- * Classe para exemplificar uma criaçao de exceção própria.
- * Você pode seguir esse modelo para criar suas próprias exceções para o
- * projeto (por exemplo, exceções para timeouts)
+ * Classe para exemplificar uma criaÃ§ao de exceÃ§Ã£o prÃ³pria.
+ * VocÃª pode seguir esse modelo para criar suas prÃ³prias exceÃ§Ãµes para o
+ * projeto (por exemplo, exceÃ§Ãµes para timeouts)
  * 
- * @author Laboratório de Arquitetura e Redes de Computadores.
+ * @author LaboratÃ³rio de Arquitetura e Redes de Computadores.
  * @version 1.0 01 Junho 2004.
  */
 public class ExemploException extends java.lang.Exception {

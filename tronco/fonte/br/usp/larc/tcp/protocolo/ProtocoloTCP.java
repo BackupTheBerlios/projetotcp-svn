@@ -3,8 +3,8 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)ProtocoloTCP.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 LaboratÛrio de Arquitetura e Redes de Computadores.
- * Escola PolitÈcnica da Universidade de S„o Paulo.
+ * Copyleft (L) 2004 Laborat√≥rio de Arquitetura e Redes de Computadores.
+ * Escola Polit√©cnica da Universidade de S√£o Paulo.
  *
  */
 
@@ -13,15 +13,15 @@ import java.lang.Exception;
 
 /** 
  * Classe que encapasula de modo global todos as classes do Protocolo TCP 
- * Simulado. À nessa classe que vocÍ vocÍ vai implementar as aÁıes que os
+ * Simulado. √ã nessa classe que voc√™ voc√™ vai implementar as a√ß√µes que os
  * eventos que a Interfaces Monitor gera, fazendo com que as classes se 
- * comuniquem entre si de acordo com cada aÁ„o/evento. 
+ * comuniquem entre si de acordo com cada a√ß√£o/evento. 
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a 
- * criatividade na implementaÁ„o do seu projeto.
+ * criatividade na implementa√ß√£o do seu projeto.
  *  
  *
- * @author	LaboratÛrio de Arquitetura e Redes de Computadores.
+ * @author	Laborat√≥rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 
@@ -42,7 +42,7 @@ public class ProtocoloTCP implements TCPIF {
      */
     private Monitor monitor;
    
-    //adicione aqui outros atributos importantes que vocÍ julgar necess·rio
+    //adicione aqui outros atributos importantes que voc√™ julgar necess√°rio
         
     /** 
      * Construtor da classe ProtocoloTCP.
@@ -52,7 +52,7 @@ public class ProtocoloTCP implements TCPIF {
     }
     
     /** 
-     * MÈtodo que inicializa os atributos do Protocolo TCP.
+     * M√©todo que inicializa os atributos do Protocolo TCP.
      */
     public void init() {
     	this.camadaIpSimulada = new IpSimulada();
@@ -61,13 +61,13 @@ public class ProtocoloTCP implements TCPIF {
     }
     
     /** 
-     * MÈtodo que recebe primitivas da camada de aplicaÁ„o e executa as operaÁıes
-     * para atender a aÁ„o. As primitivas est„o definidas na interface TCPIF.
+     * M√©todo que recebe primitivas da camada de aplica√ß√£o e executa as opera√ß√µes
+     * para atender a a√ß√£o. As primitivas est√£o definidas na interface TCPIF.
      *
-     * @param _primitiva A primitiva que a aplicaÁ„o enviou.
-     * @param args[] Um array de argumentos que a aplicaÁ„o pode enviar.
-     * @exception Exception  Caso ocorra algum erro ou exceÁ„o, lanÁa (throw) 
-     * para quem chamou o mÈtodo.
+     * @param _primitiva A primitiva que a aplica√ß√£o enviou.
+     * @param args[] Um array de argumentos que a aplica√ß√£o pode enviar.
+     * @exception Exception  Caso ocorra algum erro ou exce√ß√£o, lan√ßa (throw) 
+     * para quem chamou o m√©todo.
      */
     public void recebePrimitivaAplicacao(int _primitiva, String args[])
     throws Exception
@@ -119,16 +119,16 @@ public class ProtocoloTCP implements TCPIF {
             case ProtocoloTCP.P_TCP_RESET:
             	this.reinicializaTcp();
             // XXX Reinicializa TCP
-                //adicione aqui o cÛdigo que trata a primitiva que reseta o
+                //adicione aqui o c√≥digo que trata a primitiva que reseta o
                 //o protocolo TCP.
         }
     }
     
     /**
-     * MÈtodo que inicializa o protocolo TCP.
+     * M√©todo que inicializa o protocolo TCP.
      *
-     * @exception Exception  Caso ocorra algum erro ou exceÁ„o, lanÁa (throw) 
-     * para quem chamou o mÈtodo.
+     * @exception Exception  Caso ocorra algum erro ou exce√ß√£o, lan√ßa (throw) 
+     * para quem chamou o m√©todo.
      */
     public void inicializaTcp()
     throws Exception
@@ -153,15 +153,15 @@ public class ProtocoloTCP implements TCPIF {
     			throw e;
     		}
     	} else {
-    		System.out.println("Protocolo TCP j· inicializado.");
+    		System.out.println("Protocolo TCP j√° inicializado.");
     	}
     }
 
     /**
-     * MÈtodo que finaliza o protocoloTCP e consequentemente o projeto.
+     * M√©todo que finaliza o protocoloTCP e consequentemente o projeto.
      *
-     * @exception Exception  Caso ocorra algum erro ou exceÁ„o, joga (throw) 
-     * para quem chamou o mÈtodo.
+     * @exception Exception  Caso ocorra algum erro ou exce√ß√£o, joga (throw) 
+     * para quem chamou o m√©todo.
      */
     public void finalizaTCP()
     throws Exception
@@ -182,7 +182,7 @@ public class ProtocoloTCP implements TCPIF {
     			}
     			else
     			{
-    				System.out.println("Protocolo TCP n„o foi inicializado.");
+    				System.out.println("Protocolo TCP n√£o foi inicializado.");
     			}
 			}
     		catch (Exception e)
@@ -193,17 +193,17 @@ public class ProtocoloTCP implements TCPIF {
     	}
     	else
     	{
-    		System.out.println("Protocolo TCP n„o foi inicializado.");
+    		System.out.println("Protocolo TCP n√£o foi inicializado.");
     	}
 	}
     
     /**
-     * MÈtodo que abre uma nova M·quina de Estados associada a uma porta TCP
-     * recebida  como par‚metro.
+     * M√©todo que abre uma nova M√°quina de Estados associada a uma porta TCP
+     * recebida  como par√¢metro.
      *
-     * @param _portaME A porta TCP que ser· associada a m·quina de estados.
-     * @exception Exception  Caso ocorra algum erro ou exceÁ„o, lanÁa (throw) 
-     * para quem chamou o mÈtodo.
+     * @param _portaME A porta TCP que ser√° associada a m√°quina de estados.
+     * @exception Exception  Caso ocorra algum erro ou exce√ß√£o, lan√ßa (throw) 
+     * para quem chamou o m√©todo.
      */
     public void criaMaquinaEstado(int _portaME)
     throws Exception
@@ -214,7 +214,7 @@ public class ProtocoloTCP implements TCPIF {
 			{
     			if (!monitor.criaMaquinaDeEstados(_portaME))
     			{
-    				throw new Exception("Porta: " + _portaME + " j· usada.");
+    				throw new Exception("Porta: " + _portaME + " j√° usada.");
     			}
 			} 
     		catch (Exception e)
@@ -225,17 +225,17 @@ public class ProtocoloTCP implements TCPIF {
     	} 
     	else 
     	{
-    		throw new Exception("Protocolo TCP n„o inicializado.");
+    		throw new Exception("Protocolo TCP n√£o inicializado.");
     	}
 	}
     
     /**
-     * MÈtodo que fecha m·quina de estados com id de Conex„o passada como 
-     * par‚metro.
+     * M√©todo que fecha m√°quina de estados com id de Conex√£o passada como 
+     * par√¢metro.
      *
-     * @param _idConexao O id da Conex„o da m·quina que vocÍ quer fechar.
-     * @exception Exception  Caso ocorra algum erro ou exceÁ„o, lanÁa (throw) 
-     * para quem chamou o mÈtodo.
+     * @param _idConexao O id da Conex√£o da m√°quina que voc√™ quer fechar.
+     * @exception Exception  Caso ocorra algum erro ou exce√ß√£o, lan√ßa (throw) 
+     * para quem chamou o m√©todo.
      */
     public void fechaMaquinaEstado(int _idConexao)
     throws Exception
@@ -246,7 +246,7 @@ public class ProtocoloTCP implements TCPIF {
 			{
     			if (!monitor.fechaMaquinaDeEstados(_idConexao))
     			{
-    				throw new Exception("Id: " + _idConexao + " n„o existe.");
+    				throw new Exception("Id: " + _idConexao + " n√£o existe.");
     			}
 			} 
     		catch (Exception e)
@@ -258,26 +258,26 @@ public class ProtocoloTCP implements TCPIF {
     	} 
     	else 
     	{
-    		throw new Exception("Protocolo TCP n„o inicializado.");
+    		throw new Exception("Protocolo TCP n√£o inicializado.");
     	}
 	}
     
     /**
-     * MÈtodo que reinicializa o protocolo TCP fazendo com que o protocolo volte
+     * M√©todo que reinicializa o protocolo TCP fazendo com que o protocolo volte
      * ao seu estado inicial .
      *
-     * @exception Exception  Caso ocorra algum erro ou exceÁ„o, lanÁa (throw) 
-     * para quem chamou o mÈtodo.
+     * @exception Exception  Caso ocorra algum erro ou exce√ß√£o, lan√ßa (throw) 
+     * para quem chamou o m√©todo.
      */
     public void reinicializaTcp() 
     throws Exception 
 	{
         System.out.println("Reiniciando Protocolo TCP...");
-        //implemente aqui o mÈtodo que reinicializa o Protocolo TCP.
+        //implemente aqui o m√©todo que reinicializa o Protocolo TCP.
     }
     
     /**
-     * MÈtodo que inicializa a camada IpSimulada.
+     * M√©todo que inicializa a camada IpSimulada.
      * 
      * @param buffer tamanho do buffer.
      * @exception Exception excecao jogada quando inicializa a camada IpSimulada.
@@ -298,8 +298,8 @@ public class ProtocoloTCP implements TCPIF {
     }
     
     /** 
-     * MÈtodo que finaliza a camada ipSimulada.
-     * @exception Exception excecao joagada quando a ipSimulada È fechada.
+     * M√©todo que finaliza a camada ipSimulada.
+     * @exception Exception excecao joagada quando a ipSimulada √© fechada.
      */
     public void finalizaIpSimulada() 
     throws Exception 
@@ -317,15 +317,15 @@ public class ProtocoloTCP implements TCPIF {
 		}
     }
     
-    /** MÈtodo acessador para o atributo camadaIpSimulada.
-     * @return A referÍncia para o atributo camadaIpSimulada.
+    /** M√©todo acessador para o atributo camadaIpSimulada.
+     * @return A refer√™ncia para o atributo camadaIpSimulada.
      *
      */
     public IpSimulada getCamadaIpSimulada() {
         return camadaIpSimulada;
     }
     
-    /** MÈtodo modificador para o atributo camadaIpSimulada.
+    /** M√©todo modificador para o atributo camadaIpSimulada.
      * @param camadaIpSimulada Novo valor para o atributo camadaIpSimulada.
      *
      */
@@ -334,8 +334,8 @@ public class ProtocoloTCP implements TCPIF {
     }
 
     /** 
-     * MÈtodo acessador para o atributo camadaIPSimuladaAberta que verifica
-     * se a camada IP Simulada j· est· aberta para esse protocolo.
+     * M√©todo acessador para o atributo camadaIPSimuladaAberta que verifica
+     * se a camada IP Simulada j√° est√° aberta para esse protocolo.
      * 
      * @return Valor do atributo camadaIPSimuladaAberta.
      */
@@ -344,7 +344,7 @@ public class ProtocoloTCP implements TCPIF {
     }    
     
     /** 
-     * MÈtodo modificador para o atributo camadaIPSimuladaAberta.
+     * M√©todo modificador para o atributo camadaIPSimuladaAberta.
      * 
      * @param isCanalIpAberto Novo valor para o atributo camadaIPSimuladaAberta.
      */
@@ -352,15 +352,15 @@ public class ProtocoloTCP implements TCPIF {
         this.camadaIPSimuladaAberta = _camadaIPSimuladaAberta;
     }
     
-    /** MÈtodo acessador para o atributo monitor.
-     * @return A referÍncia para o atributo monitor.
+    /** M√©todo acessador para o atributo monitor.
+     * @return A refer√™ncia para o atributo monitor.
      *
      */
     public Monitor getMonitor() {
         return monitor;
     }
     
-    /** MÈtodo modificador para o atributo monitor.
+    /** M√©todo modificador para o atributo monitor.
      * @param monitor Novo valor para o atributo monitor.
      *
      */
@@ -389,10 +389,10 @@ public class ProtocoloTCP implements TCPIF {
     
  
     /*
-     * MÈtodo que executa o projeto.
+     * M√©todo que executa o projeto.
      */
     public static void main(String args[]) {
-    	// Cria uma inst‚ncia do simulador TCP
+    	// Cria uma inst√¢ncia do simulador TCP
         ProtocoloTCP protocoloTCP = new ProtocoloTCP();
         System.out.println("Iniciando Projeto...");
     }

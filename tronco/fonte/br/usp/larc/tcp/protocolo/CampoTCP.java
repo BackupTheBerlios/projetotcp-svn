@@ -3,24 +3,24 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)PacoteTCP.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 Laboratório de Arquitetura e Redes de Computadores
- * Escola Politécnica da Universidade de São Paulo.
+ * Copyleft (L) 2004 LaboratÃ³rio de Arquitetura e Redes de Computadores
+ * Escola PolitÃ©cnica da Universidade de SÃ£o Paulo.
  *
  */
 
 /**  
  *
- * Essa classe é responsável pela decodifição e codificação de Campos do pacote
+ * Essa classe Ã© responsÃ¡vel pela decodifiÃ§Ã£o e codificaÃ§Ã£o de Campos do pacote
  * TCP que contenham String que ocupem mais de um byte. Ele codifica e 
  * decodifica String em array de bytes e vice-versa.
  *
- * @author Laboratório de Arquitetura e Redes de Computadores.
+ * @author LaboratÃ³rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public class CampoTCP {
 	
     /**
-     * Array auxliar para ajuda na manipulação.
+     * Array auxliar para ajuda na manipulaÃ§Ã£o.
      */
     char letras[]       = {'a', 'a', 'a', 'a'};
 
@@ -42,7 +42,7 @@ public class CampoTCP {
      * Construtor da classe CampoTCP.
      *
      * @param  _n  Tamanho do campo em bytes.
-     * @param  _l  Array de bytes que contém os dados para preencher o campo.
+     * @param  _l  Array de bytes que contÃ©m os dados para preencher o campo.
      */
     public CampoTCP(int _n, char[] _l) {
         this(_n);
@@ -56,7 +56,7 @@ public class CampoTCP {
      * Construtor da classe CampoTCP.
      *
      * @param  n  Tamanho do campo em bytes.
-     * @param  s  String que contém os dados para preencher o campo.
+     * @param  s  String que contÃ©m os dados para preencher o campo.
      */
     public CampoTCP(int _n, String _s) {
         this(_n);
@@ -70,7 +70,7 @@ public class CampoTCP {
      * Construtor da classe CampoTCP.
      *
      * @param  _n              Tamanho do campo em bytes.
-     * @param  _value          Long que contém os dados para preencher o campo.
+     * @param  _value          Long que contÃ©m os dados para preencher o campo.
      * @exception  Exception  Gera Exception, se ocorrer algum erro.
      */
     public CampoTCP(int _n, long _value) throws Exception {
@@ -83,7 +83,7 @@ public class CampoTCP {
      * Construtor da classe CampoTCP.
      *
      * @param  _n              Tamanho do campo em bytes.
-     * @param  _value          Int que contém os dados para preencher o campo.
+     * @param  _value          Int que contÃ©m os dados para preencher o campo.
      * @exception  Exception  Gera Exception, se ocorrer algum erro.
      */
     public CampoTCP(int _n, int _value) throws Exception {
@@ -95,7 +95,7 @@ public class CampoTCP {
      * Construtor da classe CampoTCP.
      *
      * @param  n              Tamanho do campo em bytes.
-     * @param  value          Short que contém os dados para preencher o campo.
+     * @param  value          Short que contÃ©m os dados para preencher o campo.
      * @exception  Exception  Gera Exception, se ocorrer algum erro.
      */
     public CampoTCP(int _n, short _value) throws Exception {
@@ -104,11 +104,11 @@ public class CampoTCP {
     }
 
     /**
-     * Retorna o char do campo que está no indice como parâmetro.
+     * Retorna o char do campo que estÃ¡ no indice como parÃ¢metro.
      *
-     * @param  i              Índice do char que quer ser retornado.
+     * @param  i              Ãndice do char que quer ser retornado.
      * @return                O char com o valor daquele byte.
-     * @exception  Exception  Gera Exception, se o índice estourar o array do
+     * @exception  Exception  Gera Exception, se o Ã­ndice estourar o array do
      * campo.
      */
     public char getLetraAt(int _indice) throws Exception {
@@ -129,7 +129,7 @@ public class CampoTCP {
     }
 
     /**
-     * Método acessador para o atributo tamanhoCampo.
+     * MÃ©todo acessador para o atributo tamanhoCampo.
      *
      * @return    O valor do atributo tamanhoCampo.
      */
@@ -138,7 +138,7 @@ public class CampoTCP {
     }
 
     /**
-     * Método modificador para o atributo tamanhoCampo.
+     * MÃ©todo modificador para o atributo tamanhoCampo.
      *
      * @param  n  O novo valor para o atributo tamanhoCampo.
      */
@@ -147,10 +147,10 @@ public class CampoTCP {
     }
 
     /**
-     * Método que retorna o valor do Campo TCP com sua representação númerica
+     * MÃ©todo que retorna o valor do Campo TCP com sua representaÃ§Ã£o nÃºmerica
      * decimal.
      *
-     * @return    O valor do campo com sua representação numérica.
+     * @return    O valor do campo com sua representaÃ§Ã£o numÃ©rica.
      */
     public long getValue() {
         long n  = 0;
@@ -162,13 +162,13 @@ public class CampoTCP {
     }
 
     /**
-     * Método usado para campos com 4 (quatro) bytes. Converte um Campo TCP que 
+     * MÃ©todo usado para campos com 4 (quatro) bytes. Converte um Campo TCP que 
      * pode ter valor entre 0 e 4294967295 (2 (dois) elevado a 32 menos 1(um)) 
      * em um array com 4 (quatro) bytes e encapsula esse valor no objeto CampoTCP.
      *
      * @param  value          Valor do campo.
-     * @exception  Exception  Caso o valor não esteja entre 0 e 4294967295, gera
-     * exceção.
+     * @exception  Exception  Caso o valor nÃ£o esteja entre 0 e 4294967295, gera
+     * exceÃ§Ã£o.
      */
     public void setValue(long _value) throws Exception {
         if (this.tamanhoCampo == 4) {
@@ -188,13 +188,13 @@ public class CampoTCP {
     }
     
     /**
-     * Método usado para campos com 2 (dois) bytes. Converte um Campo TCP que
+     * MÃ©todo usado para campos com 2 (dois) bytes. Converte um Campo TCP que
      * pode ter valor entre 0 e 65535 (2 (dois) elevado a 16 menos 1(um)) em um 
      * array com 2 (dois) bytes e encapsula esse valor no objeto CampoTCP. 
      *
      * @param  value          Valor do campo.
-     * @exception  Exception  Caso o valor não esteja entre 0 e 65535, gera
-     * exceção.
+     * @exception  Exception  Caso o valor nÃ£o esteja entre 0 e 65535, gera
+     * exceÃ§Ã£o.
      */
     public void setValue(int value) throws Exception {
         if (this.tamanhoCampo >= 2) {
@@ -210,13 +210,13 @@ public class CampoTCP {
     }
 
     /**
-     * Método usado para campos com 1 (um) bytes. Converte um Campo TCP que
+     * MÃ©todo usado para campos com 1 (um) bytes. Converte um Campo TCP que
      * pode ter valor entre 0 e 255 (2 (dois) elevado a 8 menos 1(um)) em um 
      * array com 1 (um) byte e encapsula esse valor no objeto CampoTCP. 
      *
      * @param  value          Valor do campo.
-     * @exception  Exception  Caso o valor não esteja entre 0 e 255, gera
-     * exceção.
+     * @exception  Exception  Caso o valor nÃ£o esteja entre 0 e 255, gera
+     * exceÃ§Ã£o.
      */
     public void setValue(short value) throws Exception {
         if ((value >= 0) && (value < 256)) {
@@ -237,7 +237,7 @@ public class CampoTCP {
     }
 
     /**
-     * Método que ilustra funcionamento da classe CampoTCP.
+     * MÃ©todo que ilustra funcionamento da classe CampoTCP.
      *
      */
     public static void main(String[] args) {

@@ -3,8 +3,8 @@ package br.usp.larc.tcp.aplicacao;
 /*
  * @(#)MonitorFrame.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 LaboratÛrio de Arquitetura e Redes de Computadores
- * Escola PolitÈcnica da Universidade de S„o Paulo.
+ * Copyleft (L) 2004 Laborat√≥rio de Arquitetura e Redes de Computadores
+ * Escola Polit√©cnica da Universidade de S√£o Paulo.
  *
  */
 
@@ -18,18 +18,18 @@ import java.util.TimerTask;
 
 /** 
  * Classe que representa a Interface HM Monitor. Note que usamos a classe
- * Timer e TimerTask para atualizar a textArea que mostra a tabela de xonex„o.
- * VocÍ tambÈm poder· utilizar essas classes para implementar mecanismos de
- * timeout (temporarizaÁ„o e timestamp de pacotes). 
+ * Timer e TimerTask para atualizar a textArea que mostra a tabela de xonex√£o.
+ * Voc√™ tamb√©m poder√° utilizar essas classes para implementar mecanismos de
+ * timeout (temporariza√ß√£o e timestamp de pacotes). 
  *
- * Mais detalhes e dicas de implementaÁ„o podem ser consultadas nas Apostilas.
+ * Mais detalhes e dicas de implementa√ß√£o podem ser consultadas nas Apostilas.
  * 
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a 
- * criatividade na implementaÁ„o do seu projeto.
+ * criatividade na implementa√ß√£o do seu projeto.
  *  
  *
- * @author	LaboratÛrio de Arquitetura e Redes de Computadores.
+ * @author	Laborat√≥rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public class MonitorFrame extends JFrame {
@@ -118,7 +118,7 @@ public class MonitorFrame extends JFrame {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setBorder(new javax.swing.border.TitledBorder("Gerenciador de M\u00e1quinas de Estado"));
+        jPanel2.setBorder(new javax.swing.border.TitledBorder("Gerenciador de M√°quinas de Estado"));
         jPanel2.setAlignmentX(0.0F);
         jPanel2.setAlignmentY(0.0F);
         jPanel2.setPreferredSize(new java.awt.Dimension(460, 106));
@@ -129,7 +129,7 @@ public class MonitorFrame extends JFrame {
         jTextAreaPortaTCPNovaMaquina.setFont(new java.awt.Font("Dialog", 0, 11));
         jTextAreaPortaTCPNovaMaquina.setLineWrap(true);
         jTextAreaPortaTCPNovaMaquina.setRows(2);
-        jTextAreaPortaTCPNovaMaquina.setText("Porta TCP da novam\u00e1quina: ");
+        jTextAreaPortaTCPNovaMaquina.setText("Porta TCP da nova m√°quina: ");
         jTextAreaPortaTCPNovaMaquina.setBorder(null);
         jTextAreaPortaTCPNovaMaquina.setPreferredSize(new java.awt.Dimension(90, 30));
         jTextAreaPortaTCPNovaMaquina.setAutoscrolls(false);
@@ -143,7 +143,7 @@ public class MonitorFrame extends JFrame {
 
         jLabelIdDeConexao.setFont(new java.awt.Font("Dialog", 0, 11));
         jLabelIdDeConexao.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelIdDeConexao.setText("Id de Conex\u00e3o:");
+        jLabelIdDeConexao.setText("Id de Conex√£o:");
         jLabelIdDeConexao.setPreferredSize(new java.awt.Dimension(130, 16));
         jLabelIdDeConexao.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -200,7 +200,7 @@ public class MonitorFrame extends JFrame {
         jPanel6.setLayout(new java.awt.GridBagLayout());
 
         jButtonCriarNovaMaquina.setFont(new java.awt.Font("Dialog", 0, 11));
-        jButtonCriarNovaMaquina.setText("Criar Nova M\u00e1quina");
+        jButtonCriarNovaMaquina.setText("Criar Nova M√°quina");
         jButtonCriarNovaMaquina.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonCriarNovaMaquina.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCriarNovaMaquina.setPreferredSize(new java.awt.Dimension(128, 25));
@@ -218,7 +218,7 @@ public class MonitorFrame extends JFrame {
         jPanel6.add(jButtonCriarNovaMaquina, gridBagConstraints);
 
         jButtonFecharMaquina.setFont(new java.awt.Font("Dialog", 0, 11));
-        jButtonFecharMaquina.setText("Fechar M\u00e1quina");
+        jButtonFecharMaquina.setText("Fechar M√°quina");
         jButtonFecharMaquina.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonFecharMaquina.setPreferredSize(new java.awt.Dimension(128, 25));
         jButtonFecharMaquina.addActionListener(new java.awt.event.ActionListener() {

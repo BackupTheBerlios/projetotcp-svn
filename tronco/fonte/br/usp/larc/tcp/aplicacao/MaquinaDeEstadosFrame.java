@@ -1,8 +1,8 @@
 /*
  * @(#)MaquinaDeEstadosFrame.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 Laboratório de Arquitetura e Redes de Computadores
- * Escola Politécnica da Universidade de São Paulo.
+ * Copyleft (L) 2004 LaboratÃ³rio de Arquitetura e Redes de Computadores
+ * Escola PolitÃ©cnica da Universidade de SÃ£o Paulo.
  *
  */
 package br.usp.larc.tcp.aplicacao;
@@ -19,13 +19,13 @@ import javax.swing.*;
 
 /** 
  * Classe que representa a Interface HM Maquina de Estados.
- * Detalhes e dicas de implementação podem ser consultadas nas Apostilas.
+ * Detalhes e dicas de implementaÃ§Ã£o podem ser consultadas nas Apostilas.
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a 
- * criatividade na implementação do seu projeto.
+ * criatividade na implementaÃ§Ã£o do seu projeto.
  *  
  *
- * @author	Laboratório de Arquitetura e Redes de Computadores.
+ * @author	LaboratÃ³rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
@@ -472,7 +472,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldHostActionPerformed
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-         JOptionPane.showMessageDialog(null,"TimeoutTX: O host não enviou resposta.");
+         JOptionPane.showMessageDialog(null,"TimeoutTX: O host nÃ£o enviou resposta.");
     }//GEN-LAST:event_jButtonResetActionPerformed
     
     /** Exit the Application */
@@ -482,16 +482,16 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_exitForm
     
     /*
-     * Atualiza os dados da área de texto da tabela do diagrama de tempo
+     * Atualiza os dados da Ã¡rea de texto da tabela do diagrama de tempo
      *
      * Exemplo:
      * MaquinaDeEstadosFrame mef = new MaquinaDeEstadosFrame();\
      * mef.atualizaDadosEstado("Closed", "Act.Open", "->", "(0,0,0,300)");   
      *
      *
-     * @param _estado O novo estado da máquina de estados da conexão
-     * @param _primitiva O tipo de primitiva que está sendo utilizada
-     * @param _direcao A direção do segmento (enviado: -> ou recebido: <-)
+     * @param _estado O novo estado da mÃ¡quina de estados da conexÃ£o
+     * @param _primitiva O tipo de primitiva que estÃ¡ sendo utilizada
+     * @param _direcao A direÃ§Ã£o do segmento (enviado: -> ou recebido: <-)
      * @param _segmento O segmento (NS, Tam, NACK, T.Jan)
      */
     public void atualizaDadosEstado(String _estado, String _primitiva, 
@@ -520,18 +520,18 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     }
     
     /*
-     * Atualiza na interface as informações sobre a conexão
+     * Atualiza na interface as informaÃ§Ãµes sobre a conexÃ£o
      * 
      * Exemplo:
      * MaquinaDeEstadosFrame mef = new MaquinaDeEstadosFrame();
      * mef.atualizaInfoConexao("Established", "10.0.0.1:3123", "1211", "", "");
      *
      *
-     * @param _estado O estado atual da máquina de estados da conexão
-     * @param _IPSimuladoLocal O IP Simulado Local da Conexão
-     * @param _portaLocal A porta local da conexão
-     * @param _IPSimuladoRemoto O IP Simulado Remoto da Conexão
-     * @param _portaRemota A porta remota da conexão
+     * @param _estado O estado atual da mÃ¡quina de estados da conexÃ£o
+     * @param _IPSimuladoLocal O IP Simulado Local da ConexÃ£o
+     * @param _portaLocal A porta local da conexÃ£o
+     * @param _IPSimuladoRemoto O IP Simulado Remoto da ConexÃ£o
+     * @param _portaRemota A porta remota da conexÃ£o
      */
     public void atualizaInfoConexao(byte _estado, String _IPSimuladoLocal,
         String _portaLocal, String _IPSimuladoRemoto, String _portaRemota)

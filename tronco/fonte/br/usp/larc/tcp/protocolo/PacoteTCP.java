@@ -3,23 +3,23 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)PacoteTCP.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 Laboratório de Arquitetura e Redes de Computadores
- * Escola Politécnica da Universidade de São Paulo.
+ * Copyleft (L) 2004 LaboratÃ³rio de Arquitetura e Redes de Computadores
+ * Escola PolitÃ©cnica da Universidade de SÃ£o Paulo.
  *
  */
 
 import java.util.StringTokenizer;
 
 /**  
- * Esta classe é responsável por montar o pacote TCP com as informações 
- * necessárias para a implementação do TCP Simulado. Note que seguimos a
- * especificação da Apostila II da experiência.
+ * Esta classe Ã© responsÃ¡vel por montar o pacote TCP com as informaÃ§Ãµes 
+ * necessÃ¡rias para a implementaÃ§Ã£o do TCP Simulado. Note que seguimos a
+ * especificaÃ§Ã£o da Apostila II da experiÃªncia.
  *
- * Para entender mais detalhes sobre o processo de conversão de campos para se 
- * ajustar a especificação do nosso segmento TCP adaptado, consulte as classes
+ * Para entender mais detalhes sobre o processo de conversÃ£o de campos para se 
+ * ajustar a especificaÃ§Ã£o do nosso segmento TCP adaptado, consulte as classes
  * CampoTCP e Decoder.
  *
- * @author Laboratório de Arquitetura e Redes de Computadores.
+ * @author LaboratÃ³rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public class PacoteTCP {
@@ -131,7 +131,7 @@ public class PacoteTCP {
 
     /** Contrutor do pacote.
      *
-     * @param texto Texto codificado em bytes, após ser decodificado
+     * @param texto Texto codificado em bytes, apÃ³s ser decodificado
      * altera os atributos do pacote.
      */
     public PacoteTCP(String _texto) {
@@ -157,7 +157,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto checksum.
+     * MÃ©todo acessador para o atibuto checksum.
      *
      * @return    O valor para o atributo checksum.
      */
@@ -166,7 +166,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto controle.
+     * MÃ©todo acessador para o atibuto controle.
      *
      * @return    O valor para o atributo controle.
      */
@@ -175,7 +175,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto dados.
+     * MÃ©todo acessador para o atibuto dados.
      *
      * @return    O valor para o atributo dados.
      */
@@ -184,7 +184,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto ipSimuladoLocal.
+     * MÃ©todo acessador para o atibuto ipSimuladoLocal.
      *
      * @return    O valor para o atributo ipSimuladoLocal.
      */
@@ -193,7 +193,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto ipSimuladoRemoto.
+     * MÃ©todo acessador para o atibuto ipSimuladoRemoto.
      *
      * @return    O valor para o atributo ipSimuladoRemoto.
      */
@@ -202,7 +202,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto janela.
+     * MÃ©todo acessador para o atibuto janela.
      *
      * @return    O valor para o atributo janela.
      */
@@ -211,7 +211,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto numAck.
+     * MÃ©todo acessador para o atibuto numAck.
      *
      * @return    O valor para o atributo numAck.
      */
@@ -220,7 +220,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto numSequencia.
+     * MÃ©todo acessador para o atibuto numSequencia.
      *
      * @return    O valor para o atributo numSequencia.
      */
@@ -229,7 +229,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto offset.
+     * MÃ©todo acessador para o atibuto offset.
      *
      * @return    O valor para o atributo offset.
      */
@@ -238,7 +238,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto opcoes.
+     * MÃ©todo acessador para o atibuto opcoes.
      *
      * @return    O valor para o atributo opcoes.
      */
@@ -247,7 +247,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto ponteiroUrgente.
+     * MÃ©todo acessador para o atibuto ponteiroUrgente.
      *
      * @return    O valor para o atributo ponteiroUrgente.
      */
@@ -256,7 +256,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto portaLocal.
+     * MÃ©todo acessador para o atibuto portaLocal.
      *
      * @return    O valor para o atributo portaLocal.
      */
@@ -266,7 +266,7 @@ public class PacoteTCP {
 
 
     /**
-     * Método acessador para o atibuto portaRemota.
+     * MÃ©todo acessador para o atibuto portaRemota.
      *
      * @return    O valor para o atributo portaRemota.
      */
@@ -275,7 +275,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método acessador para o atibuto tamanho
+     * MÃ©todo acessador para o atibuto tamanho
      *
      * @return    O tamanho do Pacote TCP
      */
@@ -285,7 +285,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo checksum.
+     * MÃ©todo modificador do atributo checksum.
      *
      * @param  _checksum  O novo valor para o atributo checksum.
      */
@@ -297,7 +297,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo controle.
+     * MÃ©todo modificador do atributo controle.
      *
      * @param  _controle  O novo valor para o atributo controle.
      */
@@ -309,7 +309,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo controle.
+     * MÃ©todo modificador do atributo controle.
      *
      *@param  _controle  O novo valor para o atributo controle.
      */
@@ -321,7 +321,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo dados.
+     * MÃ©todo modificador do atributo dados.
      *
      * @param  _dados  O novo valor para o atributo dados.
      */
@@ -330,7 +330,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo ipSimuladoLocal.
+     * MÃ©todo modificador do atributo ipSimuladoLocal.
      *
      * @param  _ipSimuladoLocal  O novo valor para o atributo ipSimuladoLocal.
      */
@@ -339,7 +339,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo ipSimuladoRemoto.
+     * MÃ©todo modificador do atributo ipSimuladoRemoto.
      *
      * @param  _ipSimuladoRemoto  O novo valor para o atributo ipSimuladoRemoto. 
      */
@@ -348,7 +348,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo janela.
+     * MÃ©todo modificador do atributo janela.
      *
      * @param  _janela  O novo valor para o atributo janela.
      */
@@ -360,7 +360,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo numAck.
+     * MÃ©todo modificador do atributo numAck.
      *
      * @param  _numAck  O novo valor para o atributo numAck.
      */
@@ -372,7 +372,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo numSequencia.
+     * MÃ©todo modificador do atributo numSequencia.
      *
      * @param  _numSequencia  O novo valor para o atributo numSequencia.
      */
@@ -384,7 +384,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo offset.
+     * MÃ©todo modificador do atributo offset.
      *
      * @param  _offset  O novo valor para o atributo offset.
      */
@@ -396,7 +396,7 @@ public class PacoteTCP {
     }
 
     /**
-     *  Método modificador do atributo opcoes.
+     *  MÃ©todo modificador do atributo opcoes.
      *
      *@param  _opcoes  O novo valor para o atributo opcoes.
      */
@@ -408,7 +408,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo ponteiroUrgente.
+     * MÃ©todo modificador do atributo ponteiroUrgente.
      *
      * @param  _ponteiroUrgente  O novo valor para o atributo ponteiroUrgente.
      */
@@ -420,7 +420,7 @@ public class PacoteTCP {
     }
 
     /**
-     * Método modificador do atributo portaLocal.
+     * MÃ©todo modificador do atributo portaLocal.
      *
      * @param  _portaLocal  O novo valor para o atributo portaLocal.
      */
@@ -433,7 +433,7 @@ public class PacoteTCP {
 
 
     /**
-     * Método modificador do atributo portaRemota.
+     * MÃ©todo modificador do atributo portaRemota.
      *
      * @param  _portaRemota  O novo valor para o atributo portaRemota .
      */
@@ -444,11 +444,11 @@ public class PacoteTCP {
         }
     }
 
-    /** Método que codifica o ipSimulado no tamanho certo das especificações
+    /** MÃ©todo que codifica o ipSimulado no tamanho certo das especificaÃ§Ãµes
      *  para o header do pacote.
      *
-     * @param _ip String que contém o ipSimulado a ser codificado.
-     * @return String que contém o ipSimulado já codificado.
+     * @param _ip String que contÃ©m o ipSimulado a ser codificado.
+     * @return String que contÃ©m o ipSimulado jÃ¡ codificado.
      */
     private String codificarIp(String _ip) {
         
@@ -482,7 +482,7 @@ public class PacoteTCP {
     }
 
 
-    /** Método que decodifica o ipSimulado.
+    /** MÃ©todo que decodifica o ipSimulado.
      *
      * @param _ipCodificado String que contem o ipSimulado codificado.
      * @return String que contem o ipSimulado decodificado.
@@ -507,11 +507,11 @@ public class PacoteTCP {
     }
 
     /** 
-     * Método que atribui os valores corretos ao atributo opções.
+     * MÃ©todo que atribui os valores corretos ao atributo opÃ§Ãµes.
      */
     public void geraOpcoes()
     {
-        //tamanho do cabeçalho do pacote
+        //tamanho do cabeÃ§alho do pacote
         int tamanho  = 36;
 
         tamanho += this.dados.length();
@@ -521,10 +521,10 @@ public class PacoteTCP {
     }
 
     /** 
-     * Método que ajusta para um novo valor o campo de sequência (1 + (mais)
-     * o número de bytes do campo de dados do pacote. No caso do número de
-     * sequêcia for maior que 2 elevado a 32 - 1 (igual ao máximo valor do
-     * tipo long) ele zera o contador de número de sequência para 0.
+     * MÃ©todo que ajusta para um novo valor o campo de sequÃªncia (1 + (mais)
+     * o nÃºmero de bytes do campo de dados do pacote. No caso do nÃºmero de
+     * sequÃªcia for maior que 2 elevado a 32 - 1 (igual ao mÃ¡ximo valor do
+     * tipo long) ele zera o contador de nÃºmero de sequÃªncia para 0.
      *
      * @param _num valor atual do campo de sequencia.
      * @return novo valor campo de sequencia incrementado de 1.
@@ -539,7 +539,7 @@ public class PacoteTCP {
     /**
      * Imprime o pacote codificado no formato de um String de bytes.
      *
-     * @return    A representação do pacote como uma String.
+     * @return    A representaÃ§Ã£o do pacote como uma String.
      */
     public String toString() {
         return this.codificarIp(this.ipSimuladoRemoto) +
@@ -554,7 +554,7 @@ public class PacoteTCP {
 
     /**
      * Exemplo de "montagem" de um pacote e depois a "desmontagem" usando o
-     * método toString().
+     * mÃ©todo toString().
      *
      */
     public static void main(String args[]) {
@@ -566,7 +566,7 @@ public class PacoteTCP {
         p.setIpSimuladoRemoto("10.0.0.2:5000");
         p.setPortaLocal("100");
         p.setPortaRemota("34000");
-        // seta o número de sequência para o número máximo que ele pode
+        // seta o nÃºmero de sequÃªncia para o nÃºmero mÃ¡ximo que ele pode
         // ter: 4294967295 
         p.setNumSequencia((long)(Math.pow((double) 2, (double) 32)-1));
         System.out.println("Num. Seq.: " + p.getNumSequencia());

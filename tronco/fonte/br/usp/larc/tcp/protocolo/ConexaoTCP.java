@@ -3,29 +3,29 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)ConexaoTCP.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 LaboratÛrio de Arquitetura e Redes de Computadores
- * Escola PolitÈcnica da Universidade de S„o Paulo.
+ * Copyleft (L) 2004 Laborat√≥rio de Arquitetura e Redes de Computadores
+ * Escola Polit√©cnica da Universidade de S√£o Paulo.
  *
  */
 
 /** 
- * Classe que representa uma conex„o TCPSimulado. Conexıes TCP s„o representadas
- * por uma qu·drupla composta por um ID da Conex„o, EndereÁo ipSimuladoLocal, 
- * EndereÁo IPSimuladoOrigem, Porta Local e Porta Remota. Aqui, incluÌmos o ID 
- * da conex„o vai representar uma chave ˙nica de que identifica a conexao na 
- * tabela de conexıes.
+ * Classe que representa uma conex√£o TCPSimulado. Conex√µes TCP s√£o representadas
+ * por uma qu√°drupla composta por um ID da Conex√£o, Endere√ßo ipSimuladoLocal, 
+ * Endere√ßo IPSimuladoOrigem, Porta Local e Porta Remota. Aqui, inclu√≠mos o ID 
+ * da conex√£o vai representar uma chave √∫nica de que identifica a conexao na 
+ * tabela de conex√µes.
  * 
- * Note que todos os atributos dessa classe s„o "private" e sÛ podem ser
- * acessados e modificados pelos mÈtodos "get" e "set", respectivamente. Isso È
+ * Note que todos os atributos dessa classe s√£o "private" e s√≥ podem ser
+ * acessados e modificados pelos m√©todos "get" e "set", respectivamente. Isso √©
  * uma forma de encapsulamento.
  *
- * @author	LaboratÛrio de Arquitetura e Redes de Computadores.
+ * @author	Laborat√≥rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public class ConexaoTCP {
     
     /**
-     * Atributo que identifica a conex„o de forma ˙nica.
+     * Atributo que identifica a conex√£o de forma √∫nica.
      */
     private int idConexao;
     
@@ -49,7 +49,7 @@ public class ConexaoTCP {
      */
     private String portaRemota;
     
-    /** Construtor default da classe Conex„oTCP */
+    /** Construtor default da classe Conex√£oTCP */
     public ConexaoTCP() {
         this.idConexao = 0;
         this.ipSimuladoLocal = "";
@@ -58,7 +58,7 @@ public class ConexaoTCP {
         this.portaRemota = ""; 
     }
     
-   /** Construtor com par‚metros da classe Conex„oTCP */
+   /** Construtor com par√¢metros da classe Conex√£oTCP */
     public ConexaoTCP(int oIdConexao, String oIpSimuladoLocal, String aPortaLocal, String oIpSimuladoRemoto, String aPortaRemota) {
         this.idConexao = oIdConexao;
         this.ipSimuladoLocal = oIpSimuladoLocal;
@@ -68,7 +68,7 @@ public class ConexaoTCP {
     }
     
     /** 
-     * MÈtodo acessador para o atributo idConexao.
+     * M√©todo acessador para o atributo idConexao.
      * @return int Valor do atributo idConexao.
      *
      */
@@ -77,7 +77,7 @@ public class ConexaoTCP {
     }
     
     /** 
-     * MÈtodo modificador para o atributo idConexao.
+     * M√©todo modificador para o atributo idConexao.
      * @param aIdConexao Novo valor para o atributo idConexao.
      *
      */
@@ -86,7 +86,7 @@ public class ConexaoTCP {
     }
     
     /**
-     * MÈtodo acessador para o atributo ipSimuladoLocal.
+     * M√©todo acessador para o atributo ipSimuladoLocal.
      * @return String Valor do atributo ipSimuladoLocal.
      *
      */
@@ -94,7 +94,7 @@ public class ConexaoTCP {
         return this.ipSimuladoLocal;
     }
     
-    /** MÈtodo modificador para o atributo ipSimuladoLocal.
+    /** M√©todo modificador para o atributo ipSimuladoLocal.
      * @param oIpSimuladoLocal Novo valor para o atributo ipSimuladoLocal.
      *
      */
@@ -102,7 +102,7 @@ public class ConexaoTCP {
         this.ipSimuladoLocal = _IPSimuladoLocal;
     }
     
-    /** MÈtodo acessador para o atributo ipSimuladoRemoto
+    /** M√©todo acessador para o atributo ipSimuladoRemoto
      * @return String Valor do atributo ipSimuladoLocal.
      *
      */
@@ -110,7 +110,7 @@ public class ConexaoTCP {
         return this.ipSimuladoRemoto;
     }
     
-    /** MÈtodo modificador para o atributo ipSimuladoRemoto.
+    /** M√©todo modificador para o atributo ipSimuladoRemoto.
      * @param oIpSimuladoRemoto Novo valor para o atributo ipSimuladoRemoto.
      *
      */
@@ -118,7 +118,7 @@ public class ConexaoTCP {
         this.ipSimuladoRemoto = _IPSimuladoRemoto;
     }
     
-    /** MÈtodo acessador para o atributo portaLocal.
+    /** M√©todo acessador para o atributo portaLocal.
      * @return String Valor do atributo portaLocal.
      *
      */
@@ -126,7 +126,7 @@ public class ConexaoTCP {
         return this.portaLocal;
     }
     
-    /** MÈtodo modificador para o atributo portaLocal.
+    /** M√©todo modificador para o atributo portaLocal.
      * @param aPortaLocal Novo valor para o atributo portaLocal.
      *
      */
@@ -134,7 +134,7 @@ public class ConexaoTCP {
         this.portaLocal = _portaLocal;
     }
     
-    /** MÈtodo acessador para o atributo portaRemota.
+    /** M√©todo acessador para o atributo portaRemota.
      * @return String Valor do atributo portaRemota.
      *
      */
@@ -142,7 +142,7 @@ public class ConexaoTCP {
         return this.portaRemota;
     }
     
-    /** MÈtodo modificador para o atributo portaRemota.
+    /** M√©todo modificador para o atributo portaRemota.
      * @param aPortaRemota Novo valor para o atributo portaRemota.
      *
      */

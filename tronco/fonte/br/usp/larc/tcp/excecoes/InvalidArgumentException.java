@@ -1,17 +1,17 @@
 /*
  * @(#)InvalidArgumentException.java	1.0 31/03/2003
  *
- * Copyleft (L) 2003 LaboratÛrio de Arquitetura e Redes de Computadores
- * Escola PolitÈcnica da Universidade de S„o Paulo
+ * Copyleft (L) 2003 Laborat√≥rio de Arquitetura e Redes de Computadores
+ * Escola Polit√©cnica da Universidade de S√£o Paulo
  *
  */
 
 package br.usp.larc.tcp.excecoes;
 
 /**
- * ExceÁ„o que representa argumento(s) inv·lido(s)
+ * Exce√ß√£o que representa argumento(s) inv√°lido(s)
  * 
- * @author LaboratÛrio de Arquitetura e Redes de Computadores
+ * @author Laborat√≥rio de Arquitetura e Redes de Computadores
  * @version 1.0 09 Maio 2003
  */
 public class InvalidArgumentException extends java.lang.Exception {

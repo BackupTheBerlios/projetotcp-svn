@@ -3,8 +3,8 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)MonitorThread.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 LaboratÛrio de Arquitetura e Redes de Computadores
- * Escola PolitÈcnica da Universidade de S„o Paulo.
+ * Copyleft (L) 2004 Laborat√≥rio de Arquitetura e Redes de Computadores
+ * Escola Polit√©cnica da Universidade de S√£o Paulo.
  *
  */
 
@@ -17,9 +17,9 @@ import br.usp.larc.tcp.ipsimulada.IpSimulada;
  * Monitor.
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a 
- * criatividade na implementaÁ„o do seu projeto.
+ * criatividade na implementa√ß√£o do seu projeto.
  *
- * @author	LaboratÛrio de Arquitetura e Redes de Computadores.
+ * @author	Laborat√≥rio de Arquitetura e Redes de Computadores.
  * @version	1.0 Agosto 2003.
  */
 public class MonitorThread extends Thread {
@@ -56,7 +56,7 @@ public class MonitorThread extends Thread {
     }
 
     /*
-     * MÈtodo de execuÁ„o da thread
+     * M√©todo de execu√ß√£o da thread
      */
     public void run()
     {
@@ -69,7 +69,7 @@ public class MonitorThread extends Thread {
             try
 			{
                 //verifica se tem dados no buffer de entrada,
-                //se n„o tiver, gera exceÁ„o
+                //se n√£o tiver, gera exce√ß√£o
                 bufferEntrada = camadaIPSimulada.recebe(ProtocoloTCP.BUFFER_DEFAULT_IP_SIMULADA);
                 bufferReceived = true;
             }
@@ -88,10 +88,10 @@ public class MonitorThread extends Thread {
     }
 
     /*
-     * Indica se a thread est· rodando
+     * Indica se a thread est√° rodando
      *
      * @return boolean O estado do thread (true = monitorando e
-     * false = n„o monitorando
+     * false = n√£o monitorando
      */
 
     public boolean isRunning()
@@ -100,7 +100,7 @@ public class MonitorThread extends Thread {
     }
 
     /*
-     * P·ra a thread
+     * P√°ra a thread
      */
     public void paraThread()
     {
