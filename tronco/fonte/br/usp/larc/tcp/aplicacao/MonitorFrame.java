@@ -8,10 +8,12 @@ package br.usp.larc.tcp.aplicacao;
  *
  */
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Iterator;
@@ -27,8 +29,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
-import br.usp.larc.tcp.protocolo.MaquinaDeEstados;
 import br.usp.larc.tcp.protocolo.ProtocoloTCP;
 import br.usp.larc.tcp.protocolo.TCP;
 
@@ -67,7 +70,6 @@ public class MonitorFrame extends JFrame {
         this.protocoloTCP = _protocoloTCP;
         this.timerAtualizaTabelaDeConexoes.schedule (new RemindTask(), 2 * 1000, 1 * 1000);
         this.habilitaInterface(false);
-        
     }
     
     /** This method is called from within the constructor to
@@ -81,10 +83,10 @@ public class MonitorFrame extends JFrame {
         GridBagConstraints gridBagConstraints13 = new GridBagConstraints();
         GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
         GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
-        this.jpTitulo = new javax.swing.JPanel();
-        this.jpGerenciador = new javax.swing.JPanel();
-        this.jpInfo = new javax.swing.JPanel();
-        this.jpComandos = new javax.swing.JPanel();
+        this.jpTitulo = new JPanel();
+        this.jpGerenciador = new JPanel();
+        this.jpInfo = new JPanel();
+        this.jpComandos = new JPanel();
         this.jlTitulo1 = new JLabel();
         this.jlTitulo2 = new JLabel();
 		this.jlPorta = new JLabel();
@@ -101,95 +103,86 @@ public class MonitorFrame extends JFrame {
         this.jtaTabelaDeConexoes = new JTextArea();
 
         // Título
-        jpTitulo.setLayout(new BoxLayout(jpTitulo, BoxLayout.X_AXIS));
+        this.jpTitulo.setLayout(new BoxLayout(this.jpTitulo, BoxLayout.X_AXIS));
 
-        jlTitulo1.setFont(new Font("Dialog", Font.BOLD, 18));
-        jlTitulo1.setText("Gerenciador de Máquinas de Estados: ");
-        jpTitulo.add(jlTitulo1, null);
+        this.jlTitulo1.setFont(new Font("Dialog", Font.BOLD, 18));
+        this.jlTitulo1.setText("Gerenciador de Máquinas de Estados: ");
+        this.jpTitulo.add(this.jlTitulo1, null);
 
-        jlTitulo2.setFont(new Font("Dialog", Font.PLAIN, 18));
-        jlTitulo2.setText("Desativado");
-		jpTitulo.add(jlTitulo2, null);
+        this.jlTitulo2.setFont(new Font("Dialog", Font.PLAIN, 18));
+        this.jlTitulo2.setText("Desativado");
+		this.jpTitulo.add(this.jlTitulo2, null);
 		
         // Gerenciador
-        jpGerenciador.setLayout(new BoxLayout(jpGerenciador, BoxLayout.X_AXIS));
-        jpGerenciador.setBorder(new javax.swing.border.TitledBorder("Gerenciador de Máquinas de Estado"));
+        this.jpGerenciador.setLayout(new BoxLayout(this.jpGerenciador, BoxLayout.X_AXIS));
+        this.jpGerenciador.setBorder(new TitledBorder("Gerenciador de Máquinas de Estado"));
 
-        jpInfo.setLayout(new GridBagLayout());
+        this.jpInfo.setLayout(new GridBagLayout());
 
-		jlPorta.setText("Porta TCP:");        
-        jtfPortaTCPNovaMaquina.setColumns(3);
-        jtfPortaTCPNovaMaquina.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPortaTCPNovaMaquinaActionPerformed(evt);
-            }
-        });
+		this.jlPorta.setText("Porta TCP:");        
+        this.jtfPortaTCPNovaMaquina.setColumns(3);
         
-        jbCriarNovaMaquina.setText("Criar Nova Máquina");
-        jbCriarNovaMaquina.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.jbCriarNovaMaquina.setText("Criar Nova Máquina");
+        this.jbCriarNovaMaquina.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jbCriarNovaMaquinaActionPerformed(evt);
             }
         });
         
-        jlIdDeConexao.setText("Id de Conexão:");
-        jtfIdDeConexao.setColumns(3);
-        jtfIdDeConexao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIdDeConexaoActionPerformed(evt);
-            }
-        });
-        jbFecharMaquina.setText("Fechar Máquina");
-        jbFecharMaquina.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.jlIdDeConexao.setText("Id de Conexão:");
+        this.jtfIdDeConexao.setColumns(3);
+
+        this.jbFecharMaquina.setText("Fechar Máquina");
+        this.jbFecharMaquina.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jbFecharMaquinaActionPerformed(evt);
             }
         });
         
-		jpGerenciador.add(jpInfo, null);
+		this.jpGerenciador.add(this.jpInfo, null);
 
-        jpComandos.setLayout(new BoxLayout(jpComandos, BoxLayout.Y_AXIS));
+        this.jpComandos.setLayout(new BoxLayout(this.jpComandos, BoxLayout.Y_AXIS));
 
-        jbIniciarTCP.setText("Iniciar TCP");
-        jbIniciarTCP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.jbIniciarTCP.setText("Iniciar TCP");
+        this.jbIniciarTCP.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jbIniciarTCPActionPerformed(evt);
             }
         });
-		jpComandos.add(jbIniciarTCP, null);
+		this.jpComandos.add(this.jbIniciarTCP, null);
 
-        jbFechar.setText("Fechar");
-        jbFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.jbFechar.setText("Fechar");
+        this.jbFechar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jbFecharActionPerformed(evt);
             }
         });
-		jpComandos.add(jbFechar, null);
+		this.jpComandos.add(this.jbFechar, null);
 
-        jbReset.setText("Reset");
-        jbReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        this.jbReset.setText("Reset");
+        this.jbReset.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButtonResetActionPerformed(evt);
             }
         });
-		jpComandos.add(jbReset, null);
+		this.jpComandos.add(this.jbReset, null);
 
-		jpGerenciador.add(jpComandos, null);
+		this.jpGerenciador.add(this.jpComandos, null);
 
         // Tabela
-        jpTabela.setLayout(new BoxLayout(jpTabela, BoxLayout.Y_AXIS));
-        jpTabela.setBorder(new javax.swing.border.TitledBorder("Tabela de Conexões"));
-        jtaTabelaDeConexoes.setRows(10);
-        jspTabela.setViewportView(jtaTabelaDeConexoes);
-		jpTabela.add(jspTabela, null);
+        this.jpTabela.setLayout(new BoxLayout(this.jpTabela, BoxLayout.Y_AXIS));
+        this.jpTabela.setBorder(new TitledBorder("Tabela de Conexões"));
+        this.jtaTabelaDeConexoes.setRows(10);
+        this.jspTabela.setViewportView(this.jtaTabelaDeConexoes);
+		this.jpTabela.add(this.jspTabela, null);
 
         // Janela
         setContentPane(getJpPrincipal());
         setTitle("Monitor de Máquinas de Estado");
         setResizable(true);
 //		setMinimumSize(new Dimension(300,100));
-		jbFechar.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
-		jbFechar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+		this.jbFechar.setVerticalTextPosition(SwingConstants.CENTER);
+		this.jbFechar.setHorizontalAlignment(SwingConstants.RIGHT);
 		gridBagConstraints11.gridx = 0;
 		gridBagConstraints11.gridy = 0;
 		gridBagConstraints12.gridx = 1;
@@ -205,12 +198,12 @@ public class MonitorFrame extends JFrame {
 		gridBagConstraints15.ipadx = 30;
 		gridBagConstraints16.gridx = 2;
 		gridBagConstraints16.gridy = 1;
-		jpInfo.add(jlPorta, gridBagConstraints11);
-		jpInfo.add(jtfPortaTCPNovaMaquina, gridBagConstraints12);
-		jpInfo.add(jbCriarNovaMaquina, gridBagConstraints13);
-		jpInfo.add(jlIdDeConexao, gridBagConstraints14);
-		jpInfo.add(jtfIdDeConexao, gridBagConstraints15);
-		jpInfo.add(jbFecharMaquina, gridBagConstraints16);
+		this.jpInfo.add(this.jlPorta, gridBagConstraints11);
+		this.jpInfo.add(this.jtfPortaTCPNovaMaquina, gridBagConstraints12);
+		this.jpInfo.add(this.jbCriarNovaMaquina, gridBagConstraints13);
+		this.jpInfo.add(this.jlIdDeConexao, gridBagConstraints14);
+		this.jpInfo.add(this.jtfIdDeConexao, gridBagConstraints15);
+		this.jpInfo.add(this.jbFecharMaquina, gridBagConstraints16);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 exitForm(evt);
@@ -273,14 +266,6 @@ public class MonitorFrame extends JFrame {
         }
     }
     
-    private void jTextFieldIdDeConexaoActionPerformed(ActionEvent evt)
-    {
-    }
-    
-    private void jTextFieldPortaTCPNovaMaquinaActionPerformed(ActionEvent evt)
-    {
-    }
-    
     private void jButtonResetActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         // Add your handling code here:
     }//GEN-LAST:event_jButtonResetActionPerformed
@@ -303,7 +288,7 @@ public class MonitorFrame extends JFrame {
     
     /** Exit the Application 
      * @param evt*/
-    private void exitForm(java.awt.event.WindowEvent evt)
+    private void exitForm(WindowEvent evt)
     {
         System.exit(0);
     }
@@ -312,14 +297,14 @@ public class MonitorFrame extends JFrame {
     {
         if (_flag)
         {
-            this.jlTitulo2.setForeground (new java.awt.Color (0, 153, 0));
-            this.jlTitulo2.setHorizontalAlignment (javax.swing.SwingConstants.CENTER);
+            this.jlTitulo2.setForeground (new Color (0, 153, 0));
+            this.jlTitulo2.setHorizontalAlignment (SwingConstants.CENTER);
             this.jlTitulo2.setText ("Ativado");
         }
         else
         {
-            this.jlTitulo2.setForeground (new java.awt.Color (204, 0, 0));
-            this.jlTitulo2.setHorizontalAlignment (javax.swing.SwingConstants.CENTER);
+            this.jlTitulo2.setForeground (new Color (204, 0, 0));
+            this.jlTitulo2.setHorizontalAlignment (SwingConstants.CENTER);
             this.jlTitulo2.setText ("Desativado");
         }
 
@@ -334,23 +319,23 @@ public class MonitorFrame extends JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jspTabela;
-    private javax.swing.JPanel jpInfo;
-    private javax.swing.JButton jbFechar;
-    private javax.swing.JButton jbReset;
-    private javax.swing.JPanel jpTabela;
-    private javax.swing.JLabel jlIdDeConexao;
-    private javax.swing.JLabel jlTitulo2;
-    private javax.swing.JPanel jpGerenciador;
-    private javax.swing.JTextArea jtaTabelaDeConexoes;
-    private javax.swing.JTextField jtfIdDeConexao;
-    private javax.swing.JPanel jpComandos;
-    private javax.swing.JPanel jpTitulo;
-    private javax.swing.JLabel jlTitulo1;
-    private javax.swing.JButton jbIniciarTCP;
-    private javax.swing.JButton jbCriarNovaMaquina;
-    private javax.swing.JButton jbFecharMaquina;
-    private javax.swing.JTextField jtfPortaTCPNovaMaquina;
+    private JScrollPane jspTabela;
+    private JPanel jpInfo;
+    private JButton jbFechar;
+    private JButton jbReset;
+    private JPanel jpTabela;
+    private JLabel jlIdDeConexao;
+    private JLabel jlTitulo2;
+    private JPanel jpGerenciador;
+    private JTextArea jtaTabelaDeConexoes;
+    private JTextField jtfIdDeConexao;
+    private JPanel jpComandos;
+    private JPanel jpTitulo;
+    private JLabel jlTitulo1;
+    private JButton jbIniciarTCP;
+    private JButton jbCriarNovaMaquina;
+    private JButton jbFecharMaquina;
+    private JTextField jtfPortaTCPNovaMaquina;
     // End of variables declaration//GEN-END:variables
     private ProtocoloTCP protocoloTCP;
     private Timer timerAtualizaTabelaDeConexoes = new Timer();
@@ -363,7 +348,7 @@ public class MonitorFrame extends JFrame {
         /*
          * (non-Javadoc)
          * 
-         * @see java.util.TimerTask#run()
+         * @see this.java.util.TimerTask#run()
          */
         public void run ()
         {
@@ -389,7 +374,7 @@ public class MonitorFrame extends JFrame {
 	/**
      * This method initializes jPanel
      * 
-     * @return javax.swing.JPanel
+     * @return this.javax.swing.JPanel
      */
     private JPanel getJpPrincipal ()
     {

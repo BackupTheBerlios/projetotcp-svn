@@ -23,7 +23,7 @@ public class SegmentoInvalidoException extends java.lang.Exception {
      */
     public SegmentoInvalidoException()
     {
-        // XXX: Construtora da SegmentoInvalidoException
+        // XXX Construtora da SegmentoInvalidoException
     }
     
     

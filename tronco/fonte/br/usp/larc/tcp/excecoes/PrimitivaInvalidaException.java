@@ -23,7 +23,7 @@ public class PrimitivaInvalidaException extends java.lang.Exception {
      */
     public PrimitivaInvalidaException()
     {
-        // XXX: Construtora da PrimitivaInvalidaException
+        // XXX Construtora da PrimitivaInvalidaException
     }
     
     

@@ -9,6 +9,8 @@ package br.usp.larc.tcp.protocolo;
  */
 
 import br.usp.larc.tcp.aplicacao.MaquinaDeEstadosFrame;
+import br.usp.larc.tcp.excecoes.PrimitivaInvalidaException;
+import br.usp.larc.tcp.excecoes.SegmentoInvalidoException;
 import br.usp.larc.tcp.ipsimulada.IpSimulada;
 
 /** 
@@ -131,13 +133,12 @@ public class MaquinaDeEstados
      *        A primitiva que enviada.
      * @param args[]
      *        Um array de argumentos que você pode receber adicionalmente
-     * @exception Exception
-     *            Caso ocorra algum erro ou exceção, lança (throw) para quem
-     *            chamou o método.
+     * @throws Exception
      */
-    public void recebePrimitiva (byte _primitiva, String args[]) throws Exception
+    public void recebePrimitiva (byte _primitiva, String args[])
+        throws Exception
     {
-    	System.out.println("recebePrimitiva: Recebeu " + TCP.nomePrimitiva[_primitiva]);
+        System.out.println ("recebePrimitiva: " + TCP.nomePrimitiva[_primitiva]);
     	
         byte novaPrimitiva = TCP.P_NENHUMA;
         byte novoSegmento = TCP.S_NENHUM;
@@ -159,7 +160,7 @@ public class MaquinaDeEstados
                         this.setPortaDestino (Integer.parseInt (args[1]));
                         break;
                     default:
-                        throw new Exception ();
+                        throw new PrimitivaInvalidaException ();
                 }
                 break;
             case TCP.LISTEN:
@@ -178,7 +179,7 @@ public class MaquinaDeEstados
                         this.setIpSimuladoDestino (ip_origem);
                         this.setPortaDestino (porta_origem);                        break;
                     default:
-                        throw new Exception ();
+                        throw new PrimitivaInvalidaException ();
                 }
                 break;
             case TCP.SYNRCVD:
@@ -189,7 +190,7 @@ public class MaquinaDeEstados
                         novoSegmento = TCP.S_FIN;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new PrimitivaInvalidaException ();
                 }
                 break;
             case TCP.SYNSENT:
@@ -200,7 +201,7 @@ public class MaquinaDeEstados
                         novoSegmento = TCP.S_RST;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new PrimitivaInvalidaException ();
                 }
                 break;
     	case TCP.ESTABLISHED:
@@ -211,7 +212,7 @@ public class MaquinaDeEstados
     			novoSegmento = TCP.S_FIN;
     			break;
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
     	case TCP.CLOSEWAIT:
@@ -222,7 +223,7 @@ public class MaquinaDeEstados
     			novoSegmento = TCP.S_FIN;
     			break;
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
 /*    		
@@ -230,21 +231,21 @@ public class MaquinaDeEstados
     		switch (_primitiva)
 			{
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
     	case TCP.FINWAIT2:
     		switch (_primitiva)
 			{
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
     	case TCP.CLOSING:
     		switch (_primitiva)
 			{
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
     		*/
@@ -256,7 +257,7 @@ public class MaquinaDeEstados
     			novoSegmento = TCP.P_TERMINATE;
     			break;
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
     	case TCP.TIMEWAIT:
@@ -267,11 +268,11 @@ public class MaquinaDeEstados
     			novoSegmento = TCP.P_TERMINATE;
     			break;
     		default:
-    			throw new Exception();
+    			throw new PrimitivaInvalidaException();
 			}
     		break;
     	default:
-			throw new Exception();
+			throw new Exception("Estado desconhecido");
 		}
         
         String func = TCP.nomeSegmento (novoSegmento);
@@ -287,55 +288,41 @@ public class MaquinaDeEstados
         }        
         this.meFrame.atualizaDadosEstado (TCP.nomeEstado[this.estadoMEConAtual],
                 TCP.nomePrimitiva[_primitiva], seta, func);
-
-        if (novaPrimitiva == TCP.P_NENHUMA)
-            seta = "";
-        else
-            seta = TCP.SETA_ENVIA_PRIM;
-        
-        // atualiza exibição do próximo estado e nova primitiva
-        this.meFrame.atualizaDadosEstado (TCP.nomeEstado[proximoEstado],
-                TCP.nomePrimitiva[novaPrimitiva], seta, TCP.nomeSegmento (TCP.S_NENHUM));
-
-        this.estadoMEConAtual = proximoEstado;
-
-        this.meFrame.atualizaInfoConexao (this.getEstadoMEConAtual (),
+                        
+        this.meFrame.atualizaInfoConexao (proximoEstado,
                 this.getIpSimuladoLocalBytePonto (),
                 Integer.toString (this.getPortaLocal ()),       
                 this.getIpSimuladoDestinoBytePonto (),
                 Integer.toString (this.getPortaDestino ()));       
-        
+
+        this.estadoMEConAtual = proximoEstado;
+                
+        enviaPrimitiva(novaPrimitiva, new String[0]);
+
     	if (novoSegmento != TCP.S_NENHUM)
     	{
         	System.out.println("recebePrimitiva: novo segmento");
         	
-            this.setTempoTimeout  (Integer.parseInt(args[3]));
-            this.setTamanhoJanela (Integer.parseInt(args[4]));
-            
-    		this.pacoteDeEnvio = new PacoteTCP (
-    				this.getIpSimuladoLocalBytePonto(),
-					this.getIpSimuladoDestinoBytePonto(),
-					new CampoTCP(2, this.getPortaLocal()),
-					new CampoTCP(2, this.getPortaDestino()),
-					new CampoTCP(4, 0L),
-					new CampoTCP(4, 0L),
-					new CampoTCP(1, (short) 0),
-					new CampoTCP(1, novoSegmento),             // tipo
-					new CampoTCP(2, this.getTamanhoJanela()),  // tam. janela
-					new CampoTCP(2, 0),
-					new CampoTCP(2, 0),
-					new CampoTCP(4, 0L),							// Opções
-					args[2]);
-    		
-        	System.out.println("recebePrimitiva: envia segmento");
-    		enviaSegmentoTCP(this.pacoteDeEnvio);
-    	}
-        
-    	if (novaPrimitiva != TCP.P_NENHUMA)
-    	{
-        	System.out.println("recebePrimitiva: nova primitiva");
+        	this.setTempoTimeout  (Integer.parseInt(args[3]));
+        	this.setTamanhoJanela (Integer.parseInt(args[4]));
         	
-    		enviaPrimitiva(novaPrimitiva, args);
+        	this.pacoteDeEnvio = new PacoteTCP (
+        	        this.getIpSimuladoLocalBytePonto(),
+        	        this.getIpSimuladoDestinoBytePonto(),
+        	        new CampoTCP(2, this.getPortaLocal()),
+        	        new CampoTCP(2, this.getPortaDestino()),
+        	        new CampoTCP(4, 0L),
+        	        new CampoTCP(4, 0L),
+        	        new CampoTCP(1, (short) 0),
+        	        new CampoTCP(1, novoSegmento),             // tipo
+        	        new CampoTCP(2, this.getTamanhoJanela()),  // tam. janela
+        	        new CampoTCP(2, 0),
+        	        new CampoTCP(2, 0),
+        	        new CampoTCP(4, 0L),							// Opções
+        	        args[2]);
+        	
+        	System.out.println("recebePrimitiva: envia segmento");
+        	enviaSegmentoTCP(this.pacoteDeEnvio);
     	}
 
     	System.out.println("recebePrimitiva: fim");
@@ -346,12 +333,28 @@ public class MaquinaDeEstados
      *
      * @param _primitiva A primitiva que está sendo enviada.
      * @param args[] Um array de argumentos que a aplicação pode enviar.
-     * @exception Exception  Caso ocorra algum erro ou exceção, lança (throw) 
+     * @exception PrimitivaInvalidaException  Caso ocorra algum erro ou exceção, lança (throw) 
      * para quem chamou o método.
      */
-    public void enviaPrimitiva(int _primitiva, String args[]) throws Exception
+    public void enviaPrimitiva(int _primitiva, String args[]) throws PrimitivaInvalidaException
 	{   
-        // FIXME: O que vai aqui?
+        // FIXME enviaPrimitiva: O que vai aqui?
+        System.out.println ("enviaPrimitiva: " + TCP.nomePrimitiva[_primitiva]);
+        
+        String seta;
+        
+        // atualiza exibição do próximo estado e nova primitiva
+        if (_primitiva == TCP.P_NENHUMA)
+            seta = "";
+        else
+            seta = TCP.SETA_ENVIA_PRIM;
+        this.meFrame.atualizaDadosEstado (TCP.nomeEstado[this.estadoMEConAtual],
+                TCP.nomePrimitiva[_primitiva], seta, TCP.nomeSegmento (TCP.S_NENHUM));
+        
+        if (this.estadoMEConAtual == TCP.CLOSED)
+            this.meFrame.habilitaNovaConexao(true);
+
+        System.out.println("enviaPrimitiva: fim");
     }
     
     /**
@@ -366,6 +369,8 @@ public class MaquinaDeEstados
     public void recebeSegmentoTCP (PacoteTCP _pacoteTCP) throws Exception
     {
         this.pacoteRecebido = _pacoteTCP;
+
+        System.out.println ("recebeSegmentoTCP: " + TCP.nomeSegmento(this.pacoteRecebido.getControle()));
 
         byte novaPrimitiva = TCP.P_NENHUMA;
         byte novoSegmento = TCP.S_NENHUM;
@@ -386,7 +391,7 @@ public class MaquinaDeEstados
                         this.setIpSimuladoDestino (ip_origem);
                         this.setPortaDestino (porta_origem);                        break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.SYNRCVD:
@@ -404,7 +409,7 @@ public class MaquinaDeEstados
                         proximoEstado = TCP.LISTEN;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.SYNSENT:
@@ -424,7 +429,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.ESTABLISHED:
@@ -443,7 +448,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.CLOSEWAIT:
@@ -458,7 +463,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.FINWAIT1:
@@ -476,7 +481,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.FINWAIT2:
@@ -491,7 +496,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.CLOSING:
@@ -509,7 +514,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.LASTACK:
@@ -528,7 +533,7 @@ public class MaquinaDeEstados
                         novaPrimitiva = TCP.P_ERROR;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             case TCP.TIMEWAIT:
@@ -539,13 +544,13 @@ public class MaquinaDeEstados
                         novoSegmento = TCP.S_ACK;
                         break;
                     default:
-                        throw new Exception ();
+                        throw new SegmentoInvalidoException ();
                 }
                 break;
             default:
-                throw new Exception ();
+                throw new SegmentoInvalidoException ();
         }
-
+        
         String seta;
         String func = TCP.nomeSegmento (this.pacoteRecebido.getControle ()) + "("
                       + this.pacoteRecebido.getNumSequencia () + ","
@@ -573,17 +578,11 @@ public class MaquinaDeEstados
             this.meFrame.atualizaDadosEstado (TCP.nomeEstado[this.estadoMEConAtual],
                     TCP.nomePrimitiva[TCP.P_NENHUMA], seta, func);
         }
-        
-        // atualiza exibição do próximo estado e nova primitiva
-        func = TCP.nomeSegmento (TCP.S_NENHUM);
-        if (novaPrimitiva == TCP.P_NENHUMA)
-            seta = "";
-        else
-            seta = TCP.SETA_ENVIA_PRIM;
-        this.meFrame.atualizaDadosEstado (TCP.nomeEstado[proximoEstado],
-                TCP.nomePrimitiva[novaPrimitiva], seta, func);
 
         this.estadoMEConAtual = proximoEstado;
+        
+        String args[] = {""};
+        enviaPrimitiva(novaPrimitiva, args);         
 
         this.meFrame.atualizaInfoConexao (this.getEstadoMEConAtual (), this
                 .getIpSimuladoLocalBytePonto (),
@@ -611,12 +610,8 @@ public class MaquinaDeEstados
             enviaSegmentoTCP (this.pacoteDeEnvio);
         }
 
-        if (novaPrimitiva != TCP.P_NENHUMA)
-        {
-            String args[] = {""};
-            enviaPrimitiva (novaPrimitiva, args);
-        }
-
+        
+        System.out.println("recebeSegmentoTCP: fim");
     } // recebeSegmentoTCP
     
     /** 
@@ -628,6 +623,9 @@ public class MaquinaDeEstados
      */
     public void enviaSegmentoTCP (PacoteTCP _pacoteTCP) throws Exception
     {
+        if (_pacoteTCP.getControle() == TCP.S_NENHUM)
+            return;
+        
         this.pacoteDeEnvio = _pacoteTCP;
         this.pacoteDeEnvio.geraOpcoes ();
 
@@ -645,6 +643,7 @@ public class MaquinaDeEstados
                 this.pacoteDeEnvio.toString (), this.pacoteDeEnvio.toString ().length (),
                 porta);
 
+        System.out.println("enviaSegmentoTCP: fim");
     }
     
     /** Método acessador para o atributo monitor.
