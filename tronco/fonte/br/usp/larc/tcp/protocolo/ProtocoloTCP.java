@@ -79,8 +79,7 @@ public class ProtocoloTCP implements TCPIF {
                     this.inicializaTcp();
                     break;
                 } catch(Exception e) {
-                    System.out.println("ProtocoloTCP: Erro " +
-                        "recebePrimitivaAplicacao(P_TCP_OPEN)");
+                    System.err.println("recebePrimitivaAplicacao: P_TCP_OPEN");
                     throw new Exception("Erro no recebimento de primitiva: " + 
                     		_primitiva + "\n" + e.getMessage());
                 }
@@ -89,8 +88,7 @@ public class ProtocoloTCP implements TCPIF {
                     this.finalizaTCP();
                     break;
                 } catch(Exception e) {
-                    System.out.println("ProtocoloTCP: Erro " +
-                        "recebePrimitivaAplicacao(P_TCP_CLOSE_ME)");
+                    System.err.println("recebePrimitivaAplicacao: P_TCP_CLOSE_ME");
                     throw new Exception("Erro no recebimento de primitiva: " + 
                         _primitiva + "\n" + e.getMessage());
                 }
@@ -100,8 +98,7 @@ public class ProtocoloTCP implements TCPIF {
                     this.criaMaquinaEstado(portaME);
                     break;
                 } catch(Exception e) {
-                    System.out.println("ProtocoloTCP: Erro " +
-                        "recebePrimitivaAplicacao(P_TCP_OPEN_ME)");
+                    System.err.println("recebePrimitivaAplicacao: P_TCP_OPEN_ME");
                     throw new Exception("Erro no recebimento de primitiva: " + 
                         _primitiva + "\n" + e.getMessage());
                 }
@@ -137,14 +134,14 @@ public class ProtocoloTCP implements TCPIF {
     	{
     		try
 			{
-    			System.out.println("Iniciando Protocolo TCP...");
+    			System.out.println("inicializaTcp: iniciando");
     			this.inicializaIpSimulada(ProtocoloTCP.BUFFER_DEFAULT_IP_SIMULADA);
     			String ipBytePonto = this.camadaIpSimulada.descobreCanalIPSimulado();
     			
     			this.monitor.setIpSimuladoLocal(Decoder.bytePontoToIpSimulado(ipBytePonto));
     			this.camadaIPSimuladaAberta = true;
-    			System.out.println("Iniciado:");
-    			System.out.println("\tIP Simulado do MONITOR  : " + ipBytePonto);
+    			System.out.println("inicializaTcp: iniciado");
+    			System.out.println("inicializaTcp: IP Simulado do MONITOR  : " + ipBytePonto);
     			this.monitor.monitoraCamadaIP();
     		} catch (Exception e)
 			{
@@ -272,7 +269,7 @@ public class ProtocoloTCP implements TCPIF {
     public void reinicializaTcp() 
     throws Exception 
 	{
-        System.out.println("Reiniciando Protocolo TCP...");
+        System.out.println("reinicializaTcp: ...");
         //implemente aqui o método que reinicializa o Protocolo TCP.
     }
     
@@ -291,7 +288,7 @@ public class ProtocoloTCP implements TCPIF {
 		} 
     	catch (Exception e) 
 		{
-    		System.out.println("ProtocoloTCP.inicializaIpSimulada(): "  +
+    		System.out.println("ProtocoloTCP.inicializaIpSimulada: "  +
     				e.getMessage());
     		throw e;
 		}
@@ -394,7 +391,7 @@ public class ProtocoloTCP implements TCPIF {
     public static void main(String args[]) {
     	// Cria uma instância do simulador TCP
         ProtocoloTCP protocoloTCP = new ProtocoloTCP();
-        System.out.println("Iniciando Projeto...");
+        System.out.println("ProtocoloTCP.main: Iniciando projeto");
     }
 
 }//fim da classe ProtocoloTCP

@@ -131,6 +131,8 @@ public class MaquinaDeEstados
      */
     public void recebePrimitiva (byte _primitiva, String args[]) throws Exception
     {
+    	System.out.println("recebePrimitiva: início");
+    	
         // atualiza exibição do estado atual com a primitiva recebida
         this.meFrame.atualizaDadosEstado (TCPIF.nomeEstado[this.estadoMEConAtual],
                 TCPIF.nomePrimitiva[_primitiva], "->|", "");
@@ -273,6 +275,8 @@ public class MaquinaDeEstados
     	
     	if (novoSegmento != TCPIF.S_NENHUM)
     	{
+        	System.out.println("recebePrimitiva: novo segmento");
+        	
     		this.pacoteDeEnvio = new PacoteTCP (
     				this.getIpSimuladoLocalBytePonto(),
 					this.getIpSimuladoDestinoBytePonto(),
@@ -291,15 +295,19 @@ public class MaquinaDeEstados
     		this.setTempoTimeout  (Integer.parseInt(args[3]));
     		this.setTamanhoJanela (Integer.parseInt(args[4]));
     		
+        	System.out.println("recebePrimitiva: envia segmento");
     		enviaSegmentoTCP(this.pacoteDeEnvio);
     	}
         
     	if (novaPrimitiva != TCPIF.P_NENHUM)
     	{
+        	System.out.println("recebePrimitiva: nova primitiva");
+        	
     		enviaPrimitiva(novaPrimitiva, args);
     	}
 
-	}
+    	System.out.println("recebePrimitiva: fim");
+	} // recebePrimitiva
     
     /** 
      * Método que envia primitivas
@@ -576,6 +584,7 @@ public class MaquinaDeEstados
     public void enviaSegmentoTCP(PacoteTCP _pacoteTCP)
     throws Exception
 	{
+    	System.out.println("enviaSegmentoTCP: início");
         _pacoteTCP.geraOpcoes();
         
         String func = ProtocoloTCP.nomeSegmento(_pacoteTCP) + "(" + 
@@ -584,19 +593,24 @@ public class MaquinaDeEstados
         	_pacoteTCP.getNumAck() + "," +
         	this.getTamanhoJanela() + ")";
         
+    	System.out.println("enviaSegmentoTCP: pega ip e porta");
         String ip = IpSimulada.descobreNomeIPSimulado(_pacoteTCP.getIpSimuladoRemoto());
         int porta = Integer.parseInt(IpSimulada.descobrePortaIPSimulado(_pacoteTCP.getIpSimuladoRemoto()));
     	
+    	System.out.println("enviaSegmentoTCP: envia segmento à camada IP");
         // Envia segmento à camada IP simulada
     	this.monitor.getProtocoloTCP().getCamadaIpSimulada().transmite(
     			ip, _pacoteTCP.toString(), _pacoteTCP.toString().length(), porta);
 
+    	System.out.println("enviaSegmentoTCP: atualiza mostrador");
     	// Atualiza mostrador de estados
     	this.meFrame.atualizaDadosEstado(
     			TCPIF.nomeEstado[this.estadoMEConAtual],
     			TCPIF.nomePrimitiva[TCPIF.P_NENHUM],
     			"  |->",
 				func);
+    	
+    	System.out.println("enviaSegmentoTCP: fim");
 	}
     
     /** Método acessador para o atributo monitor.

@@ -134,7 +134,9 @@ public class IpSimulada implements IpSimuladaIF {
                 throw new BufferOverflowException("IpSimulada.setTamanhoBufferTx(): " +
                     "Erro: Estouro de tamanho máximo(8192) do Buffer");
             } else {
+            	System.out.println("setTamanhoBufferTx: antes");
                 this.socket.setSendBufferSize(_tamanhoBufferCanal);
+            	System.out.println("setTamanhoBufferTx: depois");
             }
         } catch (SocketException ex) {
             throw new br.usp.larc.tcp.excecoes.CanalInexistenteException("IpSimulada.setTamanhoBufferTx(): " + 
@@ -247,10 +249,15 @@ public class IpSimulada implements IpSimuladaIF {
      */
     public void transmite(String _ipMaquinaDestino, String _bufferSaida, int _tamanhoBuffer, int _porta) throws CanalInexistenteException {
         try{
+            System.out.println("IPSimulada.transmite(): início");
             this.setTamanhoBufferTx(_tamanhoBuffer); 
+            System.out.println("IPSimulada.transmite(): converte");
             byte[] data = _bufferSaida.getBytes("ISO-8859-1");
+            System.out.println("IPSimulada.transmite(): cria datagrama");
             DatagramPacket theOutput = new DatagramPacket(data, data.length, InetAddress.getByName(_ipMaquinaDestino), _porta);
+            System.out.println("IPSimulada.transmite(): envia");
             socket.send(theOutput);
+            System.out.println("IPSimulada.transmite() fim");
         } catch (IOException ex) {
             throw new br.usp.larc.tcp.excecoes.CanalInexistenteException("IPSimulada.transmite(): Erro de I/O:"
                 + ex.getMessage());
