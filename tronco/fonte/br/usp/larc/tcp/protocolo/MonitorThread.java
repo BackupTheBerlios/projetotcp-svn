@@ -61,8 +61,6 @@ public class MonitorThread extends Thread {
     public void run()
     {
         String bufferEntrada = null;
-        // indica se o buffer recebeu algo
-        boolean bufferReceived = false;
 
         while(isRunning)
         {
@@ -71,18 +69,13 @@ public class MonitorThread extends Thread {
                 //verifica se tem dados no buffer de entrada,
                 //se não tiver, gera exceção
                 bufferEntrada = camadaIPSimulada.recebe(ProtocoloTCP.BUFFER_DEFAULT_IP_SIMULADA);
-                bufferReceived = true;
+                
+                //recebe dados e entrega para o monitor analisar
+                monitor.analisaDados(bufferEntrada);
             }
             catch(Exception e)
 			{
                 // Nada recebido
-                //System.out.println(e.getMessage());
-            }
-            
-            if(bufferReceived)
-            {
-                //recebe dados e entrega para o monitor analisar
-                monitor.analisaDados(bufferEntrada);
             }
         }
     }
