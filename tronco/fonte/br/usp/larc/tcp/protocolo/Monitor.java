@@ -3,8 +3,8 @@ package br.usp.larc.tcp.protocolo;
 /**
  * @(#)Monitor.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 Laborat√≥rio de Arquitetura e Redes de Computadores
- * Escola Polit√©cnica da Universidade de S√£o Paulo.
+ * Copyleft (L) 2004 LaboratÛrio de Arquitetura e Redes de Computadores
+ * Escola PolitÈcnica da Universidade de S„o Paulo.
  *
  */
 
@@ -15,19 +15,19 @@ import java.util.Iterator;
 
 /**
  * Classe que representa o monitor do seu protocolo. Detalhes e dicas de
- * implementa√ß√£o podem ser consultadas nas Apostilas.
+ * implementaÁ„o podem ser consultadas nas Apostilas.
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a
- * criatividade na implementa√ß√£o do seu projeto.
+ * criatividade na implementaÁ„o do seu projeto.
  *
  *
- * @author	Laborat√≥rio de Arquitetura e Redes de Computadores
+ * @author	LaboratÛrio de Arquitetura e Redes de Computadores
  * @version	1.0 Agosto 2003
  */
 public class Monitor {
 
     /**
-     * O Protocolo TCP que o monitor est√° vinculado
+     * O Protocolo TCP que o monitor est· vinculado
      */
     private ProtocoloTCP protocoloTCP;
 
@@ -43,7 +43,7 @@ public class Monitor {
     private MonitorThread monitorThread;
 
     /**
-     * Cole√ß√£o com objetos MaquinaDeEstados
+     * ColeÁ„o com objetos MaquinaDeEstados
      */
     private MaquinasDeEstados maquinasDeEstados;
 
@@ -58,7 +58,7 @@ public class Monitor {
     private String ipSimuladoLocal;
 
     /**
-     * Atributo que representa o contador de Id de Conex√µes
+     * Atributo que representa o contador de Id de Conexıes
      */
     private int countIdConexao;
 
@@ -74,15 +74,15 @@ public class Monitor {
         this.tabelaDeConexoes = new TabelaDeConexoes();
         this.maquinasDeEstados = new MaquinasDeEstados();
 
-        //inicia o contador de id de conex√£o em 0 (zero)
+        //inicia o contador de id de conex„o em 0 (zero)
         this.countIdConexao = 0;
     }
 
     /**
-    * M√©todo utilizado para entregar o pr√≥ximo id do contador para cada 
-conex√£o.
+    * MÈtodo utilizado para entregar o prÛximo id do contador para cada 
+conex„o.
     *
-    * @return O id da pr√≥xima Conex√£o
+    * @return O id da prÛxima Conex„o
     */
     public synchronized int getNextID() 
     {
@@ -90,9 +90,9 @@ conex√£o.
     }
 
     /**
-     * M√©todo que procura uma maquina de estados dado a porta local associada
-     * a essa m√°quina de estados e retorna uma refer√™ncia para a m√°quina de
-     * estados encontrada. Caso n√£o encontre a m√°quina, retorna null.
+     * MÈtodo que procura uma maquina de estados dado a porta local associada
+     * a essa m·quina de estados e retorna uma referÍncia para a m·quina de
+     * estados encontrada. Caso n„o encontre a m·quina, retorna null.
      *
      * @param  porta  porta local da maquina de estados
      * @return MaquinaDeEstados associada a porta local dada
@@ -111,37 +111,37 @@ conex√£o.
     }
 
     /**
-     * Cria uma m√°quina de estados com a porta passada como par√¢metro (uma
-     * porta TCP local). Retorna false se j√° existir uma m√°quina de estados j√°
-     * associada √†quela porta.
+     * Cria uma m·quina de estados com a porta passada como par‚metro (uma
+     * porta TCP local). Retorna false se j· existir uma m·quina de estados j·
+     * associada ‡quela porta.
      *
-     * @param _portaTCP a porta que ser√° atribuida a nova M√°quina de Estados
+     * @param _portaTCP a porta que ser· atribuida a nova M·quina de Estados
      */
     public boolean criaMaquinaDeEstados(int _portaTCP)
     {
-        //verifica se j√° existe uma m√°quina de estados associada √†quela porta
-        if (this.findMEPorPortaLocal(_portaTCP) == null)
+        //verifica se j· existe uma m·quina de estados associada ‡quela porta
+        if (findMEPorPortaLocal(_portaTCP) == null)
         {
 
-            //sincroniza esse trecho do c√≥digo para evitar inconsist√™ncia na
-            //ordem de inser√ß√£o da cole√ßao de m√°quinas de estados e da tabela
-            //de conex√µes.
+            //sincroniza esse trecho do cÛdigo para evitar inconsistÍncia na
+            //ordem de inserÁ„o da coleÁao de m·quinas de estados e da tabela
+            //de conexıes.
             synchronized (this)
             {
                 int countIdConexao = this.getNextID();
 
-                //cria o objeto com a nova m√°quina de estados associando a porta
-                // passada como par√¢metro e o id da conex√£o
+                //cria o objeto com a nova m·quina de estados associando a porta
+                // passada como par‚metro e o id da conex„o
                 MaquinaDeEstados maquinaME = new MaquinaDeEstados(this, _portaTCP, countIdConexao);
                 this.adicionaMaquina(Integer.toString(countIdConexao), maquinaME);
 
-                //cria uma nova conex√£o
+                //cria uma nova conex„o
                 ConexaoTCP conexao = new ConexaoTCP();
                 conexao.setIpSimuladoLocal(this.ipSimuladoLocal);
                 conexao.setPortaLocal(Integer.toString(_portaTCP));
                 conexao.setIdConexao(countIdConexao);
 
-                //adiciona a nova conex√£o na Tabela de Conex√µes do Monitor
+                //adiciona a nova conex„o na Tabela de Conexıes do Monitor
                 this.abreConexao(conexao);
             }
             return true;
@@ -150,37 +150,37 @@ conex√£o.
     }
 
     /**
-     * Fecha uma m√°quina de estados com o id passado como par√¢metro
+     * Fecha uma m·quina de estados com o id passado como par‚metro
      *
-     * @param _id O id da M√°quina de Estados que ser√° fechada
+     * @param _id O id da M·quina de Estados que ser· fechada
      */
     public boolean fechaMaquinaDeEstados(int _idConexao)
     {
     	MaquinaDeEstados maquina = null;
     	
-    	//faz uma varredura na cole√ß√£o de chaves da cole√ß√£o de m√°quina
+    	//faz uma varredura na coleÁ„o de chaves da coleÁ„o de m·quina
     	//de estados
     	Iterator i = this.maquinasDeEstados.maquinasKeySet(); 
     	while (i.hasNext())
     	{
     		
-    		//pega chave por chave da cole√ß√£o de m√°quina de estados
+    		//pega chave por chave da coleÁ„o de m·quina de estados
     		int chaveIdConexao = Integer.parseInt((String) (i.next()));
     		
-    		//verifica se chave recuperada da cole√ß√£o √© igual a chave
-    		//passada como par√¢metro
+    		//verifica se chave recuperada da coleÁ„o È igual a chave
+    		//passada como par‚metro
     		if (chaveIdConexao == _idConexao) 
     		{
-    			//recupera a refer√™ncia da m√°quina de estados
-    			//com o id da conex√£o passada como par√¢metro
+    			//recupera a referÍncia da m·quina de estados
+    			//com o id da conex„o passada como par‚metro
     			maquina = this.maquinasDeEstados.get(_idConexao);
     			break;
     		}
     	}
 
-    	//se a refer√™ncia recuperada n√£o for nula a apaga a m√°quina da
-    	//cole√ß√£o de m√°quinas de estados do monitor e tamb√©m a conex√£o
-    	//com aquele id da Tabela de Conex√µes do Monitor
+    	//se a referÍncia recuperada n„o for nula a apaga a m·quina da
+    	//coleÁ„o de m·quinas de estados do monitor e tambÈm a conex„o
+    	//com aquele id da Tabela de Conexıes do Monitor
     	if (maquina != null)
     	{
     		this.fechaMaquina(_idConexao);
@@ -192,9 +192,9 @@ conex√£o.
     }
 
     /**
-     * Finaliza o frame da m√°quina de estados passada com par√¢metro
+     * Finaliza o frame da m·quina de estados passada com par‚metro
      *
-     * @param _id O id da M√°quina de Estados que ser√° fechada
+     * @param _id O id da M·quina de Estados que ser· fechada
      */
     public void fechaMaquinaDeEstadosFrame(MaquinaDeEstados _maquina)
     {
@@ -222,7 +222,7 @@ conex√£o.
      */
     public void reinicia()
     {
-        //implemente aqui o m√©todo que reinicia o monitor ao seu estado inicial
+        //implemente aqui o mÈtodo que reinicia o monitor ao seu estado inicial
 
         try
 		{
@@ -241,7 +241,7 @@ conex√£o.
         	//remove as conexoes
         	
         	tabelaDeConexoes.remove(((ConexaoTCP)iteratorTabela.next()).getIdConexao());
-        	//imprime todos ID's das conex√µes que est√£o na tabela
+        	//imprime todos ID's das conexıes que est„o na tabela
         	
         	System.out.println(((ConexaoTCP)iteratorTabela.next()).getIdConexao());
         }
@@ -254,11 +254,11 @@ conex√£o.
         	//remove as maquinas
         	
         	maquinasDeEstados.remove(((MaquinaDeEstados)iteratorMaquinas.next()).getIdConexao());
-        	//imprime todos ID's das conex√µes que est√£o na tabela
+        	//imprime todos ID's das conexıes que est„o na tabela
         	
         	System.out.println(((MaquinaDeEstados)iteratorMaquinas.next()).getIdConexao());
         }
-        //reinicia o contador de id de conex√£o em 0 (zero)
+        //reinicia o contador de id de conex„o em 0 (zero)
         //this.countIdConexao = 0;
     }
     
@@ -280,55 +280,74 @@ conex√£o.
     }
 
     /**
-     * Analiza dados recebidos da camada IP simulada e faz an√°lise
+     * Analiza dados recebidos da camada IP simulada e faz an·lise
      */
     public void analisaDados(String _bufferEntrada)
     {
     	//implemente aqui o tratamento dos segmentos que chegam.
-    	Iterator iteratorTabela = (Iterator) tabelaDeConexoes.conexoes();
-    	Iterator iteratorMaquina = (Iterator) maquinasDeEstados.maquinas();
+    	Iterator conexoes = tabelaDeConexoes.conexoes();
+    	Iterator maquinas = maquinasDeEstados.maquinas();
     	
     	PacoteTCP pacote = new PacoteTCP(_bufferEntrada);
-		String ip = Decoder.bytePontoToIpSimulado(pacote.getIpSimuladoRemoto());
-		String porta = Integer.toString (pacote.getPortaRemota());
     	ConexaoTCP conexao;
-    	
-    	while (iteratorTabela.hasNext())
+
+		String ip_destino 		= Decoder.bytePontoToIpSimulado(pacote.getIpSimuladoRemoto());
+		String porta_destino	= Integer.toString (pacote.getPortaRemota());
+		String ip_origem 		= Decoder.bytePontoToIpSimulado(pacote.getIpSimuladoLocal());
+		String porta_origem 	= Integer.toString (pacote.getPortaLocal());
+
+    	while (conexoes.hasNext())
     	{
-    		conexao = (ConexaoTCP) iteratorTabela.next();
-    		if (ip.equals(conexao.getIpSimuladoLocal()) &&
-    				porta.equals(conexao.getPortaLocal()) )
+    		conexao = (ConexaoTCP) conexoes.next();
+    		
+    		// Se destino do pacote = endereÁo local da tabela
+    		if (conexao.getIpSimuladoLocal().equals(ip_destino) &&
+    				conexao.getPortaLocal().equals(porta_destino))
     		{
-    			int id = conexao.getIdConexao();
-    			MaquinaDeEstados maquina ;
+    			// Se endereÁo remoto da tabela for nulo, preenche com endereÁo
+    			// de origem do pacote (primeiro pacote recebido de uma ME em Listen)
+    			if (conexao.getIpSimuladoRemoto().equals("null"))
+    				conexao.setIpSimuladoRemoto(ip_origem);
+    			if (conexao.getPortaRemota().equals ("null"))
+    				conexao.setPortaRemota(porta_origem);
     			
-    			while (iteratorMaquina.hasNext())
+    			// Se origem do pacote = endereÁo remoto da tabela
+    			if (conexao.getIpSimuladoRemoto().equals(ip_origem) &&
+    					conexao.getPortaRemota().equals(porta_origem))
     			{
-    				maquina = (MaquinaDeEstados) iteratorMaquina.next();
-    				if (id == maquina.getIdConexao())
+    				int id = conexao.getIdConexao();
+    				MaquinaDeEstados maquina ;
+    				
+    				// Procura ME da conex„o encontrada
+    				while (maquinas.hasNext())
     				{
-    					try
-						{
-    						maquina.recebeSegmentoTCP(pacote);
-    						System.out.println( "Monitor.analisaDados: Recebeu Segmento");
-    						return;
-						}
-    					catch ( Exception e )
-						{
-    						System.out.println("Monitor.analisaDados erro:" + e.getMessage());
-						}
-    				}
-    			}
-    		}
+    					maquina = (MaquinaDeEstados) maquinas.next();
+    					if (id == maquina.getIdConexao())
+    					{
+    						try
+							{
+    							maquina.recebeSegmentoTCP(pacote);
+    							System.out.println( "Monitor.analisaDados: Recebeu Segmento");
+    							return;
+							}
+    						catch ( Exception e )
+							{
+    							System.err.println("Monitor.analisaDados erro:" + e.getMessage());
+							}
+    					}
+    				} // while (maquinas.hasNext())
+    		    	System.out.println( "Monitor.analizaDados: ME n„o encontrada");
+    			} // se origem do pacote = end. remoto da tabela
+    		} // se destino do pacote = end. local da tabela
     	}
     	System.out.println( "Monitor.analizaDados: Descartou Segmento");
     }
 
     /**
-     * M√©todo que coloca uma nova Maquina na tabela de MaquinasDeEstados
+     * MÈtodo que coloca uma nova Maquina na tabela de MaquinasDeEstados
      *
-     * @param _idConexao        O Id da conexao da m√°quina a ser registrada
-     * @param _maquinaDeEstados Nova m√°quina a ser registrada
+     * @param _idConexao        O Id da conexao da m·quina a ser registrada
+     * @param _maquinaDeEstados Nova m·quina a ser registrada
      */
     public void adicionaMaquina(String _idConexao,
         MaquinaDeEstados _maquinaDeEstados) {
@@ -341,10 +360,10 @@ conex√£o.
     }
 
     /**
-     * M√©todo que fecha uma m√°quina de estados, dada a porta da conex√£o
+     * MÈtodo que fecha uma m·quina de estados, dada a porta da conex„o
      *
-     * @param _idConexao id da M√°quina de Estado a ser exclu√≠da
-     * @exception Exception exce√ß√£o jogada se a m√°quina n√£o existe
+     * @param _idConexao id da M·quina de Estado a ser excluÌda
+     * @exception Exception exceÁ„o jogada se a m·quina n„o existe
      */
     public void fechaMaquina(int _idConexao) {
         try {
@@ -356,9 +375,9 @@ conex√£o.
     }
 
     /**
-     * M√©todo que coloca uma nova conexaoTCP na tabela de conex√µes
+     * MÈtodo que coloca uma nova conexaoTCP na tabela de conexıes
      *
-     * @param conexaoTCP Nova conex√£o a ser registrada
+     * @param conexaoTCP Nova conex„o a ser registrada
      */
     public void abreConexao(ConexaoTCP _conexaoTCP) {
         try {
@@ -370,10 +389,10 @@ conex√£o.
     }
 
     /**
-     * M√©todo que fecha uma conex√£o TCP, dado o id da conex√£o
+     * MÈtodo que fecha uma conex„o TCP, dado o id da conex„o
      *
      * @param idConexaoTCP id da conexaoTCP a ser fechada
-     * @exception Exception exce√ß√£o jogada se a conex√£o n√£o existe
+     * @exception Exception exceÁ„o jogada se a conex„o n„o existe
      */
     public void fechaConexao(int _idConexaoTCP) {
         try {
@@ -384,15 +403,15 @@ conex√£o.
         }
     }
 
-    /** M√©todo acessador para o atributo protocoloTCP.
-     * @return A refer√™ncia para o atributo protocoloTCP.
+    /** MÈtodo acessador para o atributo protocoloTCP.
+     * @return A referÍncia para o atributo protocoloTCP.
      *
      */
     public ProtocoloTCP getProtocoloTCP() {
         return protocoloTCP;
     }
 
-    /** M√©todo modificador para o atributo protocoloTCP.
+    /** MÈtodo modificador para o atributo protocoloTCP.
      * @param protocoloTCP Novo valor para o atributo protocoloTCP.
      *
      */
@@ -400,15 +419,15 @@ conex√£o.
         this.protocoloTCP = _protocoloTCP;
     }
 
-    /** M√©todo acessador para o atributo ipSimuladoLocal.
-     * @return A refer√™ncia para o atributo ipSimuladoLocal.
+    /** MÈtodo acessador para o atributo ipSimuladoLocal.
+     * @return A referÍncia para o atributo ipSimuladoLocal.
      *
      */
     public String getIpSimuladoLocal() {
         return ipSimuladoLocal;
     }
 
-    /** M√©todo modificador para o atributo ipSimuladoLocal.
+    /** MÈtodo modificador para o atributo ipSimuladoLocal.
      * @param ipSimuladoLocal Novo valor para o atributo ipSimuladoLocal.
      *
      */
@@ -416,15 +435,15 @@ conex√£o.
         this.ipSimuladoLocal = _ipSimuladoLocal;
     }
 
-    /** M√©todo acessador para o atributo maquinasDeEstados.
-     * @return A refer√™ncia para o atributo maquinasDeEstados.
+    /** MÈtodo acessador para o atributo maquinasDeEstados.
+     * @return A referÍncia para o atributo maquinasDeEstados.
      *
      */
     public MaquinasDeEstados getMaquinasDeEstados() {
         return maquinasDeEstados;
     }
 
-    /** M√©todo modificador para o atributo maquinasDeEstados.
+    /** MÈtodo modificador para o atributo maquinasDeEstados.
      * @param maquinasDeEstados Novo valor para o atributo maquinasDeEstados.
      *
      */
@@ -432,15 +451,15 @@ conex√£o.
         this.maquinasDeEstados = _maquinasDeEstados;
     }
 
-    /** M√©todo acessador para o atributo tabelaDeConexoes.
-     * @return A refer√™ncia para o atributo tabelaDeConexoes.
+    /** MÈtodo acessador para o atributo tabelaDeConexoes.
+     * @return A referÍncia para o atributo tabelaDeConexoes.
      *
      */
     public TabelaDeConexoes getTabelaDeConexoes() {
         return tabelaDeConexoes;
     }
 
-    /** M√©todo modificador para o atributo tabelaDeConexoes.
+    /** MÈtodo modificador para o atributo tabelaDeConexoes.
      * @param tabelaDeConexoes Novo valor para o atributo tabelaDeConexoes.
      *
      */

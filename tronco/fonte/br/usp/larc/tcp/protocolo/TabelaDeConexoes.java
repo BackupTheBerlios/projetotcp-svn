@@ -3,8 +3,8 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)TabelaDeConexoes.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 Laborat√≥rio de Arquitetura e Redes de Computadores
- * Escola Polit√©cnica da Universidade de S√£o Paulo
+ * Copyleft (L) 2004 LaboratÛrio de Arquitetura e Redes de Computadores
+ * Escola PolitÈcnica da Universidade de S„o Paulo
  *
  */
 
@@ -14,21 +14,21 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 /** 
- * Classe que representa a Tabela de Conex√£o que vai ajudar o objeto Monitor no 
- * chaveamento de pacotes para as m√°quinas de estados correspondentes.
+ * Classe que representa a Tabela de Conex„o que vai ajudar o objeto Monitor no 
+ * chaveamento de pacotes para as m·quinas de estados correspondentes.
  * 
  * Note que essa classe estende a classe java.util.Hashtable (ela herda todos
- * os atributos e m√©todos) e sobrecarrega/sobrep√µe alguns m√©todos da mesma. 
+ * os atributos e mÈtodos) e sobrecarrega/sobrepıe alguns mÈtodos da mesma. 
  * Estamos usando o conceito de Polimorfismo.
  *
- * Detalhes e dicas de implementa√ß√£o dessa classe podem ser consultadas na API
+ * Detalhes e dicas de implementaÁ„o dessa classe podem ser consultadas na API
  * da classe java.util.Hashtable.
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a 
- * criatividade na implementa√ß√£o do seu projeto.
+ * criatividade na implementaÁ„o do seu projeto.
  *  
  *
- * @author	Laborat√≥rio de Arquitetura e Redes de Computadores
+ * @author	LaboratÛrio de Arquitetura e Redes de Computadores
  * @version	1.0 Agosto 2003
  */
 public class TabelaDeConexoes extends Hashtable
@@ -40,53 +40,53 @@ public class TabelaDeConexoes extends Hashtable
     }
     
     /**
-     * M√©todo que adiciona na tabela uma conex√£o. No caso de adi√ß√£o de conex√µes
-     * com o mesmo ID, o m√©todo sobrep√µe os objetos e permanece na tabela a
-     * √∫ltima conex√£o inserida.
+     * MÈtodo que adiciona na tabela uma conex„o. No caso de adiÁ„o de conexıes
+     * com o mesmo ID, o mÈtodo sobrepıe os objetos e permanece na tabela a
+     * ˙ltima conex„o inserida.
      *
-     * @param aConexaoTCP O objeto conex√£o que ser√° inserido
+     * @param aConexaoTCP O objeto conex„o que ser· inserido
      */    
     public void put(ConexaoTCP _conexaoTCP) {
         super.put(Integer.toString(_conexaoTCP.getIdConexao()),  _conexaoTCP);
     }
     
     /**
-     * M√©todo que retorna uma conex√£o da tabela com o ID (de conex√£o) passado, 
-     * caso n√£o encontre o ID na tabela, retorna null.
+     * MÈtodo que retorna uma conex„o da tabela com o ID (de conex„o) passado, 
+     * caso n„o encontre o ID na tabela, retorna null.
      *
-     * @param idConexao O ID da conex√£o que voc√™ quer obter, nulo se n√£o existir
-     * a conex√£o com o ID passado
-     * @return ConexaoTCP A conex√£o desejada
+     * @param idConexao O ID da conex„o que vocÍ quer obter, nulo se n„o existir
+     * a conex„o com o ID passado
+     * @return ConexaoTCP A conex„o desejada
      */    
     public ConexaoTCP get(int _idConexao) {
         return (ConexaoTCP) super.get(Integer.toString(_idConexao));
     }
     
     /**
-     * M√©todo que remove uma conex√£o da tabela com o ID (de conex√£o) passado, 
-     * caso n√£o encontre o ID na tabela, gera exce√ß√£o.     
+     * MÈtodo que remove uma conex„o da tabela com o ID (de conex„o) passado, 
+     * caso n„o encontre o ID na tabela, gera exceÁ„o.     
      * 
-     * @param idConexao o ID da conex√£o que se quer remover da tabela
-     * @throws NullPointerException Caso n√£o encontre o objeto com o ID passado
+     * @param idConexao o ID da conex„o que se quer remover da tabela
+     * @throws NullPointerException Caso n„o encontre o objeto com o ID passado
      */    
     public void remove(int _idConexao) throws NullPointerException {
         if (super.remove((Integer.toString(_idConexao))) == null) {
-                throw new NullPointerException("Elemento n√£o encontrado");
+                throw new NullPointerException("Elemento n„o encontrado");
         }
     }
             
     /**
-     * M√©todo que retorna o tamanho atual da tabela de conex√µes baseado no 
-     * n√∫mero de conex√µes inseridas.
+     * MÈtodo que retorna o tamanho atual da tabela de conexıes baseado no 
+     * n˙mero de conexıes inseridas.
      * 
-     * @return int O tamanho da tabela de conex√µes
+     * @return int O tamanho da tabela de conexıes
      */    
     public int size() {
         return super.size();
     }
     
     /**
-     *  M√©todo que retorna um iterador com todos os objetos Conex√£o da tabela
+     *  MÈtodo que retorna um iterador com todos os objetos Conex„o da tabela
      *
      *  Exemplo:
      *  
@@ -97,18 +97,18 @@ public class TabelaDeConexoes extends Hashtable
      * 
      *  //percorre todo o iterador
      *  while (iteratorTabela.hasNext()) {
-     *      //imprime todos ID's das conex√µes que est√£o na tabela
+     *      //imprime todos ID's das conexıes que est„o na tabela
      *      System.out.println(((ConexaoTCP)iteratorTabela.next()).getIdConexao());
      *  }
      *   
-     * @return Iterator O iterador com os objetos Conex√£o da tabela
+     * @return Iterator O iterador com os objetos Conex„o da tabela
      */    
     public Iterator conexoes() {
         return (Iterator) (super.values()).iterator();
     }
     
     /**
-     * M√©todo que retorna um iterador com as chaves dos objetos ConexaoTCP
+     * MÈtodo que retorna um iterador com as chaves dos objetos ConexaoTCP
      * da HashTable
      *
      *   
@@ -119,9 +119,9 @@ public class TabelaDeConexoes extends Hashtable
     }
     
     /**
-     * M√©todo para visualizar a tabela de conex√µes
+     * MÈtodo para visualizar a tabela de conexıes
      * 
-     * Imprime linha por linha o conte√∫do da tabela de conex√£o com a seguinte
+     * Imprime linha por linha o conte˙do da tabela de conex„o com a seguinte
      * sintaxe:
      * 
      * ID: NumId [ IPSimuladoLocal : PortaTCP] [ IPSimuladoRemoto : PortaTCP]
@@ -129,7 +129,7 @@ public class TabelaDeConexoes extends Hashtable
      * ID: 1 [ 143.107.111.087:4593 : 1024 ] [ 143.107.111.087:4593 : 1025 ]
      * ID: 2 [ 143.107.111.087:4593 : 1026 ] [ 143.107.111.087:4593 : 1027 ]
      *
-     * @return String O String com cada da tabela de conex√£o
+     * @return String O String com cada da tabela de conex„o
      */
     public String toString()
     {
@@ -168,7 +168,7 @@ public class TabelaDeConexoes extends Hashtable
         //percorre todo o iterador
         while (tabela.hasNext())
         {
-            //imprime todos ID's das conex√µes que est√£o na tabela
+            //imprime todos ID's das conexıes que est„o na tabela
            conexao = (ConexaoTCP) tabela.next();
            if (conexao.getIdConexao() == id)
            {
@@ -179,4 +179,4 @@ public class TabelaDeConexoes extends Hashtable
         }
     }
     
-}//fim da classe TabelaDeConex√µes
+}//fim da classe TabelaDeConexıes

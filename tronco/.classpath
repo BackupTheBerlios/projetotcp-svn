@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="fonte"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry sourcepath="lib/ipsimulada.jar" kind="lib" path="lib/ipsimulada.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

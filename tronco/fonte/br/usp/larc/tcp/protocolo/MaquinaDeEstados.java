@@ -3,8 +3,8 @@ package br.usp.larc.tcp.protocolo;
 /*
  * @(#)MaquinaDeEstados.java	1.0 31/04/2004
  *
- * Copyleft (L) 2004 LaboratÃ³rio de Arquitetura e Redes de Computadores
- * Escola PolitÃ©cnica da Universidade de SÃ£o Paulo
+ * Copyleft (L) 2004 Laboratório de Arquitetura e Redes de Computadores
+ * Escola Politécnica da Universidade de São Paulo
  *
  */
 
@@ -13,65 +13,65 @@ import br.usp.larc.tcp.ipsimulada.IpSimulada;
 import br.usp.larc.tcp.protocolo.ProtocoloTCP;
 
 /** 
- * Classe que representa a MÃ¡quina de Estado do seu Protocolo (que pode ter n).
- * Detalhes e dicas de implementaÃ§Ã£o podem ser consultadas nas Apostilas.
+ * Classe que representa a Máquina de Estado do seu Protocolo (que pode ter n).
+ * Detalhes e dicas de implementação podem ser consultadas nas Apostilas.
  *
  * Procure sempre usar o paradigma Orientado a Objeto, a simplicidade e a 
- * criatividade na implementaÃ§Ã£o do seu projeto.
+ * criatividade na implementação do seu projeto.
  *  
  *
- * @author	LaboratÃ³rio de Arquitetura e Redes de Computadores
+ * @author	Laboratório de Arquitetura e Redes de Computadores
  * @version	1.0 Agosto 2003
  */
 public class MaquinaDeEstados
 {    
     /** 
-     * Atributo que representa o frame associado a MÃ¡quina de Estados
+     * Atributo que representa o frame associado a Máquina de Estados
      */
     private MaquinaDeEstadosFrame meFrame;
 
     /** 
-     * Atributo que representa o monitor associado a MÃ¡quina de Estados
+     * Atributo que representa o monitor associado a Máquina de Estados
      */
     private Monitor monitor;
 
     /** 
-     * Atributo que representa o id da ConexÃ£o associado a MÃ¡quina de Estados
+     * Atributo que representa o id da Conexão associado a Máquina de Estados
      */
     private int idConexao;
 
     /** 
-     * IP Simulado Local associado a MÃ¡quina de Estados
+     * IP Simulado Local associado a Máquina de Estados
      */
     private String ipSimuladoLocal;
 
     /** 
-     * IP Simulado Destino associado a MÃ¡quina de Estados
+     * IP Simulado Destino associado a Máquina de Estados
      */
     private String ipSimuladoDestino;
 
     /** 
-     * Nome da estaÃ§Ã£o destino associado a MÃ¡quina de Estados
+     * Nome da estação destino associado a Máquina de Estados
      */
     private String nomeEstacaoDestino;
     
     /** 
-     * Porta TCP local associada a MÃ¡quina de Estados
+     * Porta TCP local associada a Máquina de Estados
      */
     private int portaLocal;
 
     /** 
-     * Porta TCP remota associada a MÃ¡quina de Estados
+     * Porta TCP remota associada a Máquina de Estados
      */
     private int portaDestino;
 
     /** 
-     * O estado atual da mÃ¡quina de conexÃ£o e desconexÃ£o
+     * O estado atual da máquina de conexão e desconexão
      */
     private byte estadoMEConAtual;
     
     /** 
-     * Constante que guarda o nÃºmero de retransmissÃµes de um segmeto TCP com
+     * Constante que guarda o número de retransmissões de um segmeto TCP com
      * timestamp expirado.
      */
     private static final int numRetransmissoes = TCPIF.MAX_RETRANSMISSOES;
@@ -109,6 +109,8 @@ public class MaquinaDeEstados
         this.estadoMEConAtual = TCPIF.CLOSED;
         this.ipSimuladoLocal = _monitor.getIpSimuladoLocal();
         this.portaLocal = _porta;
+        this.ipSimuladoDestino = "";
+        this.portaDestino = -1;
         this.idConexao = _idConexao;
         this.meFrame = new MaquinaDeEstadosFrame(this);
         this.meFrame.atualizaInfoConexao(
@@ -118,22 +120,22 @@ public class MaquinaDeEstados
     }
 
     /**
-     * MÃ©todo que recebe primitivas e executa as operaÃ§Ãµes para atender a aÃ§Ã£o.
-     * As primitivas estÃ£o definidas na interface TCPIF.
+     * Método que recebe primitivas e executa as operações para atender a ação.
+     * As primitivas estão definidas na interface TCPIF.
      * 
      * @param _primitiva
      *        A primitiva que enviada.
      * @param args[]
-     *        Um array de argumentos que vocÃª pode receber adicionalmente
+     *        Um array de argumentos que você pode receber adicionalmente
      * @exception Exception
-     *            Caso ocorra algum erro ou exceÃ§Ã£o, lanÃ§a (throw) para quem
-     *            chamou o mÃ©todo.
+     *            Caso ocorra algum erro ou exceção, lança (throw) para quem
+     *            chamou o método.
      */
     public void recebePrimitiva (byte _primitiva, String args[]) throws Exception
     {
-    	System.out.println("recebePrimitiva: inÃ­cio");
+    	System.out.println("recebePrimitiva: início");
     	
-        // atualiza exibiÃ§Ã£o do estado atual com a primitiva recebida
+        // atualiza exibição do estado atual com a primitiva recebida
         this.meFrame.atualizaDadosEstado (TCPIF.nomeEstado[this.estadoMEConAtual],
                 TCPIF.nomePrimitiva[_primitiva], "->|", "");
 
@@ -289,7 +291,7 @@ public class MaquinaDeEstados
 					new CampoTCP(2, this.getTamanhoJanela()),
 					new CampoTCP(2, 0),
 					new CampoTCP(2, 0),
-					new CampoTCP(4, 0L),							// OpÃ§Ãµes
+					new CampoTCP(4, 0L),							// Opções
 					args[2]);
     		
     		this.setTempoTimeout  (Integer.parseInt(args[3]));
@@ -310,16 +312,16 @@ public class MaquinaDeEstados
 	} // recebePrimitiva
     
     /** 
-     * MÃ©todo que envia primitivas
+     * Método que envia primitivas
      *
-     * @param _primitiva A primitiva que estÃ¡ sendo enviada.
-     * @param args[] Um array de argumentos que a aplicaÃ§Ã£o pode enviar.
-     * @exception Exception  Caso ocorra algum erro ou exceÃ§Ã£o, lanÃ§a (throw) 
-     * para quem chamou o mÃ©todo.
+     * @param _primitiva A primitiva que está sendo enviada.
+     * @param args[] Um array de argumentos que a aplicação pode enviar.
+     * @exception Exception  Caso ocorra algum erro ou exceção, lança (throw) 
+     * para quem chamou o método.
      */
     public void enviaPrimitiva(int _primitiva, String args[]) throws Exception
 	{   
-       //implemente aqui o envio de primitivas para sua MÃ¡quinaDeEstadosFrame
+       //implemente aqui o envio de primitivas para sua MáquinaDeEstadosFrame
     	this.meFrame.atualizaDadosEstado(TCPIF.nomeEstado[this.estadoMEConAtual],
     			TCPIF.nomePrimitiva[_primitiva],
     			"<-|",
@@ -327,11 +329,11 @@ public class MaquinaDeEstados
     }
     
     /** 
-     * MÃ©todo que recebe segmentos TCP e faz o tratamento desse pacote
+     * Método que recebe segmentos TCP e faz o tratamento desse pacote
      *
      * @param _pacoteTCP O segmento TCP recebido
-     * @exception Exception  Caso ocorra algum erro ou exceÃ§Ã£o, lanÃ§a (throw) 
-     * para quem chamou o mÃ©todo.
+     * @exception Exception  Caso ocorra algum erro ou exceção, lança (throw) 
+     * para quem chamou o método.
      */
     public void recebeSegmentoTCP(PacoteTCP _pacoteTCP)
     throws Exception
@@ -342,7 +344,7 @@ public class MaquinaDeEstados
     	_pacoteTCP.getNumAck() + "," +
     	this.getTamanhoJanela() + ")";
         
-    	// atualiza exibiÃ§Ã£o do estado atual com o segmento recebido
+    	// atualiza exibição do estado atual com o segmento recebido
     	this.meFrame.atualizaDadosEstado(
     	        TCPIF.nomeEstado[this.estadoMEConAtual],
     			TCPIF.nomePrimitiva[TCPIF.P_NENHUM],
@@ -560,7 +562,7 @@ public class MaquinaDeEstados
 					new CampoTCP(2, this.getTamanhoJanela()),
 					new CampoTCP(2, 0),
 					new CampoTCP(2, 0),
-					new CampoTCP(4, 0L),							// OpÃ§Ãµes
+					new CampoTCP(4, 0L),							// Opções
 					this.pacoteRecebido.getDados());
     		
     		enviaSegmentoTCP(this.pacoteDeEnvio);
@@ -575,16 +577,16 @@ public class MaquinaDeEstados
     } // recebeSegmentoTCP
     
     /** 
-     * MÃ©todo que envia segmento TCP
+     * Método que envia segmento TCP
      *
      * @param _pacoteTCP O segmento TCP enviado
-     * @exception Exception  Caso ocorra algum erro ou exceÃ§Ã£o, lanÃ§a (throw) 
-     * para quem chamou o mÃ©todo.
+     * @exception Exception  Caso ocorra algum erro ou exceção, lança (throw) 
+     * para quem chamou o método.
      */
     public void enviaSegmentoTCP(PacoteTCP _pacoteTCP)
     throws Exception
 	{
-    	System.out.println("enviaSegmentoTCP: inÃ­cio");
+    	System.out.println("enviaSegmentoTCP: início");
         _pacoteTCP.geraOpcoes();
         
         String func = ProtocoloTCP.nomeSegmento(_pacoteTCP) + "(" + 
@@ -597,8 +599,8 @@ public class MaquinaDeEstados
         String ip = IpSimulada.descobreNomeIPSimulado(_pacoteTCP.getIpSimuladoRemoto());
         int porta = Integer.parseInt(IpSimulada.descobrePortaIPSimulado(_pacoteTCP.getIpSimuladoRemoto()));
     	
-    	System.out.println("enviaSegmentoTCP: envia segmento Ã  camada IP");
-        // Envia segmento Ã  camada IP simulada
+    	System.out.println("enviaSegmentoTCP: envia segmento à camada IP");
+        // Envia segmento à camada IP simulada
     	this.monitor.getProtocoloTCP().getCamadaIpSimulada().transmite(
     			ip, _pacoteTCP.toString(), _pacoteTCP.toString().length(), porta);
 
@@ -613,15 +615,15 @@ public class MaquinaDeEstados
     	System.out.println("enviaSegmentoTCP: fim");
 	}
     
-    /** MÃ©todo acessador para o atributo monitor.
-     * @return A referÃªncia para o atributo monitor.
+    /** Método acessador para o atributo monitor.
+     * @return A referência para o atributo monitor.
      *
      */
     public Monitor getMonitor() {
         return this.monitor;
     }
     
-    /** MÃ©todo modificador para o atributo monitor.
+    /** Método modificador para o atributo monitor.
      * @param monitor Novo valor para o atributo monitor.
      *
      */
@@ -629,7 +631,7 @@ public class MaquinaDeEstados
         this.monitor = _monitor;
     }
     
-    /** MÃ©todo modificador para o atributo meFrame.
+    /** Método modificador para o atributo meFrame.
      * @param meFrame Novo valor para o atributo meFrame.
      *
      */
@@ -637,23 +639,23 @@ public class MaquinaDeEstados
         this.meFrame = _meFrame;
     }
     
-    /** MÃ©todo acessador para o atributo meFrame.
-     * @return A referÃªncia para o atributo meFrame.
+    /** Método acessador para o atributo meFrame.
+     * @return A referência para o atributo meFrame.
      *
      */
     public MaquinaDeEstadosFrame getMeFrame() {
         return this.meFrame;
     }    
 
-    /** MÃ©todo acessador para o atributo idConexao.
-     * @return A referÃªncia para o atributo idConexao.
+    /** Método acessador para o atributo idConexao.
+     * @return A referência para o atributo idConexao.
      *
      */
     public int getIdConexao() {
         return this.idConexao;
     }
     
-    /** MÃ©todo modificador para o atributo idConexao.
+    /** Método modificador para o atributo idConexao.
      * @param id Novo valor para o atributo idConexao.
      *
      */
@@ -661,15 +663,15 @@ public class MaquinaDeEstados
         this.idConexao = id;
     }
     
-    /** MÃ©todo acessador para o atributo ipSimuladoLocal.
-     * @return A referÃªncia para o atributo ipSimuladoLocal.
+    /** Método acessador para o atributo ipSimuladoLocal.
+     * @return A referência para o atributo ipSimuladoLocal.
      *
      */
     public String getIpSimuladoLocal() {
         return this.ipSimuladoLocal;
     }
     
-    /** MÃ©todo modificador para o atributo ipSimuladoLocal.
+    /** Método modificador para o atributo ipSimuladoLocal.
      * @param ipSimuladoLocal Novo valor para o atributo ipSimuladoLocal.
      *
      */
@@ -677,8 +679,8 @@ public class MaquinaDeEstados
         this.ipSimuladoLocal = _ipSimuladoLocal;
     }
     
-    /** MÃ©todo acessador para o atributo ipSimuladoLocal.
-     * @return A referÃªncia para o atributo ipSimuladoLocal.
+    /** Método acessador para o atributo ipSimuladoLocal.
+     * @return A referência para o atributo ipSimuladoLocal.
      *
      */
     public String getIpSimuladoLocalBytePonto()
@@ -686,7 +688,7 @@ public class MaquinaDeEstados
         return Decoder.ipSimuladoToBytePonto(this.ipSimuladoLocal);
     }
     
-    /** MÃ©todo modificador para o atributo ipSimuladoLocal.
+    /** Método modificador para o atributo ipSimuladoLocal.
      * @param ipSimuladoLocal Novo valor para o atributo ipSimuladoLocal.
      *
      */
@@ -694,15 +696,15 @@ public class MaquinaDeEstados
         this.ipSimuladoLocal = Decoder.bytePontoToIpSimulado(_ipSimuladoLocal);
     }
     
-        /** MÃ©todo acessador para o atributo portaLocal.
-     * @return A referÃªncia para o atributo portaLocal.
+        /** Método acessador para o atributo portaLocal.
+     * @return A referência para o atributo portaLocal.
      *
      */
     public int getPortaLocal() {
         return this.portaLocal;
     }
     
-    /** MÃ©todo modificador para o atributo portaLocal.
+    /** Método modificador para o atributo portaLocal.
      * @param porta Novo valor para o atributo portaLocal.
      *
      */
@@ -710,16 +712,16 @@ public class MaquinaDeEstados
         this.portaLocal = porta;
     }
     
-    /** MÃ©todo acessador para o atributo ipSimuladoDestino.
-     * @return A referÃªncia para o atributo ipSimuladoDestino.
+    /** Método acessador para o atributo ipSimuladoDestino.
+     * @return A referência para o atributo ipSimuladoDestino.
      *
      */
     public String getIpSimuladoDestino() {
         return this.ipSimuladoDestino;
     }
 
-    /** MÃ©todo acessador para o atributo ipSimuladoDestino.
-     * @return A referÃªncia para o atributo ipSimuladoDestino.
+    /** Método acessador para o atributo ipSimuladoDestino.
+     * @return A referência para o atributo ipSimuladoDestino.
      *
      */
     public String getIpSimuladoDestinoBytePonto()
@@ -727,7 +729,7 @@ public class MaquinaDeEstados
         return Decoder.ipSimuladoToBytePonto(this.ipSimuladoDestino);
     }
     
-    /** MÃ©todo modificador para o atributo ipSimuladoDestino.
+    /** Método modificador para o atributo ipSimuladoDestino.
      * @param ipSimuladoDestino Novo valor para o atributo ipSimuladoDestino.
      *
      */
@@ -735,15 +737,15 @@ public class MaquinaDeEstados
         this.ipSimuladoDestino = _ipSimuladoDestino;
     }
     
-    /** MÃ©todo acessador para o atributo nomeEstacaoDestino.
-     * @return A referÃªncia para o atributo nomeEstacaoDestino.
+    /** Método acessador para o atributo nomeEstacaoDestino.
+     * @return A referência para o atributo nomeEstacaoDestino.
      *
      */
     public String getNomeEstacaoDestino() {
         return this.nomeEstacaoDestino;
     }
     
-    /** MÃ©todo modificador para o atributo nomeEstacaoDestino.
+    /** Método modificador para o atributo nomeEstacaoDestino.
      * @param nomeEstacaoDestino Novo valor para o atributo nomeEstacaoDestino.
      *
      */
@@ -751,15 +753,15 @@ public class MaquinaDeEstados
         this.nomeEstacaoDestino = _nomeEstacaoDestino;
     }
     
-    /** MÃ©todo acessador para o atributo portaDestino.
-     * @return A referÃªncia para o atributo portaDestino.
+    /** Método acessador para o atributo portaDestino.
+     * @return A referência para o atributo portaDestino.
      *
      */
     public int getPortaDestino() {
         return this.portaDestino;
     }
     
-    /** MÃ©todo modificador para o atributo portaDestino.
+    /** Método modificador para o atributo portaDestino.
      * @param portaDestino Novo valor para o atributo portaDestino.
      *
      */

@@ -1,19 +1,19 @@
 package br.usp.larc.tcp.protocolo;
 
 /**
- * @(#)Decoder.java 1.0 31/04/2004 Copyleft (L) 2004 Laborat√≥rio de Arquitetura
- *                  e Redes de Computadores Escola Polit√©cnica da Universidade
- *                  de S√£o Paulo.
+ * @(#)Decoder.java 1.0 31/04/2004 Copyleft (L) 2004 LaboratÛrio de Arquitetura
+ *                  e Redes de Computadores Escola PolitÈcnica da Universidade
+ *                  de S„o Paulo.
  */
 
 /**
- * Classe que auxilia na convers√£o de tipos. Ela ser√° util na manipula√ß√£o do
+ * Classe que auxilia na convers„o de tipos. Ela ser· util na manipulaÁ„o do
  * segmento TCP (fases de envio/montagem e recebimento/desmontagem dos
- * segmentos). Como todos os seus m√©todos s√£o est√°ticos voc√™ n√£o precisa criar
- * uma inst√¢ncia desse objeto para us√°-lo. Um estudo sobre tipos primitivos de
- * Java pode ajudar numa melhor compreens√£o dessa classe.
+ * segmentos). Como todos os seus mÈtodos s„o est·ticos vocÍ n„o precisa criar
+ * uma inst‚ncia desse objeto para us·-lo. Um estudo sobre tipos primitivos de
+ * Java pode ajudar numa melhor compreens„o dessa classe.
  * 
- * @author Laborat√≥rio de Arquitetura e Redes de Computadores.
+ * @author LaboratÛrio de Arquitetura e Redes de Computadores.
  * @version 1.0 Agosto 2003.
  */
 public abstract class Decoder
@@ -25,11 +25,11 @@ public abstract class Decoder
     /*
     public Decoder ()
     {
-        // Construtora j√° veio vazia
+        // Construtora j· veio vazia
     }*/
 
     /**
-     * M√©todo que tem funcionalidade de converter uma String com 16 caracteres
+     * MÈtodo que tem funcionalidade de converter uma String com 16 caracteres
      * (ex.: XXXxxxXXXxxxN) que representa um IP Simulado para uma String no
      * formato byte ponto tradicional (ex.: xxx.xxx.xxx.xxx:XXXX).
      * 
@@ -44,7 +44,7 @@ public abstract class Decoder
      * retorna 010.000.000.001:0021
      * 
      * decoder.ipSimuladoToBytePonto("0100000010021");
-     * retorna null (tamanho do par√¢metro diferente de 16)
+     * retorna null (tamanho do par‚metro diferente de 16)
      * 
      * @param _oIPSimulado
      *        O IP Simulado sem formato.
@@ -72,7 +72,7 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que tem funcionalidade de converter uma String no formato byte
+     * MÈtodo que tem funcionalidade de converter uma String no formato byte
      * ponto tradicional (ex.: xxx.xxx.xxx.xxx:xxxx) para uma String com 16
      * caracteres (ex.: xxxxxxxxxxxxxxxx).
      * 
@@ -112,10 +112,10 @@ public abstract class Decoder
 		return ip;
 	}
     /**
-     * M√©todo que tem funcionalidade de converter uma string num byte (8 bits).
+     * MÈtodo que tem funcionalidade de converter uma string num byte (8 bits).
      * 
      * @param _palavra
-     *        A String que ser√° convertida.
+     *        A String que ser· convertida.
      * @return byte O byte (8 bits) convertido.
      */
     public static byte stringToByte (String _palavra)
@@ -124,10 +124,10 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que tem funcionalidade de converter um byte(8 bits) para String.
+     * MÈtodo que tem funcionalidade de converter um byte(8 bits) para String.
      * 
      * @param _obyte
-     *        O byte que ser√° convertido.
+     *        O byte que ser· convertido.
      * @return String A String convertida.
      */
     public static String byteToString (byte _obyte)
@@ -136,12 +136,12 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que converte um int (32 bits/4 bytes) em uma String de tamanho 2
-     * (dois bytes). Usamos esse artif√≠cio para o campo porta do IPSimulado.
+     * MÈtodo que converte um int (32 bits/4 bytes) em uma String de tamanho 2
+     * (dois bytes). Usamos esse artifÌcio para o campo porta do IPSimulado.
      * 
      * @param _numero
-     *        O inteiro que ser√° convertido.
-     * @return A String de tamanho 2 convertida. Caso o par√¢metro n√∫mero seja
+     *        O inteiro que ser· convertido.
+     * @return A String de tamanho 2 convertida. Caso o par‚metro n˙mero seja
      *         menor que zero, retorna null.
      */
     public static String intToString (int _numero)
@@ -165,10 +165,10 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que converte uma String de dois caracteres (2 bytes) em um int.
+     * MÈtodo que converte uma String de dois caracteres (2 bytes) em um int.
      * 
      * @param _texto
-     *        A String que ser√° convertida.
+     *        A String que ser· convertida.
      * @return O valor em int. Caso o tamanho da String seja diferente de 2
      *         (dois), retorna um int = 0.
      */
@@ -185,14 +185,14 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que coverte um short menor que 256 (usado para os campos de do
-     * endere√ßo IP) em um Caracter de 8 bits (1 byte) e retorna o valor em
+     * MÈtodo que coverte um short menor que 256 (usado para os campos de do
+     * endereÁo IP) em um Caracter de 8 bits (1 byte) e retorna o valor em
      * String.
      * 
      * @param _numero
-     *        N√∫mero que se quer converter.
-     * @return String com o valor do n√∫mero convertido. Caso o valor do n√∫mero
-     *         passado como par√¢metro seja maior que 256, retorna null.
+     *        N˙mero que se quer converter.
+     * @return String com o valor do n˙mero convertido. Caso o valor do n˙mero
+     *         passado como par‚metro seja maior que 256, retorna null.
      */
     public static String shortToString (short _numero)
     {
@@ -210,13 +210,13 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que coverte uma String que tem o valor de um caracter de 8 bits
-     * para um short (usado para os campos de do endere√ßo IP) .
+     * MÈtodo que coverte uma String que tem o valor de um caracter de 8 bits
+     * para um short (usado para os campos de do endereÁo IP) .
      * 
      * @param _texto
      *        A String com um caracter de 8 bits
      * @return O short representando o valor de um caracter de 8 bits. Caso a
-     *         String passada com par√¢metro tenha tamanho diferente de 1 (um)
+     *         String passada com par‚metro tenha tamanho diferente de 1 (um)
      *         retorna 0 (zero).
      */
     public static short stringToShort (String _texto)
@@ -230,7 +230,7 @@ public abstract class Decoder
     }
 
     /**
-     * M√©todo que ilustra funcionamento da classe Decoder.
+     * MÈtodo que ilustra funcionamento da classe Decoder.
      */
     public static void main (String args[])
     {
