@@ -290,12 +290,14 @@ conexão.
     	
     	PacoteTCP pacote = new PacoteTCP(_bufferEntrada);
 		String ip = Decoder.bytePontoToIpSimulado(pacote.getIpSimuladoRemoto());
+		String porta = Integer.toString (pacote.getPortaRemota());
     	ConexaoTCP conexao;
     	
     	while (iteratorTabela.hasNext())
     	{
     		conexao = (ConexaoTCP) iteratorTabela.next();
-    		if (ip.equals(conexao.getIpSimuladoLocal()))
+    		if (ip.equals(conexao.getIpSimuladoLocal()) &&
+    				porta.equals(conexao.getPortaLocal()) )
     		{
     			int id = conexao.getIdConexao();
     			MaquinaDeEstados maquina ;
@@ -319,7 +321,7 @@ conexão.
     			}
     		}
     	}
-    	//System.out.println( "Monitor.analizaDados: Descartou Segmento");
+    	System.out.println( "Monitor.analizaDados: Descartou Segmento");
     }
 
     /**
