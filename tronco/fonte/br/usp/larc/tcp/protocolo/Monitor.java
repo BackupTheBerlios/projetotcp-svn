@@ -232,44 +232,52 @@ conexão.
      */
     public void reinicia()
     {
-        //implemente aqui o método que reinicia o monitor ao seu estado inicial
-
+        System.out.println ("Monitor.reinicia:");
+        MaquinaDeEstados maquina = null;
+        
         try
-		{
-            this.protocoloTCP.reinicializaTCP();
+        {
+            //faz uma varredura na coleção de chaves da coleção de máquina
+            //de estados
+            Iterator i = ((MaquinasDeEstados) this.maquinasDeEstados.clone()).maquinasKeySet(); 
+            while (i.hasNext())
+            {
+                String id = (String) i.next();
+                System.out.println ("Monitor.reinicia: id = " + id);
+                
+                //pega chave por chave da coleção de máquina de estados
+                int chaveIdConexao = Integer.parseInt(id);
+                
+                System.out.println ("Monitor.reinicia: chave = " + chaveIdConexao);
+                
+                //recupera a referência da máquina de estados
+                //com o id da conexão passada como parâmetro
+                maquina = this.maquinasDeEstados.get(chaveIdConexao);
+
+                //se a referência recuperada não for nula a apaga a máquina da
+                //coleção de máquinas de estados do monitor e também a conexão
+                //com aquele id da Tabela de Conexões do Monitor
+                if (maquina != null)
+                {
+                    System.out.println ("Monitor.reinicia: fecha maquina");
+                    this.fechaMaquina(chaveIdConexao);
+                    System.out.println ("Monitor.reinicia: fecha conexão");
+                    this.fechaConexao(chaveIdConexao);
+                    System.out.println ("Monitor.reinicia: fecha ME frame");
+                    this.fechaMaquinaDeEstadosFrame(maquina);
+                }
+                System.out.println ("Monitor.reinicia: próximo");
+            }
         }
         catch (Exception e)
-		{
-        	System.out.println("Monitor.reinicia()" + e.getMessage());
-		}
-
-        //cria um iterador para percorrer um objeto do tipo TabelaDeConexoes
-        Iterator  iteratorTabela = this.tabelaDeConexoes.conexoes();
-        //percorre todo o iterador
-        while (iteratorTabela.hasNext())
         {
-        	//remove as conexoes
-        	
-        	this.tabelaDeConexoes.remove(((ConexaoTCP)iteratorTabela.next()).getIdConexao());
-        	//imprime todos ID's das conexões que estão na tabela
-        	
-        	System.out.println(((ConexaoTCP)iteratorTabela.next()).getIdConexao());
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         
-        //cria um iterador para percorrer um objeto do tipo Maquinas de Estado
-        Iterator  iteratorMaquinas = this.maquinasDeEstados.maquinas();
-        //percorre todo o iterador
-        while (iteratorMaquinas.hasNext())
-        {
-        	//remove as maquinas
-        	
-        	this.maquinasDeEstados.remove(((MaquinaDeEstados)iteratorMaquinas.next()).getIdConexao());
-        	//imprime todos ID's das conexões que estão na tabela
-        	
-        	System.out.println(((MaquinaDeEstados)iteratorMaquinas.next()).getIdConexao());
-        }
         //reinicia o contador de id de conexão em 0 (zero)
-        //this.countIdConexao = 0;
+        this.countIdConexao = 0;
+        System.out.println ("Monitor.reinicia: fim");
     }
     
     /**
@@ -286,6 +294,7 @@ conexão.
      */
     public synchronized void terminaMonitoramentoCamadaIP()
     {
+        System.out.println ("Monitor.terminaMonitoramentoCamadaIP:");
         this.monitorThread.paraThread();
     }
 

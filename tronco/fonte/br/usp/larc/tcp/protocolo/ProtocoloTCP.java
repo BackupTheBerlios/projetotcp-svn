@@ -74,6 +74,8 @@ public class ProtocoloTCP extends TCP
      */
     public void recebePrimitivaAplicacao (int _primitiva, String args[]) throws Exception
     {
+        System.out.println ("ProtocoloTCP.recebePrimitivaAplicacao: " + TCP.nomePrimitivaAplicacao[_primitiva]);
+        
         try
         {
             switch (_primitiva)
@@ -100,9 +102,10 @@ public class ProtocoloTCP extends TCP
         catch (Exception e)
         {
             System.err.println ("recebePrimitivaAplicacao: erro em  "
-                                + TCP.nomePrimitiva[_primitiva]);
-            throw new Exception ("Erro no recebimento de primitiva: " + _primitiva + "\n"
-                                 + e.getMessage ());
+                    + TCP.nomePrimitivaAplicacao[_primitiva]);
+            System.err.flush ();
+            throw new Exception ("Erro no recebimento de primitiva: "
+                    + TCP.nomePrimitivaAplicacao[_primitiva] + "\n" + e.getMessage ());
         }
 
     }
@@ -257,8 +260,36 @@ public class ProtocoloTCP extends TCP
      */
     public void reinicializaTCP () throws Exception
     {
-        System.out.println ("reinicializaTcp: ...");
-        //implemente aqui o método que reinicializa o Protocolo TCP.
+        System.out.println ("ProtocoloTCP.reinicializaTCP:");
+        if (this.camadaIPSimuladaAberta)
+        {
+            try
+            {
+                if (this.camadaIpSimulada != null)
+                {
+                    System.out.println ("ProtocoloTCP.reinicializaTCP: terminaMonitoramentoCamadaIP");
+                    this.monitor.terminaMonitoramentoCamadaIP ();
+                    System.out.println ("ProtocoloTCP.reinicializaTCP: reinicia");
+                    this.monitor.reinicia();
+                    System.out.println ("ProtocoloTCP.reinicializaTCP: finalizaIpSimulada");
+                    this.finalizaIpSimulada ();
+                    System.out.println ("ProtocoloTCP.reinicializaTCP: fim?");
+                }
+                else
+                {
+                    System.out.println ("Protocolo TCP não foi reinicializado.");
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println ("ProtocoloTCP.reinicializaTCP: " + e.getMessage ());
+                throw e;
+            }
+        }
+        else
+        {
+            System.out.println ("Protocolo TCP não foi reinicializado.");
+        }
     }
 
     /**
@@ -291,16 +322,21 @@ public class ProtocoloTCP extends TCP
      */
     public void finalizaIpSimulada () throws Exception
     {
+        System.out.println ("ProtocoloTCP.finalizaIpSimulada:");
         try
         {
+            System.out.println ("ProtocoloTCP.finalizaIpSimulada: finalizaCanal");
             this.camadaIpSimulada.finalizaCanal ();
+            System.out.println ("ProtocoloTCP.finalizaIpSimulada: fecha");
             this.camadaIPSimuladaAberta = false;
         }
         catch (Exception e)
         {
-            System.out.println ("ProtocoloTCP.finalizaIpSimulada(): " + e.getMessage ());
+            System.err.println ("ProtocoloTCP.finalizaIpSimulada(): " + e.getMessage ());
+            System.err.flush();
             throw e;
         }
+        System.out.println ("ProtocoloTCP.finalizaIpSimulada: fim");
     }
 
     /**

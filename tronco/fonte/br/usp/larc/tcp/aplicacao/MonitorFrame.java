@@ -162,7 +162,7 @@ public class MonitorFrame extends JFrame {
         this.jbReset.setText("Reset");
         this.jbReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jButtonResetActionPerformed(evt);
+                jbResetActionPerformed(evt);
             }
         });
 		this.jpComandos.add(this.jbReset, null);
@@ -266,9 +266,19 @@ public class MonitorFrame extends JFrame {
         }
     }
     
-    private void jButtonResetActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-        // Add your handling code here:
-    }//GEN-LAST:event_jButtonResetActionPerformed
+    private void jbResetActionPerformed(ActionEvent evt)
+    {
+        try
+        {
+            String argumentos[] = null;
+            this.protocoloTCP.recebePrimitivaAplicacao (TCP.P_TCP_RESET, argumentos);
+            this.habilitaInterface (false);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     
     private void jbIniciarTCPActionPerformed (ActionEvent evt)
     {
@@ -281,13 +291,15 @@ public class MonitorFrame extends JFrame {
         }
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog (null, "jButtonIniciarTCPActionPerformed: "
-                                                 + e.getMessage ());
+            JOptionPane.showMessageDialog (null, "jbIniciarTCP: " + e.getMessage ());
         }
     }
     
-    /** Exit the Application 
-     * @param evt*/
+    /**
+     * Exit the Application
+     * 
+     * @param evt
+     */
     private void exitForm(WindowEvent evt)
     {
         System.exit(0);

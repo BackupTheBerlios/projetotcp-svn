@@ -108,6 +108,13 @@ public abstract class TCP
             "Terminate",
             "TimeOut"                                       };
 
+    public static final String[] nomePrimitivaAplicacao     = {
+            "TCP Open",
+            "TCP Close",
+            "TCP Reset",
+            "TCP Open ME",
+            "TCP Close ME"                                  };    
+    
     public static final String   SETA_RECEBE_PRIM           = "->|";
     public static final String   SETA_ENVIA_PRIM            = "<-|";
     public static final String   SETA_NENHUMA_PRIM          = "  |";

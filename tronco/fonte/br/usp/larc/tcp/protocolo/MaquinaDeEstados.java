@@ -138,7 +138,7 @@ public class MaquinaDeEstados
     public void recebePrimitiva (byte _primitiva, String args[])
         throws Exception
     {
-        System.out.println ("recebePrimitiva: " + TCP.nomePrimitiva[_primitiva]);
+        System.out.println ("ME.recebePrimitiva: " + TCP.nomePrimitiva[_primitiva]);
     	
         byte novaPrimitiva = TCP.P_NENHUMA;
         byte novoSegmento = TCP.S_NENHUM;
