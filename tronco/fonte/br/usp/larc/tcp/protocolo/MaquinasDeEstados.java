@@ -107,7 +107,7 @@ public class MaquinasDeEstados extends Hashtable {
      * @return Iterator O iterador com os objetos Máquinas da tabela
      */    
     public Iterator maquinas() {
-        return (Iterator) (super.values()).iterator();
+        return (super.values()).iterator();
     }
     
     /**
@@ -118,7 +118,7 @@ public class MaquinasDeEstados extends Hashtable {
      * @return Iterator O iterador com as chaves dos objetos da Hashtable
      */    
     public Iterator maquinasKeySet() {
-        return (Iterator) (super.keySet()).iterator();
+        return (super.keySet()).iterator();
     }
 
 }//fim da classe MaquinasDeEstados

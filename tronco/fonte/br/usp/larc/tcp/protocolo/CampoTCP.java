@@ -55,8 +55,8 @@ public class CampoTCP {
     /**
      * Construtor da classe CampoTCP.
      *
-     * @param  n  Tamanho do campo em bytes.
-     * @param  s  String que contém os dados para preencher o campo.
+     * @param  _n  Tamanho do campo em bytes.
+     * @param  _s  String que contém os dados para preencher o campo.
      */
     public CampoTCP(int _n, String _s) {
         this(_n);
@@ -94,8 +94,8 @@ public class CampoTCP {
     /**
      * Construtor da classe CampoTCP.
      *
-     * @param  n              Tamanho do campo em bytes.
-     * @param  value          Short que contém os dados para preencher o campo.
+     * @param  _n              Tamanho do campo em bytes.
+     * @param  _value          Short que contém os dados para preencher o campo.
      * @exception  Exception  Gera Exception, se ocorrer algum erro.
      */
     public CampoTCP(int _n, short _value) throws Exception {
@@ -105,18 +105,19 @@ public class CampoTCP {
 
     /**
      * Retorna o char do campo que está no indice como parâmetro.
-     *
-     * @param  i              Índice do char que quer ser retornado.
-     * @return                O char com o valor daquele byte.
-     * @exception  Exception  Gera Exception, se o índice estourar o array do
-     * campo.
+     * 
+     * @param _indice
+     *        Índice do char que quer ser retornado.
+     * @return O char com o valor daquele byte.
+     * @exception Exception
+     *            Gera Exception, se o índice estourar o array do campo.
      */
-    public char getLetraAt(int _indice) throws Exception {
-        if (_indice < this.tamanhoCampo) {
+    public char getLetraAt (int _indice) throws Exception
+    {
+        if (_indice < this.tamanhoCampo)
             return this.letras[_indice];
-        } else {
-            throw new Exception("Out of range!");
-        }
+
+        throw new Exception ("Out of range!");
     }
 
     /**
@@ -152,38 +153,47 @@ public class CampoTCP {
      *
      * @return    O valor do campo com sua representação numérica.
      */
-    public long getValue() {
-        long n  = 0;
-        for (int i = 0; i < this.tamanhoCampo; i++) {
-            n += (long) Math.pow((double) 256, (double) i) *
-                (long) this.letras[i];
+    public long getValue ()
+    {
+        long n = 0;
+        for (int i = 0; i < this.tamanhoCampo; i++)
+        {
+            n += (long) Math.pow (256, i) * this.letras[i];
         }
         return n;
     }
 
     /**
-     * Método usado para campos com 4 (quatro) bytes. Converte um Campo TCP que 
-     * pode ter valor entre 0 e 4294967295 (2 (dois) elevado a 32 menos 1(um)) 
-     * em um array com 4 (quatro) bytes e encapsula esse valor no objeto CampoTCP.
-     *
-     * @param  value          Valor do campo.
-     * @exception  Exception  Caso o valor não esteja entre 0 e 4294967295, gera
-     * exceção.
+     * Método usado para campos com 4 (quatro) bytes. Converte um Campo TCP que
+     * pode ter valor entre 0 e 4294967295 (2 (dois) elevado a 32 menos 1(um))
+     * em um array com 4 (quatro) bytes e encapsula esse valor no objeto
+     * CampoTCP.
+     * 
+     * @param _value
+     *        Valor do campo.
+     * @exception Exception
+     *            Caso o valor não esteja entre 0 e 4294967295, gera exceção.
      */
-    public void setValue(long _value) throws Exception {
-        if (this.tamanhoCampo == 4) {
-            if ((_value >= 0) && (_value < (long) Math.pow(
-                (double) 2, (double) 32))) {
+    public void setValue (long _value) throws Exception
+    {
+        if (this.tamanhoCampo == 4)
+        {
+            if ( (_value >= 0) && (_value < (long) Math.pow (2, 32)))
+            {
 
                 this.letras[0] = (char) (_value % 256);
-                this.letras[1] = (char) ((_value % 65536) / 256);
-                this.letras[2] = (char) ((_value / 65536) % 256);
-                this.letras[3] = (char) ((_value / 65536) / 256);
-            } else {
-                throw new Exception("Too big or too small!");
+                this.letras[1] = (char) ( (_value % 65536) / 256);
+                this.letras[2] = (char) ( (_value / 65536) % 256);
+                this.letras[3] = (char) ( (_value / 65536) / 256);
             }
-        } else {
-            throw new Exception("Value out of range!");
+            else
+            {
+                throw new Exception ("Too big or too small!");
+            }
+        }
+        else
+        {
+            throw new Exception ("Value out of range!");
         }
     }
     
@@ -238,6 +248,7 @@ public class CampoTCP {
 
     /**
      * Método que ilustra funcionamento da classe CampoTCP.
+     * @param args
      *
      */
     public static void main(String[] args) {
@@ -275,8 +286,8 @@ public class CampoTCP {
                 }
                     System.out.println(n + " " + r.getValue());
                 }
-                for (long m = (long) Math.pow((double) 2, (double) 31);
-                    m < (long) Math.pow((double) 2, (double) 32); m++) {
+                for (long m = (long) Math.pow(2, 31);
+                    m < (long) Math.pow(2, 32); m++) {
 
                     CampoTCP ns  = new CampoTCP(4, m);
                     CampoTCP r   = new CampoTCP(4, ns.toString());

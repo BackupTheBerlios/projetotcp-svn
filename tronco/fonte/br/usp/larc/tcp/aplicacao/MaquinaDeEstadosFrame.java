@@ -11,11 +11,19 @@ package br.usp.larc.tcp.aplicacao;
 //import java.lang.reflect.Array;
 //import java.util.ArrayList;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import br.usp.larc.tcp.protocolo.*;
 
 //import java.awt.*;
 //import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 /** 
  * Classe que representa a Interface HM Maquina de Estados.
@@ -35,17 +43,22 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 //        initComponents();
 //    }
     
-    /** Creates new form Monitor */
-    public MaquinaDeEstadosFrame(MaquinaDeEstados _maquinaDeEstados) {
+    /**
+     * Creates new form Monitor
+     * 
+     * @param _maquinaDeEstados
+     */
+    public MaquinaDeEstadosFrame (MaquinaDeEstados _maquinaDeEstados)
+    {
         this.maquinaDeEstados = _maquinaDeEstados;
-        this.initComponents(); 
-        this.setSize(590,550);
-        this.idConexao = _maquinaDeEstados.getIdConexao();
-        this.setTitle("Máquina de Estado " + 
-             this.idConexao  + " (IPSimul = " +
-            _maquinaDeEstados.getIpSimuladoLocalBytePonto() + " : " +
-            _maquinaDeEstados.getPortaLocal() + ")");
-        this.setVisible(true);
+        this.initComponents ();
+        this.setSize (590, 550);
+        this.idConexao = _maquinaDeEstados.getIdConexao ();
+        this.setTitle ("Máquina de Estado " + this.idConexao + " (IPSimul = "
+                       + this.maquinaDeEstados.getIpSimuladoLocalBytePonto () + " : "
+                       + this.maquinaDeEstados.getPortaLocal () + ")");
+        this.jtfHost.setText(this.maquinaDeEstados.getIpSimuladoLocalBytePonto ());
+        this.setVisible (true);
     }
     
     /** This method is called from within the constructor to
@@ -57,13 +70,13 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         this.jPanel1 = new javax.swing.JPanel();
         this.jLabelnformacoesConexao = new javax.swing.JLabel();
         this.jPanel2 = new javax.swing.JPanel();
-        this.jButtonActiveOpen = new javax.swing.JButton();
-        this.jButtonPassiveOpen = new javax.swing.JButton();
-        this.jButtonEnviar = new javax.swing.JButton();
-        this.jButtonClose = new javax.swing.JButton();
+        this.jbActiveOpen = new javax.swing.JButton();
+        this.jbPassiveOpen = new javax.swing.JButton();
+        this.jbEnviar = new javax.swing.JButton();
+        this.jbClose = new javax.swing.JButton();
         this.jLabelHost = new javax.swing.JLabel();
         this.jLabelPorta = new javax.swing.JLabel();
-        this.jTextFieldHost = new javax.swing.JTextField();
+        this.jtfHost = new javax.swing.JTextField();
         this.jTextFieldPorta = new javax.swing.JTextField();
         this.jLabelDadosEnviados = new javax.swing.JLabel();
         this.jLabelNumBytesEnviados = new javax.swing.JLabel();
@@ -72,14 +85,14 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         this.jPanel3 = new javax.swing.JPanel();
         this.jLabelEstado = new javax.swing.JLabel();
         this.jLabelPrimitiva = new javax.swing.JLabel();
-        this.jLabelSegmento = new javax.swing.JLabel();
-        this.jLabelDescricaoSegmento = new javax.swing.JLabel();
+        this.jlSentido = new javax.swing.JLabel();
+        this.jlSegmento = new javax.swing.JLabel();
         this.jScrollPane2 = new javax.swing.JScrollPane();
         this.jTextAreaEstado = new javax.swing.JTextArea();
         this.jScrollPane3 = new javax.swing.JScrollPane();
         this.jTextAreaPrimitiva = new javax.swing.JTextArea();
         this.jScrollPane4 = new javax.swing.JScrollPane();
-        this.jTextAreaSegmento = new javax.swing.JTextArea();
+        this.jtaSegmento = new javax.swing.JTextArea();
         this.jScrollPane5 = new javax.swing.JScrollPane();
         this.jTextAreaDescricaoSegmento = new javax.swing.JTextArea();
         this.jPanel4 = new javax.swing.JPanel();
@@ -113,11 +126,11 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setLayout(null);
+        this.jPanel1.setLayout(null);
 
-        jPanel1.setBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EtchedBorder(), "Conex\u00e3o", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Sans Serif", 0, 12), java.awt.Color.red));
-        jLabelnformacoesConexao.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 10));
-        jPanel1.add(jLabelnformacoesConexao);
+        this.jPanel1.setBorder(new TitledBorder(new EtchedBorder(), "Conex\u00e3o", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Sans Serif", 0, 12), java.awt.Color.red));
+        this.jLabelnformacoesConexao.setFont(new Font("Microsoft Sans Serif", 0, 10));
+        jPanel1.add(this.jLabelnformacoesConexao);
         jLabelnformacoesConexao.setBounds(10, 20, 350, 30);
 
         getContentPane().add(jPanel1);
@@ -125,54 +138,60 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 
         jPanel2.setLayout(null);
 
-        jPanel2.setBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EtchedBorder(), "Primitivas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Sans Serif", 0, 12), java.awt.Color.red));
-        jButtonActiveOpen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jButtonActiveOpen.setText("ActiveOpen");
-        jButtonActiveOpen.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonActiveOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonActiveOpen.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        jButtonActiveOpen.setEnabled(true);
-        jPanel2.add(jButtonActiveOpen);
-        jButtonActiveOpen.setBounds(10, 20, 80, 30);
-        jButtonActiveOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonActiveOpenActionPerformed(evt);
+        jPanel2.setBorder (new TitledBorder (new EtchedBorder (), "Primitivas",
+                TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font (
+                        "Microsoft Sans Serif", 0, 12), Color.red));
+        jbActiveOpen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        jbActiveOpen.setText("ActiveOpen");
+        jbActiveOpen.setBorder(new BevelBorder(BevelBorder.RAISED));
+        jbActiveOpen.setHorizontalTextPosition(SwingConstants.CENTER);
+        jbActiveOpen.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        jbActiveOpen.setEnabled(true);
+        jPanel2.add(jbActiveOpen);
+        jbActiveOpen.setBounds(10, 20, 80, 30);
+        jbActiveOpen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jbActiveOpenActionPerformed(evt);
             }
         });
         
-        jButtonPassiveOpen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jButtonPassiveOpen.setText("PassiveOpen");
-        jButtonPassiveOpen.setMaximumSize(new java.awt.Dimension(500, 500));
-        jButtonPassiveOpen.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonPassiveOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonPassiveOpen.setEnabled(true);
-        jPanel2.add(jButtonPassiveOpen);
-        jButtonPassiveOpen.setBounds(10, 60, 100, 30);
-        jButtonPassiveOpen.addActionListener(new java.awt.event.ActionListener() {
+        this.jbPassiveOpen.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        jbPassiveOpen.setText("PassiveOpen");
+        jbPassiveOpen.setMaximumSize(new java.awt.Dimension(500, 500));
+        jbPassiveOpen.setBorder(new BevelBorder(BevelBorder.RAISED));
+        jbPassiveOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPassiveOpen.setEnabled(true);
+        jPanel2.add(jbPassiveOpen);
+        jbPassiveOpen.setBounds(10, 60, 100, 30);
+        jbPassiveOpen.addActionListener(new ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPassiveOpenActionPerformed(evt);
             }
         });
 
-        jButtonEnviar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jButtonEnviar.setText("Enviar");
-        jButtonEnviar.setEnabled(false);
-        jButtonEnviar.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonEnviar.addActionListener(new java.awt.event.ActionListener() {
+        this.jbEnviar.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        this.jbEnviar.setText("Enviar");
+        this.jbEnviar.setEnabled(false);
+        this.jbEnviar.setBorder(new BevelBorder(BevelBorder.RAISED));
+        this.jbEnviar.addActionListener(new ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEnviarActionPerformed(evt);
             }
         });
+        jPanel2.add(this.jbEnviar);
+        this.jbEnviar.setBounds(140, 60, 100, 30);
 
-        jPanel2.add(jButtonEnviar);
-        jButtonEnviar.setBounds(140, 60, 100, 30);
-
-        jButtonClose.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jButtonClose.setText("Close");
-        jButtonClose.setEnabled(false);
-        jButtonClose.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.add(jButtonClose);
-        jButtonClose.setBounds(260, 60, 100, 30);
+        this.jbClose.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        this.jbClose.setText("Close");
+        this.jbClose.setEnabled(false);
+        this.jbClose.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
+        this.jbClose.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCloseActionPerformed(evt);
+            }
+        });
+        jPanel2.add(this.jbClose);
+        this.jbClose.setBounds(260, 60, 100, 30);
 
         this.jLabelHost.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         this.jLabelHost.setText("Host");
@@ -189,8 +208,8 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
                 jTextFieldHostActionPerformed(evt);
             }
         });*/
-        jPanel2.add(jTextFieldHost);
-        jTextFieldHost.setBounds(130, 20, 160, 20);
+        jPanel2.add(jtfHost);
+        jtfHost.setBounds(130, 20, 160, 20);
 /*
         jTextFieldPorta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,28 +250,28 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         jPanel3.add(jLabelPrimitiva);
         jLabelPrimitiva.setBounds(100, 20, 60, 15);
 
-        jLabelSegmento.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jLabelSegmento.setText("Segmento");
-        jPanel3.add(jLabelSegmento);
-        jLabelSegmento.setBounds(170, 20, 60, 15);
+        this.jlSentido.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        this.jlSentido.setText("Sentido");
+        this.jPanel3.add(this.jlSentido);
+        this.jlSentido.setBounds(179, 20, 60, 15);
 
-        jLabelDescricaoSegmento.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jLabelDescricaoSegmento.setText("(NS,Tam,NACK,Jan)");
-        jPanel3.add(jLabelDescricaoSegmento);
-        jLabelDescricaoSegmento.setBounds(230, 20, 130, 16);
+        this.jlSegmento.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        this.jlSegmento.setText("Seg.(NS,Tam,NACK,Jan)");
+        this.jPanel3.add(this.jlSegmento);
+        this.jlSegmento.setBounds(225, 20, 140, 16);
 
-        jScrollPane2.setViewportView(jTextAreaEstado);
+        this.jScrollPane2.setViewportView(jTextAreaEstado);
 
-        jPanel3.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 40, 90, 200);
+        this.jPanel3.add(jScrollPane2);
+        this.jScrollPane2.setBounds(10, 40, 90, 200);
 
         jScrollPane3.setViewportView(jTextAreaPrimitiva);
 
         jPanel3.add(jScrollPane3);
         jScrollPane3.setBounds(100, 40, 80, 200);
 
-//        jTextAreaSegmento.setFont(new java.awt.Font("Times New Roman", 0, 14));
-        jScrollPane4.setViewportView(jTextAreaSegmento);
+        this.jtaSegmento.setFont(new Font("Monospaced", 0, 12));
+        this.jScrollPane4.setViewportView(this.jtaSegmento);
 
         jPanel3.add(jScrollPane4);
         jScrollPane4.setBounds(180, 40, 40, 200);
@@ -267,8 +286,8 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 
         jPanel4.setLayout(null);
 
-        jPanel4.setBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EtchedBorder(), "Configura\u00e7\u00f5es", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Sans Serif", 0, 12), java.awt.Color.red));
-        jButtonAjuda.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
+        jPanel4.setBorder(new TitledBorder(new EtchedBorder(), "Configura\u00e7\u00f5es", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft Sans Serif", 0, 12), java.awt.Color.red));
+        jButtonAjuda.setFont(new Font("Microsoft Sans Serif", 0, 12));
         jButtonAjuda.setText("Ajuda");
         jButtonAjuda.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.add(jButtonAjuda);
@@ -380,12 +399,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         pack();
     }//GEN-END:initComponents
 
-    private void jButtonActiveOpenActionPerformed(java.awt.event.ActionEvent evt)
+    private void jbActiveOpenActionPerformed(java.awt.event.ActionEvent evt)
     {
-		System.out.println("jButtonActiveOpenActionPerformed: inicio");
-
         String args[] = new String[6];
-        args[0] = Decoder.bytePontoToIpSimulado(this.jTextFieldHost.getText());
+        args[0] = Decoder.bytePontoToIpSimulado(this.jtfHost.getText());
         args[1] = this.jTextFieldPorta.getText();
         args[2] = this.jTextAreaDadosEnviados.getText();
         args[3] = this.jTextFieldTimeout.getText();
@@ -394,36 +411,23 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 
         try
         {
-    		System.out.println("jButtonActiveOpenActionPerformed: recebePrimitiva");
             this.maquinaDeEstados.recebePrimitiva(ProtocoloTCP.P_ACTIVEOPEN, args);
             
-    		System.out.println("jButtonActiveOpenActionPerformed: alteraDestino");
             this.maquinaDeEstados.getMonitor().getTabelaDeConexoes().alteraDestino(
                     this.maquinaDeEstados.getIdConexao(),
                     this.maquinaDeEstados.getIpSimuladoDestino(),
                     Integer.toString(this.maquinaDeEstados.getPortaDestino()));
             
-    		System.out.println("jButtonActiveOpenActionPerformed: inatualizaInfoConexaoicio");
-            this.atualizaInfoConexao(
-                this.maquinaDeEstados.getEstadoMEConAtual(),
-                this.maquinaDeEstados.getIpSimuladoLocalBytePonto(),
-                Integer.toString(this.maquinaDeEstados.getPortaLocal()), 
-                this.maquinaDeEstados.getIpSimuladoDestinoBytePonto(),
-                Integer.toString(this.maquinaDeEstados.getPortaDestino())); 
-
-    		System.out.println("jButtonActiveOpenActionPerformed: ajusta botões");
-            this.jButtonClose.setEnabled(true);
-            this.jButtonPassiveOpen.setEnabled(false);
-            this.jButtonActiveOpen.setEnabled(false);
-            this.jTextFieldHost.setEnabled(false);
+            this.jbClose.setEnabled(true);
+            this.jbPassiveOpen.setEnabled(false);
+            this.jbActiveOpen.setEnabled(false);
+            this.jtfHost.setEnabled(false);
             this.jTextFieldPorta.setEnabled(false);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        
-		System.out.println("jButtonActiveOpenActionPerformed: fim");
     }
 
     private void jButtonPassiveOpenActionPerformed(java.awt.event.ActionEvent evt)
@@ -451,10 +455,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
                     Integer.toString(this.maquinaDeEstados.getPortaLocal()), 
                     "null", "null");
             
-            this.jButtonClose.setEnabled(true);
-            this.jButtonPassiveOpen.setEnabled(false);
-            this.jButtonActiveOpen.setEnabled(false);
-            this.jTextFieldHost.setEnabled(false);
+            this.jbClose.setEnabled(true);
+            this.jbPassiveOpen.setEnabled(false);
+            this.jbActiveOpen.setEnabled(false);
+            this.jtfHost.setEnabled(false);
             this.jTextFieldPorta.setEnabled(false);
         }
         catch (Exception e)
@@ -466,6 +470,27 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
+    private void jbCloseActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        String args[] = new String[6];
+        args[0] = Decoder.bytePontoToIpSimulado(this.jtfHost.getText());
+        args[1] = this.jTextFieldPorta.getText();
+        args[2] = this.jTextAreaDadosEnviados.getText();
+        args[3] = this.jTextFieldTimeout.getText();
+        args[4] = this.jTextFieldTamJan.getText();
+        args[5] = this.jTextFieldTamSeg.getText();
+        
+        try
+        {
+            this.maquinaDeEstados.recebePrimitiva(ProtocoloTCP.P_CLOSE, args);
+            this.jbClose.setEnabled(false);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    } // jbClose
+       
     private void jTextFieldPortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPortaActionPerformed
     }//GEN-LAST:event_jTextFieldPortaActionPerformed
 
@@ -519,9 +544,9 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         campo2.append(_primitiva + "\n");
         jTextAreaPrimitiva.setText(campo2.toString());
 
-        campo3.append(jTextAreaSegmento.getText());
-        campo3.append(" " + _direcao + "\n");
-        jTextAreaSegmento.setText(campo3.toString());
+        campo3.append(jtaSegmento.getText());
+        campo3.append(_direcao + "\n");
+        jtaSegmento.setText(campo3.toString());
 
         campo4.append(jTextAreaDescricaoSegmento.getText());
         campo4.append(_segmento + "\n");
@@ -563,15 +588,15 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonActiveOpen;
+    private javax.swing.JButton jbActiveOpen;
     private javax.swing.JButton jButtonAjuda;
-    private javax.swing.JButton jButtonClose;
-    private javax.swing.JButton jButtonEnviar;
-    private javax.swing.JButton jButtonPassiveOpen;
+    private javax.swing.JButton jbClose;
+    private javax.swing.JButton jbEnviar;
+    private javax.swing.JButton jbPassiveOpen;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDadosEnviados;
-    private javax.swing.JLabel jLabelDescricaoSegmento;
+    private javax.swing.JLabel jlSegmento;
     private javax.swing.JLabel jLabelEstAtual;
     private javax.swing.JLabel jLabelEstado;
     private javax.swing.JLabel jLabelHost;
@@ -580,7 +605,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNumSeq;
     private javax.swing.JLabel jLabelPorta;
     private javax.swing.JLabel jLabelPrimitiva;
-    private javax.swing.JLabel jLabelSegmento;
+    private javax.swing.JLabel jlSentido;
     private javax.swing.JLabel jLabelTamJan;
     private javax.swing.JLabel jLabelTamSeg;
     private javax.swing.JLabel jLabelTimeout;
@@ -603,9 +628,9 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaDescricaoSegmento;
     private javax.swing.JTextArea jTextAreaEstado;
     private javax.swing.JTextArea jTextAreaPrimitiva;
-    private javax.swing.JTextArea jTextAreaSegmento;
+    private javax.swing.JTextArea jtaSegmento;
     private javax.swing.JTextField jTextFieldEstAtual;
-    public javax.swing.JTextField jTextFieldHost;
+    public javax.swing.JTextField jtfHost;
     private javax.swing.JTextField jTextFieldNumACK;
     private javax.swing.JTextField jTextFieldNumSeq;
     public javax.swing.JTextField jTextFieldPorta;

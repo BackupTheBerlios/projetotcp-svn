@@ -53,20 +53,22 @@ public abstract class Decoder
      */
     public static String ipSimuladoToBytePonto (String _oIPSimulado)
     {
-        if (_oIPSimulado.length () < 13) return null;
+        if (_oIPSimulado.length () < 13)
+            return "";
 
         String retornoIPSimulado = new String ();
         int cursor = 0;
 
         for (int i = 0; i < 4; i++)
         {
-            retornoIPSimulado += Integer.parseInt(_oIPSimulado.substring (cursor, cursor + 3));
+            retornoIPSimulado += Integer.parseInt (_oIPSimulado.substring (cursor,
+                    cursor + 3));
             cursor = cursor + 3;
             if (i != 3)
                 retornoIPSimulado += ".";
         }
 
-        retornoIPSimulado += ":" + Integer.parseInt(_oIPSimulado.substring (cursor));
+        retornoIPSimulado += ":" + Integer.parseInt (_oIPSimulado.substring (cursor));
 
         return retornoIPSimulado;
     }
@@ -177,8 +179,8 @@ public abstract class Decoder
         if (_texto.length () == 2)
         {
             //faz o processo inverso do intToString
-            int i = (new Integer ((int) _texto.charAt (0))).intValue ()
-                    + ( (new Integer ((int) _texto.charAt (1))).intValue () * 256);
+            int i = (new Integer (_texto.charAt (0))).intValue ()
+                    + ( (new Integer (_texto.charAt (1))).intValue () * 256);
             return i;
         }
         return 0;
@@ -231,6 +233,8 @@ public abstract class Decoder
 
     /**
      * Método que ilustra funcionamento da classe Decoder.
+     * 
+     * @param args
      */
     public static void main (String args[])
     {
@@ -239,16 +243,15 @@ public abstract class Decoder
         {
             System.out.println (n + " " + Decoder.stringToInt (Decoder.intToString (n)));
         }
-        for (long m = (long) Math.pow ((double) 2, (double) 31); m < (long) Math.pow ((double) 2,
-                (double) 32); m++)
+        for (long m = (long) Math.pow (2, 31); m < (long) Math.pow (2, 32); m++)
         {
 
             Integer lsw = new Integer ((int) (m % 65536));
             Integer msw = new Integer ((int) (m / 65536));
             String str = Decoder.intToString (lsw.intValue ()) + ""
-                    + Decoder.intToString (msw.intValue ());
+                         + Decoder.intToString (msw.intValue ());
             long ms = Decoder.stringToInt (str.substring (0, 2))
-                    + (Decoder.stringToInt (str.substring (2, 4)) * 65536);
+                      + (Decoder.stringToInt (str.substring (2, 4)) * 65536);
 
             System.out.println (m + " " + ms);
         }

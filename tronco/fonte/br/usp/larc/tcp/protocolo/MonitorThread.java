@@ -62,16 +62,16 @@ public class MonitorThread extends Thread {
     {
         String bufferEntrada = null;
 
-        while(isRunning)
+        while (this.isRunning)
         {
             try
 			{
                 //verifica se tem dados no buffer de entrada,
                 //se não tiver, gera exceção
-                bufferEntrada = camadaIPSimulada.recebe(ProtocoloTCP.BUFFER_DEFAULT_IP_SIMULADA);
+                bufferEntrada = this.camadaIPSimulada.recebe(TCP.BUFFER_DEFAULT_IP_SIMULADA);
                 
                 //recebe dados e entrega para o monitor analisar
-                monitor.analisaDados(bufferEntrada);
+                this.monitor.analisaDados(bufferEntrada);
             }
             catch(Exception e)
 			{
@@ -80,19 +80,18 @@ public class MonitorThread extends Thread {
         }
     }
 
-    /*
+    /**
      * Indica se a thread está rodando
      *
      * @return boolean O estado do thread (true = monitorando e
      * false = não monitorando
      */
-
     public boolean isRunning()
     {
         return this.isRunning;
     }
 
-    /*
+    /**
      * Pára a thread
      */
     public void paraThread()

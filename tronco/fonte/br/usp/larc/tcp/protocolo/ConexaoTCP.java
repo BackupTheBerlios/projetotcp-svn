@@ -58,13 +58,23 @@ public class ConexaoTCP {
         this.portaRemota = ""; 
     }
     
-   /** Construtor com parâmetros da classe ConexãoTCP */
-    public ConexaoTCP(int oIdConexao, String oIpSimuladoLocal, String aPortaLocal, String oIpSimuladoRemoto, String aPortaRemota) {
+   /**
+    * Construtor com parâmetros da classe ConexãoTCP
+    * 
+    * @param oIdConexao
+    * @param oIpSimuladoLocal
+    * @param aPortaLocal
+    * @param oIpSimuladoRemoto
+    * @param aPortaRemota
+    */
+    public ConexaoTCP (int oIdConexao, String oIpSimuladoLocal, String aPortaLocal,
+            String oIpSimuladoRemoto, String aPortaRemota)
+    {
         this.idConexao = oIdConexao;
         this.ipSimuladoLocal = oIpSimuladoLocal;
         this.portaLocal = aPortaLocal;
         this.ipSimuladoRemoto = oIpSimuladoRemoto;
-        this.portaRemota = aPortaRemota; 
+        this.portaRemota = aPortaRemota;
     }
     
     /** 
@@ -78,7 +88,7 @@ public class ConexaoTCP {
     
     /** 
      * Método modificador para o atributo idConexao.
-     * @param aIdConexao Novo valor para o atributo idConexao.
+     * @param _idConexao Novo valor para o atributo idConexao.
      *
      */
     public void setIdConexao(int _idConexao) {
@@ -95,7 +105,7 @@ public class ConexaoTCP {
     }
     
     /** Método modificador para o atributo ipSimuladoLocal.
-     * @param oIpSimuladoLocal Novo valor para o atributo ipSimuladoLocal.
+     * @param _IPSimuladoLocal Novo valor para o atributo ipSimuladoLocal.
      *
      */
     public void setIpSimuladoLocal(String _IPSimuladoLocal) {
@@ -111,7 +121,7 @@ public class ConexaoTCP {
     }
     
     /** Método modificador para o atributo ipSimuladoRemoto.
-     * @param oIpSimuladoRemoto Novo valor para o atributo ipSimuladoRemoto.
+     * @param _IPSimuladoRemoto Novo valor para o atributo ipSimuladoRemoto.
      *
      */
     public void setIpSimuladoRemoto(String _IPSimuladoRemoto) {
@@ -127,7 +137,7 @@ public class ConexaoTCP {
     }
     
     /** Método modificador para o atributo portaLocal.
-     * @param aPortaLocal Novo valor para o atributo portaLocal.
+     * @param _portaLocal Novo valor para o atributo portaLocal.
      *
      */
     public void setPortaLocal(String _portaLocal) {
@@ -143,7 +153,7 @@ public class ConexaoTCP {
     }
     
     /** Método modificador para o atributo portaRemota.
-     * @param aPortaRemota Novo valor para o atributo portaRemota.
+     * @param _portaRemota Novo valor para o atributo portaRemota.
      *
      */
     public void setPortaRemota(String _portaRemota) {

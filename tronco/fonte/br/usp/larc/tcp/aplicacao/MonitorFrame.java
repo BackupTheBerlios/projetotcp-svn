@@ -11,19 +11,26 @@ package br.usp.larc.tcp.aplicacao;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
+import br.usp.larc.tcp.protocolo.MaquinaDeEstados;
 import br.usp.larc.tcp.protocolo.ProtocoloTCP;
-import br.usp.larc.tcp.protocolo.TCPIF;
+import br.usp.larc.tcp.protocolo.TCP;
 
 /** 
  * Classe que representa a Interface HM Monitor. Note que usamos a classe
@@ -50,7 +57,8 @@ public class MonitorFrame extends JFrame {
         this.setVisible(true);
     }
     
-    /** Creates new form Monitor */
+    /** Creates new form Monitor 
+     * @param _protocoloTCP*/
     public MonitorFrame(ProtocoloTCP _protocoloTCP)
     {
         this.initComponents();
@@ -73,24 +81,24 @@ public class MonitorFrame extends JFrame {
         GridBagConstraints gridBagConstraints13 = new GridBagConstraints();
         GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
         GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
-        jpTitulo = new javax.swing.JPanel();
-        jpGerenciador = new javax.swing.JPanel();
-        jpInfo = new javax.swing.JPanel();
-        jpComandos = new javax.swing.JPanel();
-        jlTitulo1 = new JLabel();
-        jlTitulo2 = new JLabel();
-		jlPorta = new JLabel();
-        jlIdDeConexao = new JLabel();
-        jtfPortaTCPNovaMaquina = new javax.swing.JTextField();
-        jtfIdDeConexao = new javax.swing.JTextField();
-        jbCriarNovaMaquina = new javax.swing.JButton();
-        jbFecharMaquina = new javax.swing.JButton();
-        jbIniciarTCP = new javax.swing.JButton();
-        jbFechar = new javax.swing.JButton();
-        jbReset = new javax.swing.JButton();
-        jpTabela = new javax.swing.JPanel();
-        jspTabela = new javax.swing.JScrollPane();
-        jtaTabelaDeConexoes = new javax.swing.JTextArea();
+        this.jpTitulo = new javax.swing.JPanel();
+        this.jpGerenciador = new javax.swing.JPanel();
+        this.jpInfo = new javax.swing.JPanel();
+        this.jpComandos = new javax.swing.JPanel();
+        this.jlTitulo1 = new JLabel();
+        this.jlTitulo2 = new JLabel();
+		this.jlPorta = new JLabel();
+        this.jlIdDeConexao = new JLabel();
+        this.jtfPortaTCPNovaMaquina = new JTextField();
+        this.jtfIdDeConexao = new JTextField();
+        this.jbCriarNovaMaquina = new JButton();
+        this.jbFecharMaquina = new JButton();
+        this.jbIniciarTCP = new JButton();
+        this.jbFechar = new JButton();
+        this.jbReset = new JButton();
+        this.jpTabela = new JPanel();
+        this.jspTabela = new JScrollPane();
+        this.jtaTabelaDeConexoes = new JTextArea();
 
         // Título
         jpTitulo.setLayout(new BoxLayout(jpTitulo, BoxLayout.X_AXIS));
@@ -109,8 +117,7 @@ public class MonitorFrame extends JFrame {
 
         jpInfo.setLayout(new GridBagLayout());
 
-		jlPorta.setText("Porta TCP:");
-        
+		jlPorta.setText("Porta TCP:");        
         jtfPortaTCPNovaMaquina.setColumns(3);
         jtfPortaTCPNovaMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,9 +128,10 @@ public class MonitorFrame extends JFrame {
         jbCriarNovaMaquina.setText("Criar Nova Máquina");
         jbCriarNovaMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCriarNovaMaquinaActionPerformed(evt);
+                jbCriarNovaMaquinaActionPerformed(evt);
             }
         });
+        
         jlIdDeConexao.setText("Id de Conexão:");
         jtfIdDeConexao.setColumns(3);
         jtfIdDeConexao.addActionListener(new java.awt.event.ActionListener() {
@@ -134,9 +142,10 @@ public class MonitorFrame extends JFrame {
         jbFecharMaquina.setText("Fechar Máquina");
         jbFecharMaquina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFecharMaquinaActionPerformed(evt);
+                jbFecharMaquinaActionPerformed(evt);
             }
         });
+        
 		jpGerenciador.add(jpInfo, null);
 
         jpComandos.setLayout(new BoxLayout(jpComandos, BoxLayout.Y_AXIS));
@@ -144,7 +153,7 @@ public class MonitorFrame extends JFrame {
         jbIniciarTCP.setText("Iniciar TCP");
         jbIniciarTCP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonIniciarTCPActionPerformed(evt);
+                jbIniciarTCPActionPerformed(evt);
             }
         });
 		jpComandos.add(jbIniciarTCP, null);
@@ -152,7 +161,7 @@ public class MonitorFrame extends JFrame {
         jbFechar.setText("Fechar");
         jbFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFecharActionPerformed(evt);
+                jbFecharActionPerformed(evt);
             }
         });
 		jpComandos.add(jbFechar, null);
@@ -211,43 +220,52 @@ public class MonitorFrame extends JFrame {
         pack();
     }
 
-    private void jButtonFecharMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharMaquinaActionPerformed
-    	// Add your handling code here:
+    private void jbFecharMaquinaActionPerformed(ActionEvent evt)
+    {
     	try
 		{
     		String argumentos[]  = {""};
-    		argumentos[0] = (String) this.jtfIdDeConexao.getText();
-    		this.protocoloTCP.recebePrimitivaAplicacao (ProtocoloTCP.P_TCP_CLOSE_ME, argumentos);
-    		this.jtfIdDeConexao.setText("");
+    		argumentos[0] = this.jtfIdDeConexao.getText();
+    		this.protocoloTCP.recebePrimitivaAplicacao (TCP.P_TCP_CLOSE_ME, argumentos);
+
+            Iterator tab = this.protocoloTCP.getMonitor().getMaquinasDeEstados().maquinasKeySet();
+            String id = (String) tab.next();
+            this.jtfIdDeConexao.setText(id);
 		}
     	catch(Exception e)
 		{
-    		JOptionPane.showMessageDialog(null,"jButtonFecharMaquinaActionPerformed: "+e.getMessage());
+    		JOptionPane.showMessageDialog(null,"jbFecharMaquinaActionPerformed: "+e.getMessage());
 		}        
-    }//GEN-LAST:event_jButtonFecharMaquinaActionPerformed
+    }
 
-    private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt)
+    private void jbFecharActionPerformed(ActionEvent evt)
     {
         try
         {
             String argumentos[]  = {""};
-            this.protocoloTCP.recebePrimitivaAplicacao (TCPIF.P_TCP_CLOSE, argumentos);
+            this.protocoloTCP.recebePrimitivaAplicacao (TCP.P_TCP_CLOSE, argumentos);
             this.habilitaInterface(false);
         }
         catch(Exception e)
         {
-            JOptionPane.showMessageDialog(null,"jButtonFecharActionPerformed: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"jbFecharActionPerformed: " + e.getMessage());
         }
     }
 
-    private void jButtonCriarNovaMaquinaActionPerformed(java.awt.event.ActionEvent evt)
+    private void jbCriarNovaMaquinaActionPerformed(ActionEvent evt)
     {
         try
 		{
             String argumentos[]  = {""};
             argumentos[0] = this.jtfPortaTCPNovaMaquina.getText();
-            this.protocoloTCP.recebePrimitivaAplicacao (TCPIF.P_TCP_OPEN_ME, argumentos);
-            this.jtfPortaTCPNovaMaquina.setText("");
+            this.protocoloTCP.recebePrimitivaAplicacao (TCP.P_TCP_OPEN_ME, argumentos);
+            
+            int porta = Integer.parseInt (this.jtfPortaTCPNovaMaquina.getText());
+            this.jtfPortaTCPNovaMaquina.setText(Integer.toString(porta+1));
+            
+            Iterator tab = this.protocoloTCP.getMonitor().getMaquinasDeEstados().maquinasKeySet();
+            String id = (String) tab.next();
+            this.jtfIdDeConexao.setText(id);
         }
         catch(Exception e)
 		{
@@ -255,55 +273,63 @@ public class MonitorFrame extends JFrame {
         }
     }
     
-    private void jTextFieldIdDeConexaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdDeConexaoActionPerformed
-        // Add your handling code here:
-    }//GEN-LAST:event_jTextFieldIdDeConexaoActionPerformed
+    private void jTextFieldIdDeConexaoActionPerformed(ActionEvent evt)
+    {
+    }
     
-    private void jTextFieldPortaTCPNovaMaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPortaTCPNovaMaquinaActionPerformed
-        // Add your handling code here:
-    }//GEN-LAST:event_jTextFieldPortaTCPNovaMaquinaActionPerformed
+    private void jTextFieldPortaTCPNovaMaquinaActionPerformed(ActionEvent evt)
+    {
+    }
     
-    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+    private void jButtonResetActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         // Add your handling code here:
     }//GEN-LAST:event_jButtonResetActionPerformed
     
-    private void jButtonIniciarTCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarTCPActionPerformed
-        // Add your handling code here:
-        try {
-            String argumentos [] = null;
-            this.protocoloTCP.recebePrimitivaAplicacao            
-                (TCPIF.P_TCP_OPEN, argumentos);
-            this.habilitaInterface(true);
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null,"jButtonIniciarTCPActionPerformed: " + e.getMessage());
+    private void jbIniciarTCPActionPerformed (ActionEvent evt)
+    {
+        try
+        {
+            String argumentos[] = null;
+            this.protocoloTCP.recebePrimitivaAplicacao (TCP.P_TCP_OPEN, argumentos);
+            this.jtfPortaTCPNovaMaquina.setText("0");
+            this.habilitaInterface (true);
         }
-    }//GEN-LAST:event_jButtonIniciarTCPActionPerformed
+        catch (Exception e)
+        {
+            JOptionPane.showMessageDialog (null, "jButtonIniciarTCPActionPerformed: "
+                                                 + e.getMessage ());
+        }
+    }
     
-    /** Exit the Application */
-    private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
+    /** Exit the Application 
+     * @param evt*/
+    private void exitForm(java.awt.event.WindowEvent evt)
+    {
         System.exit(0);
-    }//GEN-LAST:event_exitForm
+    }
     
-    private void habilitaInterface(boolean _flag) {
-            if (_flag) {
-                this.jlTitulo2.setForeground(new java.awt.Color(0, 153, 0));
-                this.jlTitulo2.setHorizontalAlignment(
-                    javax.swing.SwingConstants.CENTER);
-                this.jlTitulo2.setText("Ativado");
-            } else {
-                this.jlTitulo2.setForeground(new java.awt.Color(204, 0, 0));
-                this.jlTitulo2.setHorizontalAlignment(
-                    javax.swing.SwingConstants.CENTER);
-                this.jlTitulo2.setText("Desativado");
-            }
-            
-            this.jbFechar.setEnabled(_flag);
-            this.jbFecharMaquina.setEnabled(_flag);
-            this.jbReset.setEnabled(_flag);
-            this.jbCriarNovaMaquina.setEnabled(_flag);
-            this.jtfPortaTCPNovaMaquina.setEditable(_flag);
-            this.jbIniciarTCP.setEnabled(!_flag);
+    private void habilitaInterface (boolean _flag)
+    {
+        if (_flag)
+        {
+            this.jlTitulo2.setForeground (new java.awt.Color (0, 153, 0));
+            this.jlTitulo2.setHorizontalAlignment (javax.swing.SwingConstants.CENTER);
+            this.jlTitulo2.setText ("Ativado");
+        }
+        else
+        {
+            this.jlTitulo2.setForeground (new java.awt.Color (204, 0, 0));
+            this.jlTitulo2.setHorizontalAlignment (javax.swing.SwingConstants.CENTER);
+            this.jlTitulo2.setText ("Desativado");
+        }
 
+        this.jbFechar.setEnabled (_flag);
+        this.jbFecharMaquina.setEnabled (_flag);
+        this.jbReset.setEnabled (_flag);
+        this.jbCriarNovaMaquina.setEnabled (_flag);
+        this.jtfPortaTCPNovaMaquina.setEditable (_flag);
+        this.jtfIdDeConexao.setEditable (_flag);
+        this.jbIniciarTCP.setEnabled (!_flag);
     }
     
 
@@ -327,43 +353,55 @@ public class MonitorFrame extends JFrame {
     private javax.swing.JTextField jtfPortaTCPNovaMaquina;
     // End of variables declaration//GEN-END:variables
     private ProtocoloTCP protocoloTCP;
-    private Timer timerAtualizaTabelaDeConexoes = new Timer();;
+    private Timer timerAtualizaTabelaDeConexoes = new Timer();
     
 	private JPanel jpPrincipal = null;
 	private JLabel jlPorta = null;
 	
     class RemindTask extends TimerTask
-	{	
-    	public void run()
-    	{
-    		try 
-			{
-    			jtaTabelaDeConexoes.setText(protocoloTCP.getMonitor().getTabelaDeConexoes().toString());
-    			boolean existeMaquinas = !protocoloTCP.getMonitor().getTabelaDeConexoes().isEmpty();
-    			jbFecharMaquina.setEnabled(existeMaquinas);
-    			jtfIdDeConexao.setEditable(existeMaquinas);
-    		} 
-    		catch (Exception ex)
-			{
-    			JOptionPane.showMessageDialog(null,"RemindTask.run: " + ex.getMessage());
-    		}
-    		
-    	}
+    {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.util.TimerTask#run()
+         */
+        public void run ()
+        {
+            try
+            {
+                MonitorFrame.this.jtaTabelaDeConexoes
+                        .setText (MonitorFrame.this.protocoloTCP.getMonitor ()
+                                .getTabelaDeConexoes ().toString ());
+                boolean existeMaquinas = !MonitorFrame.this.protocoloTCP.getMonitor ()
+                        .getTabelaDeConexoes ().isEmpty ();
+                MonitorFrame.this.jbFecharMaquina.setEnabled (existeMaquinas);
+                MonitorFrame.this.jtfIdDeConexao.setEditable (existeMaquinas);
+            }
+            catch (Exception ex)
+            {
+                System.err.println ("MonitorFrame.RemindTask.run: erro: " + ex.getMessage ());
+                System.err.flush();
+            }
+
+        }
     }
     
 	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */    
-	private JPanel getJpPrincipal() {
-		if (jpPrincipal == null) {
-			jpPrincipal = new JPanel();
-			jpPrincipal.setLayout(new BoxLayout(jpPrincipal, BoxLayout.Y_AXIS));
-			jpPrincipal.add(jpTitulo, null);
-			jpPrincipal.add(jpGerenciador, null);
-			jpPrincipal.add(jpTabela, null);
-		}
-		return jpPrincipal;
-	}
- }  //  @jve:decl-index=0:visual-constraint="10,10"//fim da classe MonitorFrame
+     * This method initializes jPanel
+     * 
+     * @return javax.swing.JPanel
+     */
+    private JPanel getJpPrincipal ()
+    {
+        if (this.jpPrincipal == null)
+        {
+            this.jpPrincipal = new JPanel ();
+            this.jpPrincipal.setLayout (new BoxLayout (this.jpPrincipal, BoxLayout.Y_AXIS));
+            this.jpPrincipal.add (this.jpTitulo, null);
+            this.jpPrincipal.add (this.jpGerenciador, null);
+            this.jpPrincipal.add (this.jpTabela, null);
+        }
+        return this.jpPrincipal;
+    }
+    
+} //  
