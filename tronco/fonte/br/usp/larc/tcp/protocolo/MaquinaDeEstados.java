@@ -275,6 +275,8 @@ public class MaquinaDeEstados
                             proximoEstado = TCP.FINWAIT1;
                             novoSegmento = TCP.S_FIN;
                             break;
+                        case TCP.P_TIMEOUT:
+                            return;
                         default:
                             throw new PrimitivaInvalidaException ();
                     }
@@ -345,6 +347,10 @@ public class MaquinaDeEstados
                     throw new EstadoInvalidoException ();
             }
         }
+        
+        if (_primitiva == TCP.P_TIMEOUT && novaPrimitiva == TCP.P_NENHUMA
+            && novoSegmento == TCP.S_NENHUM)
+            return;
         
         String func = TCP.nomeSegmento (novoSegmento);
         String seta;
@@ -468,6 +474,9 @@ public class MaquinaDeEstados
         byte novoSegmento = TCP.S_NENHUM;
         byte proximoEstado = TCP.NENHUM;
 
+        getRetransmissao().cancel();
+        clearNumRetransmissoes();
+        
         switch (this.estadoMEConexao)
         {
             case TCP.LISTEN:
@@ -729,7 +738,9 @@ public class MaquinaDeEstados
                 _pacoteTCP.toString (), _pacoteTCP.toString ().length (), porta);
 
         // agenda timeout se não for última retransmissão
-        if (getNumRetransmissoes () < TCP.MAX_RETRANSMISSOES && getEstadoMEConexao() != TCP.CLOSEWAIT)
+        if (getNumRetransmissoes () < TCP.MAX_RETRANSMISSOES
+            && getEstadoMEConexao () != TCP.CLOSEWAIT
+            && getEstadoMEConexao () != TCP.ESTABLISHED)
         {
             int timeout;
             
@@ -737,8 +748,9 @@ public class MaquinaDeEstados
                 timeout = 2 * TCP.T_TIMEOUT_MSL;
             else
                 timeout = getTempoTimeout();
-                
-            this.retransmissao.schedule (new RetransmissaoTask (), timeout);
+
+            setRetransmissao (new Timer ());
+            getRetransmissao().schedule (new RetransmissaoTask (), timeout);
         }
         
         System.out.println ("enviaSegmentoTCP: fim");
