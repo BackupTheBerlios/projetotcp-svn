@@ -8,12 +8,9 @@ package br.usp.larc.tcp.aplicacao;
  *
  */
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Timer;
@@ -26,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import br.usp.larc.tcp.protocolo.ProtocoloTCP;
+
 /** 
  * Classe que representa a Interface HM Monitor. Note que usamos a classe
  * Timer e TimerTask para atualizar a textArea que mostra a tabela de xonexão.
@@ -179,7 +177,7 @@ public class MonitorFrame extends JFrame {
         setContentPane(getJpPrincipal());
         setTitle("Monitor de Máquinas de Estado");
         setResizable(true);
-		setMinimumSize(new Dimension(300,100));
+//		setMinimumSize(new Dimension(300,100));
 		jbFechar.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
 		jbFechar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		gridBagConstraints11.gridx = 0;
