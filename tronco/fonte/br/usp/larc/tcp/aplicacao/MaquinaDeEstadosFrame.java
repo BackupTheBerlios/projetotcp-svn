@@ -41,10 +41,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         this.initComponents(); 
         this.setSize(590,550);
         this.idConexao = _maquinaDeEstados.getIdConexao();
-        this.setTitle("ME - ID: " + 
-             this.idConexao  + " => IPSimul: " +
-            _maquinaDeEstados.getIpSimuladoLocalBytePonto() + " => Porta: " +
-            _maquinaDeEstados.getPortaLocal());
+        this.setTitle("Máquina de Estado " + 
+             this.idConexao  + " (IPSimul = " +
+            _maquinaDeEstados.getIpSimuladoLocalBytePonto() + " : " +
+            _maquinaDeEstados.getPortaLocal() + ")");
         this.setVisible(true);
     }
     
@@ -206,7 +206,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         jLabelDadosEnviados.setBounds(10, 90, 100, 15);
 
         jLabelNumBytesEnviados.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jLabelNumBytesEnviados.setText("N\u00famero de byres enviados: 0");
+        jLabelNumBytesEnviados.setText("Número de byres enviados: 0");
         jPanel2.add(jLabelNumBytesEnviados);
         jLabelNumBytesEnviados.setBounds(140, 90, 180, 15);
 
@@ -224,7 +224,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         jLabelEstado.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         jLabelEstado.setText("Estado");
         jPanel3.add(jLabelEstado);
-        jLabelEstado.setBounds(10, 20, 38, 15);
+        jLabelEstado.setBounds(10, 20, 45, 15);
 
         jLabelPrimitiva.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         jLabelPrimitiva.setText("Primitiva");
@@ -237,7 +237,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         jLabelSegmento.setBounds(170, 20, 60, 15);
 
         jLabelDescricaoSegmento.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jLabelDescricaoSegmento.setText("(NS,Tam, NACK, T. Jan)");
+        jLabelDescricaoSegmento.setText("(NS,Tam,NACK,Jan)");
         jPanel3.add(jLabelDescricaoSegmento);
         jLabelDescricaoSegmento.setBounds(230, 20, 130, 16);
 
@@ -289,17 +289,17 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         jLabelTimeout.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         jLabelTimeout.setText("Timeout (ms):");
         jPanel4.add(jLabelTimeout);
-        jLabelTimeout.setBounds(10, 20, 100, 15);
+        jLabelTimeout.setBounds(10, 20, 130, 15);
 
         jLabelTamJan.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         jLabelTamJan.setText("Tam. Jan. (bytes):");
         jPanel4.add(jLabelTamJan);
-        jLabelTamJan.setBounds(10, 50, 100, 15);
+        jLabelTamJan.setBounds(10, 50, 130, 15);
 
         jLabelTamSeg.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         jLabelTamSeg.setText("Tam. Seg (bytes):");
         jPanel4.add(jLabelTamSeg);
-        jLabelTamSeg.setBounds(10, 80, 100, 15);
+        jLabelTamSeg.setBounds(10, 80, 130, 15);
 
         jTextFieldTimeout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,15 +309,15 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 
         jPanel4.add(jTextFieldTimeout);
         jTextFieldTimeout.setText("3000");
-        jTextFieldTimeout.setBounds(110, 20, 80, 20);
+        jTextFieldTimeout.setBounds(140, 20, 50, 20);
 
         jPanel4.add(jTextFieldTamJan);
         jTextFieldTamJan.setText("300");
-        jTextFieldTamJan.setBounds(110, 50, 80, 20);
+        jTextFieldTamJan.setBounds(140, 50, 50, 20);
 
         jPanel4.add(jTextFieldTamSeg);
         jTextFieldTamSeg.setText("100");
-        jTextFieldTamSeg.setBounds(110, 80, 80, 20);
+        jTextFieldTamSeg.setBounds(140, 80, 50, 20);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(380, 0, 200, 140);
@@ -328,20 +328,20 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         jLabelEstAtual.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
         jLabelEstAtual.setText("Est Atual (Tx/Rx)");
         jPanel5.add(jLabelEstAtual);
-        jLabelEstAtual.setBounds(10, 20, 89, 15);
+        jLabelEstAtual.setBounds(10, 20, 130, 15);
 
         jLabelNumSeq.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jLabelNumSeq.setText("N\u00ba Seq/Ult Conf");
+        jLabelNumSeq.setText("Nº Seq/Ult Conf");
         jPanel5.add(jLabelNumSeq);
-        jLabelNumSeq.setBounds(10, 50, 90, 15);
+        jLabelNumSeq.setBounds(10, 50, 130, 15);
 
         jLabelNumACK.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12));
-        jLabelNumACK.setText("N\u00ba ACK");
+        jLabelNumACK.setText("Nº ACK");
         jPanel5.add(jLabelNumACK);
-        jLabelNumACK.setBounds(10, 80, 39, 15);
+        jLabelNumACK.setBounds(10, 80, 130, 15);
 
         jPanel5.add(jTextFieldNumSeq);
-        jTextFieldNumSeq.setBounds(100, 50, 90, 20);
+        jTextFieldNumSeq.setBounds(140, 50, 50, 20);
 
         jTextFieldEstAtual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,10 +350,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         });
 
         jPanel5.add(jTextFieldEstAtual);
-        jTextFieldEstAtual.setBounds(100, 20, 90, 20);
+        jTextFieldEstAtual.setBounds(140, 20, 50, 20);
 
         jPanel5.add(jTextFieldNumACK);
-        jTextFieldNumACK.setBounds(100, 80, 90, 20);
+        jTextFieldNumACK.setBounds(140, 80, 50, 20);
 
         getContentPane().add(jPanel5);
         jPanel5.setBounds(380, 140, 200, 110);
