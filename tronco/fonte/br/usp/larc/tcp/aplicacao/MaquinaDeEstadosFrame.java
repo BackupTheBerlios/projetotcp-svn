@@ -380,7 +380,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         pack();
     }//GEN-END:initComponents
 
-    private void jButtonActiveOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
+    private void jButtonActiveOpenActionPerformed(java.awt.event.ActionEvent evt)
+    {
+		System.out.println("jButtonActiveOpenActionPerformed: inicio");
+
         String args[] = new String[6];
         args[0] = Decoder.bytePontoToIpSimulado(this.jTextFieldHost.getText());
         args[1] = this.jTextFieldPorta.getText();
@@ -391,13 +394,16 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
 
         try
         {
+    		System.out.println("jButtonActiveOpenActionPerformed: recebePrimitiva");
             this.maquinaDeEstados.recebePrimitiva(ProtocoloTCP.P_ACTIVEOPEN, args);
             
+    		System.out.println("jButtonActiveOpenActionPerformed: alteraDestino");
             this.maquinaDeEstados.getMonitor().getTabelaDeConexoes().alteraDestino(
                     this.maquinaDeEstados.getIdConexao(),
                     this.maquinaDeEstados.getIpSimuladoDestino(),
                     Integer.toString(this.maquinaDeEstados.getPortaDestino()));
             
+    		System.out.println("jButtonActiveOpenActionPerformed: inatualizaInfoConexaoicio");
             this.atualizaInfoConexao(
                 this.maquinaDeEstados.getEstadoMEConAtual(),
                 this.maquinaDeEstados.getIpSimuladoLocalBytePonto(),
@@ -405,6 +411,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
                 this.maquinaDeEstados.getIpSimuladoDestinoBytePonto(),
                 Integer.toString(this.maquinaDeEstados.getPortaDestino())); 
 
+    		System.out.println("jButtonActiveOpenActionPerformed: ajusta botões");
             this.jButtonClose.setEnabled(true);
             this.jButtonPassiveOpen.setEnabled(false);
             this.jButtonActiveOpen.setEnabled(false);
@@ -415,12 +422,15 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButtonEnviarActionPerformed
+        
+		System.out.println("jButtonActiveOpenActionPerformed: fim");
+    }
 
-    private void jButtonPassiveOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
+    private void jButtonPassiveOpenActionPerformed(java.awt.event.ActionEvent evt)
+    {
         String args[] = new String[6];
-        args[0] = Decoder.bytePontoToIpSimulado(this.jTextFieldHost.getText());
-        args[1] = this.jTextFieldPorta.getText();
+//        args[0] = Decoder.bytePontoToIpSimulado(this.jTextFieldHost.getText());
+//        args[1] = this.jTextFieldPorta.getText();
         args[2] = this.jTextAreaDadosEnviados.getText();
         args[3] = this.jTextFieldTimeout.getText();
         args[4] = this.jTextFieldTamJan.getText();
@@ -429,18 +439,17 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         try
         {
             this.maquinaDeEstados.recebePrimitiva(ProtocoloTCP.P_PASSIVEOPEN, args);
-            
+/*            
             this.maquinaDeEstados.getMonitor().getTabelaDeConexoes().alteraDestino(
                     this.maquinaDeEstados.getIdConexao(),
                     this.maquinaDeEstados.getIpSimuladoDestino(),
                     Integer.toString(this.maquinaDeEstados.getPortaDestino()));
-            
+*/            
             this.atualizaInfoConexao(
                     this.maquinaDeEstados.getEstadoMEConAtual(),
                     this.maquinaDeEstados.getIpSimuladoLocalBytePonto(),
                     Integer.toString(this.maquinaDeEstados.getPortaLocal()), 
-                    this.maquinaDeEstados.getIpSimuladoDestinoBytePonto(),
-                    Integer.toString(this.maquinaDeEstados.getPortaDestino()));
+                    "null", "null");
             
             this.jButtonClose.setEnabled(true);
             this.jButtonPassiveOpen.setEnabled(false);
