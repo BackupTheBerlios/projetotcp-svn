@@ -250,7 +250,8 @@ public class IpSimulada implements IpSimuladaIF {
     public void transmite(String _ipMaquinaDestino, String _bufferSaida, int _tamanhoBuffer, int _porta) throws CanalInexistenteException {
         try{
             System.out.println("IPSimulada.transmite(): início");
-            this.setTamanhoBufferTx(_tamanhoBuffer); 
+// FIXME: setTamanhoBufferTx está dando erro, por isso foi comentado         
+//            this.setTamanhoBufferTx(_tamanhoBuffer); 
             System.out.println("IPSimulada.transmite(): converte");
             byte[] data = _bufferSaida.getBytes("ISO-8859-1");
             System.out.println("IPSimulada.transmite(): cria datagrama");
