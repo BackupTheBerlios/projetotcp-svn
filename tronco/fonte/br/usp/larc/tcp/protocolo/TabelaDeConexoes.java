@@ -148,11 +148,11 @@ public class TabelaDeConexoes extends Hashtable
 
     /**
      * @param id
-     * @param ips
-     * @param porta
+     * @param ip_destino
+     * @param porta_destino
      * @author acdcp
      */
-    public void alteraDestino (int id, String ips, String porta)
+    public void alteraDestino (String ip_local, String porta_local, String ip_destino, String porta_destino)
     {
         Iterator tabela = this.conexoes ();
         ConexaoTCP conexao = new ConexaoTCP ();
@@ -162,10 +162,11 @@ public class TabelaDeConexoes extends Hashtable
         {
             //imprime todos ID's das conexões que estão na tabela
             conexao = (ConexaoTCP) tabela.next ();
-            if (conexao.getIdConexao () == id)
+            if (conexao.getIpSimuladoLocal().equals (ip_local) &&
+                    conexao.getPortaLocal().equals (porta_local))
             {
-                conexao.setIpSimuladoRemoto (ips);
-                conexao.setPortaRemota (porta);
+                conexao.setIpSimuladoRemoto (ip_destino);
+                conexao.setPortaRemota (porta_destino);
                 return;
             }
         }

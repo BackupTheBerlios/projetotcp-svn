@@ -68,7 +68,7 @@ public abstract class TCP
     public static final byte     S_SYN_ACK                  = S_SYN | S_ACK;
 
     // TimeOuts
-    public final static int      MAX_RETRANSMISSOES         = 10;
+    public final static int      MAX_RETRANSMISSOES         = 3;
     public static final int      T_TIMEOUT                  = 150;
     public static final int      T_ESTOURO_RETRANSMISSOES   = 151;
 

@@ -350,11 +350,11 @@ public class MonitorFrame extends JFrame {
     private JTextField jtfPortaTCPNovaMaquina;
     // End of variables declaration//GEN-END:variables
     private ProtocoloTCP protocoloTCP;
-    private Timer timerAtualizaTabelaDeConexoes = new Timer();
     
-	private JPanel jpPrincipal = null;
-	private JLabel jlPorta = null;
-	
+    private JPanel jpPrincipal = null;
+    private JLabel jlPorta = null;
+    
+    private Timer timerAtualizaTabelaDeConexoes = new Timer();
     class RemindTask extends TimerTask
     {
         /*
