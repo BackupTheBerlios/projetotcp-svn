@@ -26,7 +26,7 @@ public abstract class TCP
     public static final byte     CLOSING                    = 8;
     public static final byte     LASTACK                    = 9;
     public static final byte     TIMEWAIT                   = 10;
-    public static final byte     NENHUM                     = 100;
+    public static final byte     NENHUM                     = 11;
 
     //Primitivas de 001 até 004 (relacionadas com o frame Monitor)
     public static final int      P_TCP_OPEN                 = 0;
@@ -68,12 +68,12 @@ public abstract class TCP
     public static final byte     S_SYN_ACK                  = S_SYN | S_ACK;
 
     // TimeOuts
-    public final static int      MAX_RETRANSMISSOES         = 3;
+    public static final int      MAX_RETRANSMISSOES         = 3;
     public static final int      T_TIMEOUT                  = 150;
     public static final int      T_ESTOURO_RETRANSMISSOES   = 151;
 
-    /** <code>T_TIMEOUT_TX</code>: Maximum Segment Lifetime */
-    public static final int      T_TIMEOUT_TX               = 2000;
+    /** <code>T_TIMEOUT_MSL</code>: Maximum Segment Lifetime */
+    public static final int      T_TIMEOUT_MSL              = 2000;
 
     /**
      * <code>BUFFER_DEFAULT_IP_SIMULADA</code>: Tmanho do segmento (no caso,
@@ -93,7 +93,8 @@ public abstract class TCP
             "FinWait2",
             "Closing",
             "LastAck",
-            "TimeWait"                                      };
+            "TimeWait",
+            "Nenhum"                                        };
 
     public static final String[] nomePrimitiva              = {
             "",
@@ -106,7 +107,7 @@ public abstract class TCP
             "Error",
             "Closing",
             "Terminate",
-            "TimeOut"                                       };
+            "(TimeOut)"                                       };
 
     public static final String[] nomePrimitivaAplicacao     = {
             "TCP Open",

@@ -109,55 +109,55 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
      */
     private void initComponents()
     {
-        this.jPanel1 = new JPanel ();
-        this.jLabelnformacoesConexao = new JLabel ();
-        this.jPanel2 = new javax.swing.JPanel ();
+        this.jpConexao = new JPanel ();
+        this.jlInformacoesConexao = new JLabel ();
+        this.jpPrimitivas = new javax.swing.JPanel ();
         this.jbActiveOpen = new javax.swing.JButton ();
         this.jbPassiveOpen = new javax.swing.JButton ();
         this.jbEnviar = new javax.swing.JButton ();
         this.jbClose = new javax.swing.JButton ();
-        this.jLabelHost = new javax.swing.JLabel ();
-        this.jLabelPorta = new javax.swing.JLabel ();
+        this.jlHost = new javax.swing.JLabel ();
+        this.jlPorta = new javax.swing.JLabel ();
         this.jtfHost = new javax.swing.JTextField ();
         this.jtfPorta = new javax.swing.JTextField ();
-        this.jLabelDadosEnviados = new javax.swing.JLabel ();
-        this.jLabelNumBytesEnviados = new javax.swing.JLabel ();
-        this.jScrollPane1 = new javax.swing.JScrollPane ();
-        this.jTextAreaDadosEnviados = new javax.swing.JTextArea ();
-        this.jPanel3 = new javax.swing.JPanel ();
-        this.jLabelEstado = new javax.swing.JLabel ();
-        this.jLabelPrimitiva = new javax.swing.JLabel ();
+        this.jlDadosEnviados = new javax.swing.JLabel ();
+        this.jlNumBytesEnviados = new javax.swing.JLabel ();
+        this.jspadosEnviados = new javax.swing.JScrollPane ();
+        this.jtaDadosEnviados = new javax.swing.JTextArea ();
+        this.jpDiagramaTempo = new javax.swing.JPanel ();
+        this.jlEstado = new javax.swing.JLabel ();
+        this.jlPrimitiva = new javax.swing.JLabel ();
         this.jlSentido = new javax.swing.JLabel ();
         this.jlSegmento = new javax.swing.JLabel ();
-        this.jScrollPane2 = new javax.swing.JScrollPane ();
+        this.jspEstado = new javax.swing.JScrollPane (null, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.jtaEstado = new javax.swing.JTextArea ();
-        this.jScrollPane3 = new javax.swing.JScrollPane ();
+        this.jspPrimitiva = new javax.swing.JScrollPane (null, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.jtaPrimitiva = new javax.swing.JTextArea ();
-        this.jScrollPane4 = new javax.swing.JScrollPane ();
+        this.jspSentido = new javax.swing.JScrollPane (null, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.jtaSentido = new javax.swing.JTextArea ();
-        this.jScrollPane5 = new javax.swing.JScrollPane ();
+        this.jspDescricaoSegmento = new javax.swing.JScrollPane (null, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.jtaDescricaoSegmento = new javax.swing.JTextArea ();
-        this.jPanel4 = new javax.swing.JPanel ();
+        this.jpConf = new javax.swing.JPanel ();
         this.jButtonAjuda = new javax.swing.JButton ();
-        this.jButtonReset = new javax.swing.JButton ();
-        this.jLabelTimeout = new javax.swing.JLabel ();
-        this.jLabelTamJan = new javax.swing.JLabel ();
-        this.jLabelTamSeg = new javax.swing.JLabel ();
-        this.jTextFieldTimeout = new javax.swing.JTextField ();
+        this.jbReset = new javax.swing.JButton ();
+        this.jlTimeout = new javax.swing.JLabel ();
+        this.jlTamJan = new javax.swing.JLabel ();
+        this.jlTamSeg = new javax.swing.JLabel ();
+        this.jtfTimeout = new javax.swing.JTextField ();
         this.jtfTamJan = new javax.swing.JTextField ();
-        this.jTextFieldTamSeg = new javax.swing.JTextField ();
-        this.jPanel5 = new javax.swing.JPanel ();
-        this.jLabelEstAtual = new javax.swing.JLabel ();
-        this.jLabelNumSeq = new javax.swing.JLabel ();
-        this.jLabelNumACK = new javax.swing.JLabel ();
-        this.jTextFieldNumSeq = new javax.swing.JTextField ();
+        this.jtfTamSeg = new javax.swing.JTextField ();
+        this.jpInfo = new javax.swing.JPanel ();
+        this.jlEstAtual = new javax.swing.JLabel ();
+        this.jlNumSeq = new javax.swing.JLabel ();
+        this.jlNumACK = new javax.swing.JLabel ();
+        this.jtfNumSeq = new javax.swing.JTextField ();
         this.jtfEstAtual = new javax.swing.JTextField ();
-        this.jTextFieldNumACK = new javax.swing.JTextField ();
-        this.jPanel6 = new javax.swing.JPanel ();
-        this.jScrollPane6 = new javax.swing.JScrollPane ();
-        this.jTextAreaDadosRecebidos = new javax.swing.JTextArea ();
-        this.jPanel7 = new javax.swing.JPanel ();
-        this.jLabel1 = new javax.swing.JLabel ();
+        this.jtfNumACK = new javax.swing.JTextField ();
+        this.jpDadosRecebidos = new javax.swing.JPanel ();
+        this.jspDadosRecebidos = new javax.swing.JScrollPane ();
+        this.jtaDadosRecebidos = new javax.swing.JTextArea ();
+        this.jpTudo = new javax.swing.JPanel ();
+        this.jlRodape = new javax.swing.JLabel ();
 
         getContentPane().setLayout(null);
 
@@ -168,19 +168,19 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
             }
         });
 
-        this.jPanel1.setLayout(null);
+        this.jpConexao.setLayout(null);
 
-        this.jPanel1.setBorder(new TitledBorder(new EtchedBorder(), "Conexão", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
-        this.jLabelnformacoesConexao.setFont(new Font("Microsoft Sans Serif", 0, 10));
-        this.jPanel1.add(this.jLabelnformacoesConexao);
-        this.jLabelnformacoesConexao.setBounds(10, 20, 350, 30);
+        this.jpConexao.setBorder(new TitledBorder(new EtchedBorder(), "Conexão", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
+        this.jlInformacoesConexao.setFont(new Font("Microsoft Sans Serif", 0, 10));
+        this.jpConexao.add(this.jlInformacoesConexao);
+        this.jlInformacoesConexao.setBounds(10, 20, 350, 30);
 
-        getContentPane().add(this.jPanel1);
-        this.jPanel1.setBounds(5, 0, 370, 60);
+        getContentPane().add(this.jpConexao);
+        this.jpConexao.setBounds(5, 0, 370, 60);
 
-        this.jPanel2.setLayout(null);
+        this.jpPrimitivas.setLayout(null);
 
-        this.jPanel2.setBorder (new TitledBorder (new EtchedBorder (), "Primitivas",
+        this.jpPrimitivas.setBorder (new TitledBorder (new EtchedBorder (), "Primitivas",
                 TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font (
                         "Microsoft Sans Serif", 0, 12), Color.red));
         this.jbActiveOpen.setFont(new Font("Microsoft Sans Serif", 0, 12));
@@ -189,7 +189,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         this.jbActiveOpen.setHorizontalTextPosition(SwingConstants.CENTER);
         this.jbActiveOpen.setMargin(new Insets(2, 2, 2, 2));
         this.jbActiveOpen.setEnabled(true);
-        this.jPanel2.add(this.jbActiveOpen);
+        this.jpPrimitivas.add(this.jbActiveOpen);
         this.jbActiveOpen.setBounds(10, 20, 80, 30);
         this.jbActiveOpen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -203,7 +203,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         this.jbPassiveOpen.setBorder(new BevelBorder(BevelBorder.RAISED));
         this.jbPassiveOpen.setHorizontalTextPosition(SwingConstants.CENTER);
         this.jbPassiveOpen.setEnabled(true);
-        this.jPanel2.add(this.jbPassiveOpen);
+        this.jpPrimitivas.add(this.jbPassiveOpen);
         this.jbPassiveOpen.setBounds(10, 60, 100, 30);
         this.jbPassiveOpen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -220,7 +220,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
                 jbEnviarActionPerformed(evt);
             }
         });
-        this.jPanel2.add(this.jbEnviar);
+        this.jpPrimitivas.add(this.jbEnviar);
         this.jbEnviar.setBounds(140, 60, 100, 30);
 
         this.jbClose.setFont(new Font("Microsoft Sans Serif", 0, 12));
@@ -232,25 +232,25 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
                 jbCloseActionPerformed(evt);
             }
         });
-        this.jPanel2.add(this.jbClose);
+        this.jpPrimitivas.add(this.jbClose);
         this.jbClose.setBounds(260, 60, 100, 30);
 
-        this.jLabelHost.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelHost.setText("Host");
-        this.jPanel2.add(this.jLabelHost);
-        this.jLabelHost.setBounds(100, 20, 30, 15);
+        this.jlHost.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlHost.setText("Host");
+        this.jpPrimitivas.add(this.jlHost);
+        this.jlHost.setBounds(100, 20, 30, 15);
 
-        this.jLabelPorta.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelPorta.setText("Porta");
-        this.jPanel2.add(this.jLabelPorta);
-        this.jLabelPorta.setBounds(290, 20, 30, 16);
+        this.jlPorta.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlPorta.setText("Porta");
+        this.jpPrimitivas.add(this.jlPorta);
+        this.jlPorta.setBounds(290, 20, 30, 16);
 /*
         this.jTextFieldHost.addActionListener(new Listener() {
             public void actionPerformed(this.ActionEvent evt) {
                 this.jTextFieldHostActionPerformed(evt);
             }
         });*/
-        this.jPanel2.add(this.jtfHost);
+        this.jpPrimitivas.add(this.jtfHost);
         this.jtfHost.setBounds(130, 20, 160, 20);
 /*
         this.jTextFieldPorta.addActionListener(new Listener() {
@@ -258,159 +258,155 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
                 this.jTextFieldPortaActionPerformed(evt);
             }
         });*/
-        this.jPanel2.add(this.jtfPorta);
+        this.jpPrimitivas.add(this.jtfPorta);
         this.jtfPorta.setBounds(320, 20, 40, 20);
 
-        this.jLabelDadosEnviados.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelDadosEnviados.setText("Dados Enviados");
-        this.jPanel2.add(this.jLabelDadosEnviados);
-        this.jLabelDadosEnviados.setBounds(10, 90, 100, 15);
+        this.jlDadosEnviados.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlDadosEnviados.setText("Dados Enviados");
+        this.jpPrimitivas.add(this.jlDadosEnviados);
+        this.jlDadosEnviados.setBounds(10, 90, 100, 15);
 
-        this.jLabelNumBytesEnviados.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelNumBytesEnviados.setText("Número de byres enviados: 0");
-        this.jPanel2.add(this.jLabelNumBytesEnviados);
-        this.jLabelNumBytesEnviados.setBounds(140, 90, 180, 15);
+        this.jlNumBytesEnviados.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlNumBytesEnviados.setText("Número de byres enviados: 0");
+        this.jpPrimitivas.add(this.jlNumBytesEnviados);
+        this.jlNumBytesEnviados.setBounds(140, 90, 180, 15);
 
-        this.jScrollPane1.setViewportView(this.jTextAreaDadosEnviados);
+        this.jspadosEnviados.setViewportView(this.jtaDadosEnviados);
 
-        this.jPanel2.add(this.jScrollPane1);
-        this.jScrollPane1.setBounds(10, 104, 350, 80);
+        this.jpPrimitivas.add(this.jspadosEnviados);
+        this.jspadosEnviados.setBounds(10, 104, 350, 80);
 
-        getContentPane().add(this.jPanel2);
-        this.jPanel2.setBounds(5, 60, 370, 190);
+        getContentPane().add(this.jpPrimitivas);
+        this.jpPrimitivas.setBounds(5, 60, 370, 190);
 
-        this.jPanel3.setLayout(null);
+        this.jpDiagramaTempo.setLayout(null);
 
-        this.jPanel3.setBorder(new TitledBorder(new EtchedBorder(), "Diagrama de Tempo", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
-        this.jLabelEstado.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelEstado.setText("Estado");
-        this.jPanel3.add(this.jLabelEstado);
-        this.jLabelEstado.setBounds(10, 20, 45, 15);
+        this.jpDiagramaTempo.setBorder(new TitledBorder(new EtchedBorder(), "Diagrama de Tempo", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
+        this.jlEstado.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlEstado.setText("Estado");
+        this.jpDiagramaTempo.add(this.jlEstado);
+        this.jlEstado.setBounds(10, 20, 45, 15);
 
-        this.jLabelPrimitiva.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelPrimitiva.setText("Primitiva");
-        this.jPanel3.add(this.jLabelPrimitiva);
-        this.jLabelPrimitiva.setBounds(100, 20, 60, 15);
+        this.jlPrimitiva.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlPrimitiva.setText("Primitiva");
+        this.jpDiagramaTempo.add(this.jlPrimitiva);
+        this.jlPrimitiva.setBounds(100, 20, 60, 15);
 
         this.jlSentido.setFont(new Font("Microsoft Sans Serif", 0, 12));
         this.jlSentido.setText("Sentido");
-        this.jPanel3.add(this.jlSentido);
+        this.jpDiagramaTempo.add(this.jlSentido);
         this.jlSentido.setBounds(179, 20, 60, 15);
 
         this.jlSegmento.setFont(new Font("Microsoft Sans Serif", 0, 12));
         this.jlSegmento.setText("Seg.(NS,Tam,NACK,Jan)");
-        this.jPanel3.add(this.jlSegmento);
+        this.jpDiagramaTempo.add(this.jlSegmento);
         this.jlSegmento.setBounds(225, 20, 140, 16);
 
         this.jtaEstado.setEditable(false);
-        this.jScrollPane2.setViewportView(this.jtaEstado);
-        this.jScrollPane2.setBounds(10, 40, 90, 200);
-        this.jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        this.jPanel3.add(this.jScrollPane2);
+        this.jspEstado.setViewportView(this.jtaEstado);
+        this.jspEstado.setBounds(10, 40, 90, 200);
+        this.jpDiagramaTempo.add(this.jspEstado);
 
 //        this.jtaEstado.setBounds(10,40,90,200);
 //        this.jtaEstado.setAlignmentY(0.0F);
 //        this.jPanel3.add(this.jtaEstado);
 
         this.jtaPrimitiva.setEditable(false);
-        this.jScrollPane3.setViewportView(this.jtaPrimitiva);
-        this.jScrollPane3.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        this.jScrollPane3.setBounds(100, 40, 80, 200);
-        this.jPanel3.add(this.jScrollPane3);
+        this.jspPrimitiva.setViewportView(this.jtaPrimitiva);
+        this.jspPrimitiva.setBounds(100, 40, 80, 200);
+        this.jpDiagramaTempo.add(this.jspPrimitiva);
 
         this.jtaSentido.setFont(new Font("Monospaced", 0, 12));
         this.jtaSentido.setEditable(false);
-        this.jScrollPane4.setViewportView(this.jtaSentido);
-        this.jScrollPane4.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        this.jScrollPane4.setBounds(180, 40, 40, 200);
-        this.jPanel3.add(this.jScrollPane4);
+        this.jspSentido.setViewportView(this.jtaSentido);
+        this.jspSentido.setBounds(180, 40, 40, 200);
+        this.jpDiagramaTempo.add(this.jspSentido);
 
         this.jtaDescricaoSegmento.setEditable(false);
-        this.jScrollPane5.setViewportView(this.jtaDescricaoSegmento);
-        this.jScrollPane5.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        this.jScrollPane5.setBounds(220, 40, 140, 200);
-        this.jPanel3.add(this.jScrollPane5);
+        this.jspDescricaoSegmento.setViewportView(this.jtaDescricaoSegmento);
+        this.jspDescricaoSegmento.setBounds(220, 40, 140, 200);
+        this.jpDiagramaTempo.add(this.jspDescricaoSegmento);
 
-        getContentPane().add(this.jPanel3);
-        this.jPanel3.setBounds(5, 250, 370, 250);
+        getContentPane().add(this.jpDiagramaTempo);
+        this.jpDiagramaTempo.setBounds(5, 250, 370, 250);
 
-        this.jPanel4.setLayout(null);
+        this.jpConf.setLayout(null);
 
-        this.jPanel4.setBorder(new TitledBorder(new EtchedBorder(), "Configura\u00e7\u00f5es", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
+        this.jpConf.setBorder(new TitledBorder(new EtchedBorder(), "Configura\u00e7\u00f5es", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
         this.jButtonAjuda.setFont(new Font("Microsoft Sans Serif", 0, 12));
         this.jButtonAjuda.setText("Ajuda");
         this.jButtonAjuda.setBorder(new BevelBorder(BevelBorder.RAISED));
-        this.jPanel4.add(this.jButtonAjuda);
+        this.jpConf.add(this.jButtonAjuda);
         this.jButtonAjuda.setBounds(10, 110, 80, 20);
 
-        this.jButtonReset.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jButtonReset.setText("Reset");
-        this.jButtonReset.setBorder(new BevelBorder(BevelBorder.RAISED));
-        this.jButtonReset.addActionListener(new ActionListener() {
+        this.jbReset.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jbReset.setText("Reset");
+        this.jbReset.setBorder(new BevelBorder(BevelBorder.RAISED));
+        this.jbReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jbResetActionPerformed(evt);
             }
         });
 
-        this.jPanel4.add(this.jButtonReset);
-        this.jButtonReset.setBounds(120, 110, 70, 20);
+        this.jpConf.add(this.jbReset);
+        this.jbReset.setBounds(120, 110, 70, 20);
 
-        this.jLabelTimeout.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelTimeout.setText("Timeout (ms):");
-        this.jPanel4.add(this.jLabelTimeout);
-        this.jLabelTimeout.setBounds(10, 20, 130, 15);
+        this.jlTimeout.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlTimeout.setText("Timeout (ms):");
+        this.jpConf.add(this.jlTimeout);
+        this.jlTimeout.setBounds(10, 20, 130, 15);
 
-        this.jLabelTamJan.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelTamJan.setText("Tam. Jan. (bytes):");
-        this.jPanel4.add(this.jLabelTamJan);
-        this.jLabelTamJan.setBounds(10, 50, 130, 15);
+        this.jlTamJan.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlTamJan.setText("Tam. Jan. (bytes):");
+        this.jpConf.add(this.jlTamJan);
+        this.jlTamJan.setBounds(10, 50, 130, 15);
 
-        this.jLabelTamSeg.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelTamSeg.setText("Tam. Seg (bytes):");
-        this.jPanel4.add(this.jLabelTamSeg);
-        this.jLabelTamSeg.setBounds(10, 80, 130, 15);
+        this.jlTamSeg.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlTamSeg.setText("Tam. Seg (bytes):");
+        this.jpConf.add(this.jlTamSeg);
+        this.jlTamSeg.setBounds(10, 80, 130, 15);
 
-        this.jTextFieldTimeout.addActionListener(new ActionListener() {
+        this.jtfTimeout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jTextFieldTimeoutActionPerformed(evt);
             }
         });
 
-        this.jPanel4.add(this.jTextFieldTimeout);
-        this.jTextFieldTimeout.setText("3000");
-        this.jTextFieldTimeout.setBounds(140, 20, 50, 20);
+        this.jpConf.add(this.jtfTimeout);
+        this.jtfTimeout.setText("3000");
+        this.jtfTimeout.setBounds(140, 20, 50, 20);
 
-        this.jPanel4.add(this.jtfTamJan);
+        this.jpConf.add(this.jtfTamJan);
         this.jtfTamJan.setText("300");
         this.jtfTamJan.setBounds(140, 50, 50, 20);
 
-        this.jPanel4.add(this.jTextFieldTamSeg);
-        this.jTextFieldTamSeg.setText("100");
-        this.jTextFieldTamSeg.setBounds(140, 80, 50, 20);
+        this.jpConf.add(this.jtfTamSeg);
+        this.jtfTamSeg.setText("100");
+        this.jtfTamSeg.setBounds(140, 80, 50, 20);
 
-        getContentPane().add(this.jPanel4);
-        this.jPanel4.setBounds(380, 0, 200, 140);
+        getContentPane().add(this.jpConf);
+        this.jpConf.setBounds(380, 0, 200, 140);
 
-        this.jPanel5.setLayout(null);
+        this.jpInfo.setLayout(null);
 
-        this.jPanel5.setBorder(new TitledBorder(new EtchedBorder(), "Informa\u00e7\u00f5es", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
-        this.jLabelEstAtual.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelEstAtual.setText("Est Atual (Tx/Rx)");
-        this.jPanel5.add(this.jLabelEstAtual);
-        this.jLabelEstAtual.setBounds(10, 20, 130, 15);
+        this.jpInfo.setBorder(new TitledBorder(new EtchedBorder(), "Informa\u00e7\u00f5es", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
+        this.jlEstAtual.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlEstAtual.setText("Est Atual (Tx/Rx)");
+        this.jpInfo.add(this.jlEstAtual);
+        this.jlEstAtual.setBounds(10, 20, 130, 15);
 
-        this.jLabelNumSeq.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelNumSeq.setText("Nº Seq/Ult Conf");
-        this.jPanel5.add(this.jLabelNumSeq);
-        this.jLabelNumSeq.setBounds(10, 50, 130, 15);
+        this.jlNumSeq.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlNumSeq.setText("Nº Seq/Ult Conf");
+        this.jpInfo.add(this.jlNumSeq);
+        this.jlNumSeq.setBounds(10, 50, 130, 15);
 
-        this.jLabelNumACK.setFont(new Font("Microsoft Sans Serif", 0, 12));
-        this.jLabelNumACK.setText("Nº ACK");
-        this.jPanel5.add(this.jLabelNumACK);
-        this.jLabelNumACK.setBounds(10, 80, 130, 15);
+        this.jlNumACK.setFont(new Font("Microsoft Sans Serif", 0, 12));
+        this.jlNumACK.setText("Nº ACK");
+        this.jpInfo.add(this.jlNumACK);
+        this.jlNumACK.setBounds(10, 80, 130, 15);
 
-        this.jPanel5.add(this.jTextFieldNumSeq);
-        this.jTextFieldNumSeq.setBounds(140, 50, 50, 20);
+        this.jpInfo.add(this.jtfNumSeq);
+        this.jtfNumSeq.setBounds(140, 50, 50, 20);
 
         this.jtfEstAtual.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -418,33 +414,33 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
             }
         });
 
-        this.jPanel5.add(this.jtfEstAtual);
+        this.jpInfo.add(this.jtfEstAtual);
         this.jtfEstAtual.setBounds(140, 20, 50, 20);
 
-        this.jPanel5.add(this.jTextFieldNumACK);
-        this.jTextFieldNumACK.setBounds(140, 80, 50, 20);
+        this.jpInfo.add(this.jtfNumACK);
+        this.jtfNumACK.setBounds(140, 80, 50, 20);
 
-        getContentPane().add(this.jPanel5);
-        this.jPanel5.setBounds(380, 140, 200, 110);
+        getContentPane().add(this.jpInfo);
+        this.jpInfo.setBounds(380, 140, 200, 110);
 
-        this.jPanel6.setLayout(null);
+        this.jpDadosRecebidos.setLayout(null);
 
-        this.jPanel6.setBorder(new TitledBorder(new EtchedBorder(), "Dados Recebidos", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
-        this.jScrollPane6.setViewportView(this.jTextAreaDadosRecebidos);
+        this.jpDadosRecebidos.setBorder(new TitledBorder(new EtchedBorder(), "Dados Recebidos", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Microsoft Sans Serif", 0, 12), Color.red));
+        this.jspDadosRecebidos.setViewportView(this.jtaDadosRecebidos);
 
-        this.jPanel6.add(this.jScrollPane6);
-        this.jScrollPane6.setBounds(10, 20, 180, 220);
+        this.jpDadosRecebidos.add(this.jspDadosRecebidos);
+        this.jspDadosRecebidos.setBounds(10, 20, 180, 220);
 
-        getContentPane().add(this.jPanel6);
-        this.jPanel6.setBounds(380, 250, 200, 250);
+        getContentPane().add(this.jpDadosRecebidos);
+        this.jpDadosRecebidos.setBounds(380, 250, 200, 250);
 
-        this.jLabel1.setForeground(new Color(51, 51, 255));
-        this.jLabel1.setText("MEFrame - Powered by Java Technologies - Copyleft (L)2003 LARC/USP");
-        this.jLabel1.setVerticalAlignment(SwingConstants.TOP);
-        this.jPanel7.add(this.jLabel1);
+        this.jlRodape.setForeground(new Color(51, 51, 255));
+        this.jlRodape.setText("MEFrame - Powered by Java Technologies - Copyleft (L)2003 LARC/USP");
+        this.jlRodape.setVerticalAlignment(SwingConstants.TOP);
+        this.jpTudo.add(this.jlRodape);
 
-        getContentPane().add(this.jPanel7);
-        this.jPanel7.setBounds(10, 500, 570, 20);
+        getContentPane().add(this.jpTudo);
+        this.jpTudo.setBounds(10, 500, 570, 20);
 
         pack();
     }//GEN-END:initComponents
@@ -454,10 +450,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         String args[] = new String[6];
         args[0] = Decoder.bytePontoToIpSimulado(this.jtfHost.getText());
         args[1] = this.jtfPorta.getText();
-        args[2] = this.jTextAreaDadosEnviados.getText();
-        args[3] = this.jTextFieldTimeout.getText();
+        args[2] = this.jtaDadosEnviados.getText();
+        args[3] = this.jtfTimeout.getText();
         args[4] = this.jtfTamJan.getText();
-        args[5] = this.jTextFieldTamSeg.getText();
+        args[5] = this.jtfTamSeg.getText();
 
         try
         {
@@ -475,10 +471,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         String args[] = new String[6];
 //        args[0] = Decoder.bytePontoToIpSimulado(this.jTextFieldHost.getText());
 //        args[1] = this.jTextFieldPorta.getText();
-        args[2] = this.jTextAreaDadosEnviados.getText();
-        args[3] = this.jTextFieldTimeout.getText();
+        args[2] = this.jtaDadosEnviados.getText();
+        args[3] = this.jtfTimeout.getText();
         args[4] = this.jtfTamJan.getText();
-        args[5] = this.jTextFieldTamSeg.getText();
+        args[5] = this.jtfTamSeg.getText();
 
         try
         {
@@ -502,10 +498,10 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         String args[] = new String[6];
         args[0] = Decoder.bytePontoToIpSimulado(this.jtfHost.getText());
         args[1] = this.jtfPorta.getText();
-        args[2] = this.jTextAreaDadosEnviados.getText();
-        args[3] = this.jTextFieldTimeout.getText();
+        args[2] = this.jtaDadosEnviados.getText();
+        args[3] = this.jtfTimeout.getText();
         args[4] = this.jtfTamJan.getText();
-        args[5] = this.jTextFieldTamSeg.getText();
+        args[5] = this.jtfTamSeg.getText();
         
         try
         {
@@ -599,7 +595,7 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
         else
             buffer.append("; -, - )");
         
-        this.jLabelnformacoesConexao.setText(buffer.toString());
+        this.jlInformacoesConexao.setText(buffer.toString());
         
     }
 
@@ -610,38 +606,38 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     private JButton jbClose;
     private JButton jbEnviar;
     private JButton jbPassiveOpen;
-    private JButton jButtonReset;
-    private JLabel jLabel1;
-    private JLabel jLabelDadosEnviados;
+    private JButton jbReset;
+    private JLabel jlRodape;
+    private JLabel jlDadosEnviados;
     private JLabel jlSegmento;
-    private JLabel jLabelEstAtual;
-    private JLabel jLabelEstado;
-    private JLabel jLabelHost;
-    private JLabel jLabelNumACK;
-    private JLabel jLabelNumBytesEnviados;
-    private JLabel jLabelNumSeq;
-    private JLabel jLabelPorta;
-    private JLabel jLabelPrimitiva;
+    private JLabel jlEstAtual;
+    private JLabel jlEstado;
+    private JLabel jlHost;
+    private JLabel jlNumACK;
+    private JLabel jlNumBytesEnviados;
+    private JLabel jlNumSeq;
+    private JLabel jlPorta;
+    private JLabel jlPrimitiva;
     private JLabel jlSentido;
-    private JLabel jLabelTamJan;
-    private JLabel jLabelTamSeg;
-    private JLabel jLabelTimeout;
-    private JLabel jLabelnformacoesConexao;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JPanel jPanel3;
-    private JPanel jPanel4;
-    private JPanel jPanel5;
-    private JPanel jPanel6;
-    private JPanel jPanel7;
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JScrollPane jScrollPane3;
-    private JScrollPane jScrollPane4;
-    private JScrollPane jScrollPane5;
-    private JScrollPane jScrollPane6;
-    private JTextArea jTextAreaDadosEnviados;
-    private JTextArea jTextAreaDadosRecebidos;
+    private JLabel jlTamJan;
+    private JLabel jlTamSeg;
+    private JLabel jlTimeout;
+    private JLabel jlInformacoesConexao;
+    private JPanel jpConexao;
+    private JPanel jpPrimitivas;
+    private JPanel jpDiagramaTempo;
+    private JPanel jpConf;
+    private JPanel jpInfo;
+    private JPanel jpDadosRecebidos;
+    private JPanel jpTudo;
+    private JScrollPane jspadosEnviados;
+    private JScrollPane jspEstado;
+    private JScrollPane jspPrimitiva;
+    private JScrollPane jspSentido;
+    private JScrollPane jspDescricaoSegmento;
+    private JScrollPane jspDadosRecebidos;
+    private JTextArea jtaDadosEnviados;
+    private JTextArea jtaDadosRecebidos;
     private JTextArea jtaDescricaoSegmento;
     private JTextArea jtaEstado;
     private JTextArea jtaPrimitiva;
@@ -649,13 +645,13 @@ public class MaquinaDeEstadosFrame extends javax.swing.JFrame {
     private JTextField jtfEstAtual;
     /** <code>jtfHost</code>: IPSimulado do host remoto */
     public JTextField jtfHost;
-    private JTextField jTextFieldNumACK;
-    private JTextField jTextFieldNumSeq;
+    private JTextField jtfNumACK;
+    private JTextField jtfNumSeq;
     /** <code>jtfPorta</code>: Porta do host remoto */
     public JTextField jtfPorta;
     private JTextField jtfTamJan;
-    private JTextField jTextFieldTamSeg;
-    private JTextField jTextFieldTimeout;
+    private JTextField jtfTamSeg;
+    private JTextField jtfTimeout;
     // End of variables declaration//GEN-END:variables
     private MaquinaDeEstados maquinaDeEstados;
     private int idConexao;

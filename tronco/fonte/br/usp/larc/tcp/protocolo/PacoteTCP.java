@@ -137,7 +137,7 @@ public class PacoteTCP
     public PacoteTCP (String _ipSimuladoLocal, String _ipSimuladoRemoto,
             CampoTCP _portaLocal, CampoTCP _portaRemota, CampoTCP _numSequencia,
             CampoTCP _numAck, CampoTCP _offset, CampoTCP _controle, CampoTCP _janela,
-            CampoTCP _checksum, CampoTCP _ponteiroUrgente, CampoTCP _opcoes, String _dados)
+            CampoTCP _checksum, CampoTCP _ponteiroUrgente, String _dados)
     {
 
         this.ipSimuladoRemoto = _ipSimuladoRemoto;
@@ -151,8 +151,9 @@ public class PacoteTCP
         this.janela = _janela;
         this.checksum = _checksum;
         this.ponteiroUrgente = _ponteiroUrgente;
-        this.opcoes = _opcoes;
         this.dados = _dados;
+        this.opcoes = new CampoTCP (4);
+        geraOpcoes();
     }
 
     /**
@@ -324,7 +325,7 @@ public class PacoteTCP
     public long getTamanho ()
     {
         //        return (this.opcoes.getValue() - 2 * 16777216 - 4 * 65536 - 36);
-        return ( (this.opcoes.getValue () & 0x0000FFFF) - 36);
+        return  (this.opcoes.getValue () & 0x0000FFFF) - 36;
     }
 
     /**
@@ -390,6 +391,7 @@ public class PacoteTCP
     public void setDados (String _dados)
     {
         this.dados = _dados;
+        geraOpcoes();
     }
 
     /**
@@ -492,7 +494,7 @@ public class PacoteTCP
      * @param _opcoes
      *        O novo valor para o atributo opcoes.
      */
-    public void setOpcoes (long _opcoes)
+    private void setOpcoes (long _opcoes)
     {
         try
         {
