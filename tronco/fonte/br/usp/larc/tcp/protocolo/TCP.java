@@ -27,6 +27,16 @@ public abstract class TCP
     public static final byte     LASTACK                    = 9;
     public static final byte     TIMEWAIT                   = 10;
     public static final byte     NENHUM                     = 11;
+    
+    // Estados da transmissão TCP
+    public static final byte     TX_IDLE                    = 0;
+    public static final byte     TX_SENDING                 = 1;
+    public static final byte     TX_WAITING_ACK             = 2;
+    public static final byte     TX_BLOCKED                 = 3;
+
+    // Estados da recepção TCP
+    public static final byte     RX_RECEIVING               = 0;
+    public static final byte     RX_BLOCKED                 = 1;
 
     //Primitivas de 001 até 004 (relacionadas com o frame Monitor)
     public static final int      P_TCP_OPEN                 = 0;
@@ -36,21 +46,21 @@ public abstract class TCP
     public static final int      P_TCP_CLOSE_ME             = 4;
 
     // Primitivas (relacionadas com o frame Máquina de Estado)
-    /** <code>P_NENHUMA</code>: Nenhuma primitiva recebida/enviada */
+    /** Nenhuma primitiva recebida/enviada */
     public static final byte     P_NENHUMA                  = 0;
-    /** <code>P_PASSIVEOPEN</code>: Pede que ME espere conexão (Listen) */
+    /** Pede que ME espere conexão (Listen) */
     public static final byte     P_PASSIVEOPEN              = 1;
-    /** <code>P_CLOSE</code>: Pede finalização de conexão */
+    /** Pede finalização de conexão */
     public static final byte     P_CLOSE                    = 2;
-    /** <code>P_ACTIVEOPEN</code>: Pede abertura de conexão */
+    /** Pede abertura de conexão */
     public static final byte     P_ACTIVEOPEN               = 3;
-    /** <code>P_SEND</code>: Envia dados */
+    /** Envia dados */
     public static final byte     P_SEND                     = 4;
-    /** <code>P_OPENSUCCESS</code>: Informa que conexão foi aberta com sucesso */
+    /** Informa que conexão foi aberta com sucesso */
     public static final byte     P_OPENSUCCESS              = 5;
-    /** <code>P_OPENID</code>: Informa que ME está esperando conexão */
+    /** Informa que ME está esperando conexão */
     public static final byte     P_OPENID                   = 6;
-    /** <code>P_ERROR</code>: Informa que houve um erro */
+    /** Informa que houve um erro */
     public static final byte     P_ERROR                    = 7;
     public static final byte     P_CLOSING                  = 8;
     public static final byte     P_TERMINATE                = 9;
@@ -69,7 +79,7 @@ public abstract class TCP
 
     // TimeOuts
     public static final int      MAX_RETRANSMISSOES         = 3;
-    public static final int      T_TIMEOUT                  = 150;
+    public static final int      T_TIMEOUT                  = 2000;
     public static final int      T_ESTOURO_RETRANSMISSOES   = 151;
 
     /** <code>T_TIMEOUT_MSL</code>: Maximum Segment Lifetime */

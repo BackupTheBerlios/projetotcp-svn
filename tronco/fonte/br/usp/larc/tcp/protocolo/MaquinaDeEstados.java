@@ -81,17 +81,17 @@ public class MaquinaDeEstados
     /**
      * Próximo número de seqüência a ser enviado
      */
-    private int                   proximoNS      = 0;
+    private long                   proximoNS      = 0;
     
     /**
      * Número de seqüência esperado
      */
-    private int                   esperadoNS      = 0;
+    private long                   esperadoNS      = 0;
     
     /**
      * Último número de seqüência não confirmado
      */
-    private int                   ultimoNS      = 0;
+    private long                   ultimoNS      = 0;
 
     /**
      * Constante que guarda o tempo (em milesegundos) para expirar o timestamp
@@ -127,53 +127,15 @@ public class MaquinaDeEstados
         {
             try
             {
-                String[] arg = {""};
                 MaquinaDeEstados.this.incNumRetransmissoes();
-                MaquinaDeEstados.this.recebePrimitiva(TCP.P_TIMEOUT, arg);
+                MaquinaDeEstados.this.recebePrimitiva(TCP.P_TIMEOUT, null);
             }
             catch (Exception e)
             {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            /*
-            byte segmento = TCP.S_NENHUM;
-            try
-            {
-//                MaquinaDeEstados.this.numRetransmissoes
-                switch (MaquinaDeEstados.this.estadoMEConAtual)
-                {
-                    case TCP.SYNRCVD:
-                        segmento = TCP.S_SYN_ACK;
-                        break;
-                    case TCP.SYNSENT:
-                        segmento = TCP.S_SYN_ACK;
-                        break;
-                    case TCP.FINWAIT1:
-                        segmento = TCP.S_SYN_ACK;
-                        break;
-                    case TCP.CLOSING:
-                        segmento = TCP.S_SYN_ACK;
-                        break;
-                    case TCP.LASTACK:
-                        segmento = TCP.S_SYN_ACK;
-                        break;
-                    case TCP.TIMEWAIT:
-                        segmento = TCP.S_SYN_ACK;
-                        break;
-                    default:
-                        throw new EstadoInvalidoException();
-                }
-                
-                MaquinaDeEstados.this.pacoteDeEnvio.setControle(segmento);
 
-            }
-            catch (Exception ex)
-            {
-                System.err.println ("ME.RetransmissaoTask.run: erro: " + ex.getMessage ());
-                System.err.flush ();
-            }
-*/
         }
     }
 
@@ -195,6 +157,9 @@ public class MaquinaDeEstados
         this.portaLocal = _porta;
         this.ipSimuladoDestino = "";
         this.portaDestino = 0;
+        this.proximoNS = 0;
+        this.ultimoNS = 0;
+        this.esperadoNS = 0;
         this.idConexao = _idConexao;
         this.meFrame = new MaquinaDeEstadosFrame (this);
         this.meFrame.atualizaInfoConexao (this.estadoMEConexao, this
@@ -433,7 +398,10 @@ public class MaquinaDeEstados
             enviaPrimitiva (novaPrimitiva, new String[0]);
              
         if (novoSegmento != TCP.S_NENHUM)
+        {
+            setPacoteDeEnvio (novoPacote);
             enviaSegmentoTCP (novoPacote);
+        }
 
         System.out.println ("recebePrimitiva: fim");
     } // recebePrimitiva
@@ -745,36 +713,34 @@ public class MaquinaDeEstados
         if (_pacoteTCP.getControle () == TCP.S_NENHUM)
             return;
 
-        setPacoteDeEnvio (_pacoteTCP);
-        this.pacoteDeEnvio.geraOpcoes ();
+        _pacoteTCP.geraOpcoes ();
 
         System.out.println ("enviaSegmentoTCP: "
-                + TCP.nomeSegmento (this.pacoteDeEnvio.getControle ()));
+                + TCP.nomeSegmento (_pacoteTCP.getControle ()));
 
-        String ip = IpSimulada.descobreNomeIPSimulado (this.pacoteDeEnvio.getIpSimuladoRemoto ());
-        int porta = Integer.parseInt (IpSimulada.descobrePortaIPSimulado (this.pacoteDeEnvio
+        String ip = IpSimulada.descobreNomeIPSimulado (_pacoteTCP.getIpSimuladoRemoto ());
+        int porta = Integer.parseInt (IpSimulada.descobrePortaIPSimulado (_pacoteTCP
                 .getIpSimuladoRemoto ()));
 
         System.out.println ("enviaSegmentoTCP: destino " + ip + " : " + porta);
 
         // Envia segmento à camada IP simulada
         this.monitor.getProtocoloTCP ().getCamadaIpSimulada ().transmite (ip,
-                this.pacoteDeEnvio.toString (), this.pacoteDeEnvio.toString ().length (), porta);
+                _pacoteTCP.toString (), _pacoteTCP.toString ().length (), porta);
 
         // agenda timeout se não for última retransmissão
-        if (getNumRetransmissoes () < TCP.MAX_RETRANSMISSOES)
+        if (getNumRetransmissoes () < TCP.MAX_RETRANSMISSOES && getEstadoMEConexao() != TCP.CLOSEWAIT)
         {
             int timeout;
             
-            if (this.estadoMEConexao == TCP.TIMEWAIT)
+            if (getEstadoMEConexao() == TCP.TIMEWAIT)
                 timeout = 2 * TCP.T_TIMEOUT_MSL;
             else
-                timeout = this.getTempoTimeout();
+                timeout = getTempoTimeout();
                 
             this.retransmissao.schedule (new RetransmissaoTask (), timeout);
         }
         
-
         System.out.println ("enviaSegmentoTCP: fim");
     }
 
@@ -1046,7 +1012,7 @@ public class MaquinaDeEstados
     /**
      * @return Returns the proximoNS.
      */
-    public int getProximoNS ()
+    public long getProximoNS ()
     {
         return this.proximoNS;
     }
@@ -1054,21 +1020,21 @@ public class MaquinaDeEstados
     /**
      * @param _numSequencia The proximoNS to set.
      */
-    public void setProximoNS (int _numSequencia)
+    public void setProximoNS (long _numSequencia)
     {
         this.proximoNS = _numSequencia;
     }
     /**
      * @return Returns the esperadoNS.
      */
-    public int getEsperadoNS ()
+    public long getEsperadoNS ()
     {
         return this.esperadoNS;
     }
     /**
      * @param _esperadoNS The esperadoNS to set.
      */
-    public void setEsperadoNS (int _esperadoNS)
+    public void setEsperadoNS (long _esperadoNS)
     {
         this.esperadoNS = _esperadoNS;
     }
@@ -1117,14 +1083,14 @@ public class MaquinaDeEstados
     /**
      * @return Returns the ultimoNS.
      */
-    public int getUltimoNS ()
+    public long getUltimoNS ()
     {
         return this.ultimoNS;
     }
     /**
      * @param _ultimoNS The ultimoNS to set.
      */
-    public void setUltimoNS (int _ultimoNS)
+    public void setUltimoNS (long _ultimoNS)
     {
         this.ultimoNS = _ultimoNS;
     }

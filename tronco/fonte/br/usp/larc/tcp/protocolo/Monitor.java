@@ -325,18 +325,13 @@ conexão.
     		if (conexao.getIpSimuladoLocal().equals(ip_destino) &&
     				conexao.getPortaLocal().equals(porta_destino))
     		{
-    			// Se endereço remoto da tabela for nulo, preenche com endereço
-                // de origem do pacote (primeiro pacote recebido de uma ME em
-                // Listen)
-                if (conexao.getIpSimuladoRemoto ().equals (""))
-                    conexao.setIpSimuladoRemoto (ip_origem);
-                if (conexao.getPortaRemota ().equals (""))
-                    conexao.setPortaRemota (porta_origem);
-
+    			// Se endereço remoto da tabela for nulo, ou
                 // Se origem do pacote = endereço remoto da tabela
-                if (conexao.getIpSimuladoRemoto ().equals (ip_origem)
-                        && conexao.getPortaRemota ().equals (porta_origem))
-    			{
+                if ( (conexao.getIpSimuladoRemoto ().equals (ip_origem)
+                        || conexao.getIpSimuladoRemoto ().equals (""))
+                     && (conexao.getPortaRemota ().equals (porta_origem)
+                        || conexao.getPortaRemota ().equals ("")))
+                {
     				int id = conexao.getIdConexao();
     				MaquinaDeEstados maquina ;
     				
@@ -346,21 +341,26 @@ conexão.
     					maquina = (MaquinaDeEstados) maquinas.next();
     					if (id == maquina.getIdConexao())
     					{
-    						try
-							{
-    							maquina.recebeSegmentoTCP(pacote);
-    							System.out.println( "Monitor.analisaDados: Recebeu Segmento");
-    							return;
-							}
-    						catch ( Exception e )
-							{
-    							System.err.println("Monitor.analisaDados erro na ME:" + e.getMessage());
-                                e.printStackTrace();
-                                System.err.flush();
-							}
+    					    if (maquina.getEstadoMEConexao() != TCP.CLOSED)
+    					    {
+                                conexao.setIpSimuladoRemoto (ip_origem);
+                                conexao.setPortaRemota (porta_origem);
+    					        try
+    					        {
+    					            maquina.recebeSegmentoTCP(pacote);
+    					            System.out.println( "Monitor.analisaDados: Recebeu Segmento");
+    					            return;
+    					        }
+    					        catch ( Exception e )
+    					        {
+    					            System.err.println("Monitor.analisaDados erro na ME:" + e.getMessage());
+    					            e.printStackTrace();
+    					            System.err.flush();
+    					        }
+    					    }
     					}
     				} // while (maquinas.hasNext())
-    		    	System.out.println( "Monitor.analisaDados: ME não encontrada");
+    				System.out.println( "Monitor.analisaDados: ME não encontrada");
     			} // se origem do pacote = end. remoto da tabela
     		} // se destino do pacote = end. local da tabela
     	}
