@@ -16,12 +16,14 @@ package br.usp.larc.tcp.excecoes;
  * @author Laboratório de Arquitetura e Redes de Computadores.
  * @version 1.0 01 Junho 2004.
  */
-public class ExemploException extends java.lang.Exception {
+public class SegmentoInvalidoException extends java.lang.Exception {
     
     /**
      * Creates a new instance of <code>ExemploException</code> without detail message.
      */
-    public ExemploException() {
+    public SegmentoInvalidoException()
+    {
+        // XXX: Construtora da SegmentoInvalidoException
     }
     
     
@@ -29,7 +31,7 @@ public class ExemploException extends java.lang.Exception {
      * Constructs an instance of <code>ExemploException</code> with the specified detail message.
      * @param msg the detail message.
      */
-    public ExemploException(String msg) {
+    public SegmentoInvalidoException(String msg) {
         super(msg);
     }
 }
